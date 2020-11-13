@@ -36,12 +36,12 @@ namespace Models
         /// <summary>
         /// Лист сотрудников департамента
         /// </summary>
-        public List<BaseWorker> Workers { get; set; }
+        public IList<BaseWorker> Workers { get; set; }
 
         /// <summary>
         /// Лист поддепартаментов
         /// </summary>
-        public List<Department> NextDepartments { get; set; } 
+        public IList<Department> NextDepartments { get; set; } 
         
         /// <summary>
         /// Количество поддепартаментов в данном департаменте
@@ -76,13 +76,19 @@ namespace Models
         }
 
         /// <summary>
+        /// Полный путь до департамента
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
         /// Конструктор департамента
         /// </summary>
         /// <param name="nameDepartment"> Название департамента </param>
         /// <param name="id"> Идентификатор департамента </param>
-        public Department(string nameDepartment)
+        public Department(string nameDepartment, string path)
         {
-            NameDepartment = nameDepartment;                     
+            NameDepartment = nameDepartment;
+            Path = path;
         }
     }
 }

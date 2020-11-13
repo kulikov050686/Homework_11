@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_11"
         xmlns:vm="clr-namespace:ViewModels"
+        xmlns:model="clr-namespace:Models"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450" 
@@ -13,10 +14,46 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    
-    <Grid>
-        <TreeView>            
-            
-        </TreeView>
-    </Grid>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About the program"/>
+            </MenuItem>            
+        </Menu>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Column="0" Header="Департаменты">
+                <TreeView ItemsSource="{Binding ListDepartments}">
+
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Добавить"/>
+                            <MenuItem Header="Переименовать"/>
+                            <MenuItem Header="Удалить"/>                            
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
+                    
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate DataType="model:Department" 
+                                                  ItemsSource="{Binding NextDepartments}">
+                            <TextBlock Text="{Binding NameDepartment}"/>
+                        </HierarchicalDataTemplate>                        
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </GroupBox>
+
+            <GroupBox Grid.Column="1" Header="Сотрудники">
+                
+            </GroupBox>            
+        </Grid>       
+    </DockPanel>    
 </Window>

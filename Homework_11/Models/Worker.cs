@@ -97,7 +97,7 @@ namespace Models
         /// <param name="employeePosition"> Статус </param>
         /// <param name="pathToDepartment"> Путь до департамента работника </param>
         [JsonConstructor]
-        public Worker(int id, string name, string surname, long age, double salary, string jobTitle, EmployeePosition employeePosition, string pathToDepartment) 
+        public Worker(int id, string name, string surname, long age, double salary, string jobTitle, EmployeePosition employeePosition, string pathToDepartment)
         {            
             Id = id;
             Name = name;

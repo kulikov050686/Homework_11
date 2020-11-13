@@ -1,5 +1,7 @@
 ﻿using BaseClasses;
 using Controllers;
+using Models;
+using System.ComponentModel;
 
 namespace ViewModels
 {
@@ -8,6 +10,7 @@ namespace ViewModels
         #region Закрытые поля
 
         Company company;
+        BindingList<Department> _ListDepartments;
 
         #endregion
 
@@ -17,6 +20,15 @@ namespace ViewModels
         /// Название приложения
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Лист департаментов
+        /// </summary>
+        public BindingList<Department> ListDepartments
+        {
+            get => _ListDepartments;
+            set => Set(ref _ListDepartments, value);
+        }
 
         #endregion
 
@@ -29,7 +41,9 @@ namespace ViewModels
         public MainWindowViewModel()
         {
             Title = "ООО РОГА И КОПЫТА";
-            company = new Company(Title);           
+            company = new Company(Title);
+
+            _ListDepartments = company.Departments;
         }
 
         #region Открытые методы

@@ -11,8 +11,8 @@ namespace Controllers
     {
         #region Закрытые поля       
 
-        BindingList<Worker> workersList;
-        string path;
+        BindingList<Worker> _WorkersList;
+        string _Path;
 
         #endregion
 
@@ -24,8 +24,8 @@ namespace Controllers
         /// <param name="nameCompany"> Название Компании </param>
         public Company(string nameCompany) : base(nameCompany)
         {
-            path = NameMinistry + ".json";
-            LoadWorkerListFromFile(path);
+            _Path = NameMinistry + ".json";
+            LoadWorkerListFromFile(_Path);
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace Controllers
         public new void AddGeneralDirector(string name, string surname, long age)
         {
             base.AddGeneralDirector(name, surname, age);
-            SaveListWorkersToFile(path);
+            SaveListWorkersToFile(_Path);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Controllers
         public new void DeleteGeneralDirector()
         {
             base.DeleteGeneralDirector();
-            SaveListWorkersToFile(path);
+            SaveListWorkersToFile(_Path);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Controllers
         public new void AddChiefAccountant(string name, string surname, long age)
         {
             base.AddChiefAccountant(name, surname, age);
-            SaveListWorkersToFile(path);
+            SaveListWorkersToFile(_Path);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Controllers
         public new void DeleteChiefAccountant()
         {
             base.DeleteChiefAccountant();
-            SaveListWorkersToFile(path);
+            SaveListWorkersToFile(_Path);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Controllers
         public new void AddDeputyDirector(string name, string surname, long age)
         {
             base.AddDeputyDirector(name, surname, age);
-            SaveListWorkersToFile(path);
+            SaveListWorkersToFile(_Path);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Controllers
         public new void DeleteDeputyDirector()
         {
             base.DeleteDeputyDirector();
-            SaveListWorkersToFile(path);
+            SaveListWorkersToFile(_Path);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Controllers
         {
             if(base.AddSupervisorDepartment(name, surname, age, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(path);
+                SaveListWorkersToFile(_Path);
                 return true;
             }
 
@@ -122,7 +122,7 @@ namespace Controllers
         {
             if(base.DeleteSupervisorDepartment(pathToDepartment))
             {
-                SaveListWorkersToFile(path);
+                SaveListWorkersToFile(_Path);
                 return true;
             }
 
@@ -142,7 +142,7 @@ namespace Controllers
         {
             if(base.AddIntern(name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(path);
+                SaveListWorkersToFile(_Path);
                 return true;
             }
 
@@ -159,11 +159,11 @@ namespace Controllers
         /// <param name="salary"> зарплата </param>
         /// <param name="jobTitle"> Название занимаемой должности </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public new bool DeleteIntern(int id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
+        public new bool DeleteIntern(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
         {
             if(base.DeleteIntern(id, name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(path);
+                SaveListWorkersToFile(_Path);
                 return true;                
             }
 
@@ -183,7 +183,7 @@ namespace Controllers
         {
             if(base.AddEmployee(name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(path);
+                SaveListWorkersToFile(_Path);
                 return true;
             }
 
@@ -200,11 +200,11 @@ namespace Controllers
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название занимаемой должности</param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public new bool DeleteEmployee(int id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
+        public new bool DeleteEmployee(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
         {
             if(base.DeleteEmployee(id, name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(path);
+                SaveListWorkersToFile(_Path);
                 return true;
             }
 
@@ -222,7 +222,7 @@ namespace Controllers
         private void SaveListWorkersToFile(string paht)
         {
             RefreshListOfWorkers();
-            FileIOService.SaveAsJSON(paht, workersList); 
+            FileIOService.SaveAsJSON(paht, _WorkersList); 
         }
 
         /// <summary>
@@ -231,8 +231,8 @@ namespace Controllers
         /// <param name="path"> Путь </param>
         private void LoadWorkerListFromFile(string path)
         {
-            workersList = FileIOService.OpenAsJSON(path);
-            SetListOfAllWorkers(workersList);            
+            _WorkersList = FileIOService.OpenAsJSON(path);
+            SetListOfAllWorkers(_WorkersList);            
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Controllers
         /// </summary>
         private void RefreshListOfWorkers()
         {
-            workersList = GetListOfAllWorkers();
+            _WorkersList = GetListOfAllWorkers();
         }
 
         #endregion

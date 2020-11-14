@@ -12,7 +12,7 @@ namespace Controllers
     {
         #region Закрытые поля
 
-        private string nameMinistry;        
+        private string _NameMinistry;        
         
         #endregion
 
@@ -23,7 +23,7 @@ namespace Controllers
         /// </summary>
         public string NameMinistry
         {
-            get => nameMinistry;
+            get => _NameMinistry;
 
             private set
             {
@@ -32,7 +32,7 @@ namespace Controllers
                     throw new ArgumentNullException("Название министерства не может быть пустым!!!");
                 }
 
-                nameMinistry = value;
+                _NameMinistry = value;
             }
         }
 
@@ -271,7 +271,7 @@ namespace Controllers
         /// Получить работника по идентификатору
         /// </summary>
         /// <param name="id"> Идентификатор </param>        
-        protected BaseWorker GetWorkerById(int id)
+        protected BaseWorker GetWorkerById(ulong id)
         {
             if(id > 0)
             {
@@ -692,7 +692,7 @@ namespace Controllers
         /// </summary>
         /// <param name="department"></param>
         /// <param name="id"></param>        
-        private BaseWorker WorkerSearchByIdAndGetData(Department department, int id)
+        private BaseWorker WorkerSearchByIdAndGetData(Department department, ulong id)
         {
             if (department.NextDepartments == null)
             {

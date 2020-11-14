@@ -8,14 +8,14 @@ namespace Models
     /// </summary>
     public class Department
     {        
-        string nameDepartment;        
+        string _NameDepartment;
 
         /// <summary>
         /// Название департамента
         /// </summary>
         public string NameDepartment
         { 
-            get => nameDepartment;
+            get => _NameDepartment;
             
             set
             {
@@ -24,7 +24,7 @@ namespace Models
                     throw new ArgumentNullException("Название департамента не может быть пустым!!!");
                 }
 
-                nameDepartment = value;
+                _NameDepartment = value;
             }
         }
 
@@ -79,6 +79,11 @@ namespace Models
         /// Полный путь до департамента
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// Идентификатор департамента
+        /// </summary>
+        public ulong Id { get; set; }
 
         /// <summary>
         /// Конструктор департамента

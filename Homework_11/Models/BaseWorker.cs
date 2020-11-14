@@ -6,38 +6,24 @@ namespace Models
     /// Базовый класс работник
     /// </summary>
     public abstract class BaseWorker
-    {
-        int id;
-        string name;
-        string surname;
-        long age;
-        double salary;
-        string jobTitle;
+    {        
+        string _Name;
+        string _Surname;
+        long _Age;
+        double _Salary;
+        string _JobTitle;
 
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public int Id
-        { 
-            get => id;
-
-            set 
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Невозможный идентификатор!!!");
-                }
-
-                id = value;
-            } 
-        }
+        public ulong Id { get; set; }        
 
         /// <summary>
         /// Имя
         /// </summary>
         public string Name
         {
-            get => name;
+            get => _Name;
 
             set
             {
@@ -46,7 +32,7 @@ namespace Models
                     throw new ArgumentNullException("Имя не может быть пустым!!!");
                 }
 
-                name = value;
+                _Name = value;
             }
         }
 
@@ -55,7 +41,7 @@ namespace Models
         /// </summary>
         public string Surname
         {
-            get => surname;
+            get => _Surname;
 
             set
             {
@@ -64,7 +50,7 @@ namespace Models
                     throw new ArgumentNullException("Фамилия не может быть пустой!!!");
                 }
 
-                surname = value;
+                _Surname = value;
             }
         }
 
@@ -73,7 +59,7 @@ namespace Models
         /// </summary>
         public long Age
         {
-            get => age;
+            get => _Age;
 
             set
             {
@@ -82,7 +68,7 @@ namespace Models
                     throw new ArgumentException("Невозможный возраст!!!");
                 }
 
-                age = value;
+                _Age = value;
             }
         }
 
@@ -91,7 +77,7 @@ namespace Models
         /// </summary>
         public double Salary
         {
-            get => salary;
+            get => _Salary;
 
             set
             {
@@ -100,7 +86,7 @@ namespace Models
                     throw new ArgumentException("Невозможная зарплата!!!");
                 }
 
-                salary = value;
+                _Salary = value;
             }
         }
 
@@ -109,7 +95,7 @@ namespace Models
         /// </summary>
         public string JobTitle
         {
-            get => jobTitle;
+            get => _JobTitle;
 
             set
             {
@@ -118,7 +104,7 @@ namespace Models
                     throw new ArgumentNullException("Название должности не может быть пустым!!!");
                 }
 
-                jobTitle = value;
+                _JobTitle = value;
             }
         }
 
@@ -153,7 +139,7 @@ namespace Models
         /// <param name="age"> Возраст </param>
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
-        public BaseWorker(int id, string name, string surname, long age, double salary, string jobTitle)
+        public BaseWorker(ulong id, string name, string surname, long age, double salary, string jobTitle)
         {
             Id = id;
             Name = name;

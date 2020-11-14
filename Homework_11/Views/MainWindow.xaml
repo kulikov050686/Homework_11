@@ -32,27 +32,36 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Grid.Column="0" Header="Департаменты">
+
+                <GroupBox.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type model:Department}" 
+                                              ItemsSource="{Binding NextDepartments}">
+                        <!--<TextBlock Text="{Binding NameDepartment}"/>-->
+                        <ContentPresenter Content="{Binding NameDepartment}"/>
+                    </HierarchicalDataTemplate>                    
+                </GroupBox.Resources>
+                
                 <TreeView ItemsSource="{Binding ListDepartments}">
 
                     <TreeView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Добавить"/>
                             <MenuItem Header="Переименовать"/>
+                            <MenuItem Header="Добавить поддепартамент"/>
                             <MenuItem Header="Удалить"/>                            
                         </ContextMenu>
                     </TreeView.ContextMenu>
                     
-                    <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate DataType="model:Department" 
-                                                  ItemsSource="{Binding NextDepartments}">
-                            <TextBlock Text="{Binding NameDepartment}"/>
-                        </HierarchicalDataTemplate>                        
-                    </TreeView.ItemTemplate>
+                    <!--<TreeView.ItemTemplate>                                               
+                    </TreeView.ItemTemplate>-->           
+                    
                 </TreeView>
             </GroupBox>
 
             <GroupBox Grid.Column="1" Header="Сотрудники">
-                
+                <ListBox ItemsSource="{Binding SelectedDepartment.Workers}">
+                    
+                </ListBox>
             </GroupBox>            
         </Grid>       
     </DockPanel>    

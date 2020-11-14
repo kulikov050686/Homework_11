@@ -11,6 +11,7 @@ namespace ViewModels
 
         Company company;
         BindingList<Department> _ListDepartments;
+        Department _SelectedDepartment;
 
         #endregion
 
@@ -28,6 +29,15 @@ namespace ViewModels
         {
             get => _ListDepartments;
             set => Set(ref _ListDepartments, value);
+        }
+
+        /// <summary>
+        /// Выбранный департамент
+        /// </summary>
+        public Department SelectedDepartment
+        {
+            get => _SelectedDepartment;
+            set => Set(ref _SelectedDepartment, value);
         }
 
         #endregion

@@ -55,10 +55,10 @@ namespace BaseClasses
         public void OnAllPropertyChanged() => OnPropertyChanged(GetType().GetProperties());
 
         /// <summary>
-        /// 
+        /// Метод для обновления значения свойства
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="field"></param>
+        /// <typeparam name="T"> Тип данных свойства и поля </typeparam>
+        /// <param name="field"> Поле </param>
         /// <param name="value"> Значение </param>
         /// <param name="property"> Изменившееся свойство </param>        
         public bool Set<T>(ref T field, T value, [CallerMemberName] string property = null)

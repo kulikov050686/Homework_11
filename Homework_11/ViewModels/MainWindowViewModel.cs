@@ -9,7 +9,7 @@ namespace ViewModels
     {
         #region Закрытые поля
 
-        Company company;
+        Company _Company;
         BindingList<Department> _ListDepartments;
         Department _SelectedDepartment;
 
@@ -51,9 +51,9 @@ namespace ViewModels
         public MainWindowViewModel()
         {
             Title = "ООО РОГА И КОПЫТА";
-            company = new Company(Title);
+            _Company = new Company(Title);
 
-            _ListDepartments = company.Departments;
+            _ListDepartments = _Company.Departments;
         }
 
         #region Открытые методы

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace BaseClasses
+namespace ViewModels
 {
     /// <summary>
     /// Базовый класс с реализацией интерфейса INotifyPropertyChanged

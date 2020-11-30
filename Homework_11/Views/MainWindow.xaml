@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_11"
-        xmlns:vm="clr-namespace:ViewModels"
-        xmlns:model="clr-namespace:Models"
+        xmlns:vm="clr-namespace:ViewModels"        
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450" 
@@ -30,39 +29,6 @@
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <GroupBox Grid.Column="0" Header="Департаменты">
-
-                <GroupBox.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type model:Department}" 
-                                              ItemsSource="{Binding NextDepartments}">
-                        <!--<TextBlock Text="{Binding NameDepartment}"/>-->
-                        <ContentPresenter Content="{Binding NameDepartment}"/>
-                    </HierarchicalDataTemplate>                    
-                </GroupBox.Resources>
-                
-                <TreeView ItemsSource="{Binding ListDepartments}">
-
-                    <TreeView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Добавить"/>
-                            <MenuItem Header="Переименовать"/>
-                            <MenuItem Header="Добавить поддепартамент"/>
-                            <MenuItem Header="Удалить"/>                            
-                        </ContextMenu>
-                    </TreeView.ContextMenu>
-                    
-                    <!--<TreeView.ItemTemplate>                                               
-                    </TreeView.ItemTemplate>-->           
-                    
-                </TreeView>
-            </GroupBox>
-
-            <GroupBox Grid.Column="1" Header="Сотрудники">
-                <ListBox ItemsSource="{Binding SelectedDepartment.Workers}">
-                    
-                </ListBox>
-            </GroupBox>            
         </Grid>       
     </DockPanel>    
 </Window>

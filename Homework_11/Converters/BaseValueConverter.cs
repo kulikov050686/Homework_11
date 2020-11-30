@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace BaseClasses
+namespace Converters
 {
     /// <summary>
     /// Конвертер базовых значений, который позволяет использовать XAML напрямую

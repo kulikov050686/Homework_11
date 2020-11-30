@@ -4,9 +4,6 @@ namespace Homework_11
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();        
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace BaseClasses
+namespace Commands
 {
     /// <summary>
     /// Базовый класс комманд

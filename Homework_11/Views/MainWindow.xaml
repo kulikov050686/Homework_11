@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_11"
-        xmlns:vm="clr-namespace:ViewModels"        
+        xmlns:vm="clr-namespace:ViewModels"
+        xmlns:userControl="clr-namespace:Homework_11.Views"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450" 
@@ -29,6 +30,12 @@
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
+            <userControl:DepartmentView Grid.Column="0"/>
+            <userControl:WorkersView Grid.Column="1"/>
+
         </Grid>       
     </DockPanel>    
 </Window>
+
+    

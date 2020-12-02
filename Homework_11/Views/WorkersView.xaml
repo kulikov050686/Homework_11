@@ -15,8 +15,8 @@
     </UserControl.DataContext>
     
     <GroupBox Grid.Column="1" Header="Сотрудники">
-        <ListBox ItemsSource="{Binding SelectedDepartment.Workers}">
-
+        <ListBox ItemsSource="{Binding ListWorkers}">
+            
         </ListBox>
     </GroupBox>
 </UserControl>

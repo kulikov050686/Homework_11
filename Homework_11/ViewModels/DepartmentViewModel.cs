@@ -9,6 +9,7 @@ namespace ViewModels
 
         Department _selectedDepartment;
         BindingList<Department> _listDepartments;
+        WorkersViewModel _workersViewModel;
 
         #endregion
 
@@ -30,6 +31,15 @@ namespace ViewModels
         {
             get => _listDepartments;
             set => Set(ref _listDepartments, value);
+        }
+        
+        #endregion
+
+        #region Конструкторы
+
+        public DepartmentViewModel()
+        {
+            _workersViewModel = new WorkersViewModel();            
         }
 
         #endregion

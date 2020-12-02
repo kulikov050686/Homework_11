@@ -2,10 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:Homework_11.Views"
              xmlns:model="clr-namespace:Models"
              xmlns:vm="clr-namespace:ViewModels"
+             xmlns:bihaviors="clr-namespace:Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="500" 
              d:DesignWidth="300">
@@ -19,20 +21,16 @@
         <GroupBox.Resources>
             <HierarchicalDataTemplate DataType="{x:Type model:Department}" 
                                       ItemsSource="{Binding NextDepartments}">                
-                <ContentPresenter Content="{Binding NameDepartment}"/>
+                <!--<ContentPresenter Content="{Binding NameDepartment}"/>-->
+                <TextBlock Text="{Binding NameDepartment}"/>
             </HierarchicalDataTemplate>
         </GroupBox.Resources>
 
         <TreeView ItemsSource="{Binding ListDepartments}">
 
-            <TreeView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Добавить"/>
-                    <MenuItem Header="Переименовать"/>
-                    <MenuItem Header="Добавить поддепартамент"/>
-                    <MenuItem Header="Удалить"/>
-                </ContextMenu>
-            </TreeView.ContextMenu>           
+            <b:Interaction.Behaviors>
+                <bihaviors:SelectedItemTreeView SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}"/>
+            </b:Interaction.Behaviors>           
 
         </TreeView>
     </GroupBox>

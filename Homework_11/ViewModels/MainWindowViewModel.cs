@@ -6,7 +6,8 @@ namespace ViewModels
     {
         #region Закрытые поля
 
-        Company _company;       
+        Company _company;
+        DepartmentViewModel _departmentViewModel;
 
         #endregion
 
@@ -30,7 +31,8 @@ namespace ViewModels
             Title = "ООО РОГА И КОПЫТА";
             _company = new Company(Title);
 
-           //_company.Departments;
+            _departmentViewModel = new DepartmentViewModel();
+            _departmentViewModel.ListDepartments = _company.Departments;
         }
 
         #region Открытые методы

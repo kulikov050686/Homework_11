@@ -21,8 +21,7 @@
         <GroupBox.Resources>
             <HierarchicalDataTemplate DataType="{x:Type model:Department}" 
                                       ItemsSource="{Binding NextDepartments}">                
-                <!--<ContentPresenter Content="{Binding NameDepartment}"/>-->
-                <TextBlock Text="{Binding NameDepartment}"/>
+                <ContentPresenter Content="{Binding NameDepartment}"/>                
             </HierarchicalDataTemplate>
         </GroupBox.Resources>
 
@@ -30,7 +29,13 @@
 
             <b:Interaction.Behaviors>
                 <bihaviors:SelectedItemTreeView SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}"/>
-            </b:Interaction.Behaviors>           
+            </b:Interaction.Behaviors>
+
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить департамент" Command="{Binding AddNextDepartment}"/>
+                </ContextMenu>
+            </TreeView.ContextMenu>
 
         </TreeView>
     </GroupBox>

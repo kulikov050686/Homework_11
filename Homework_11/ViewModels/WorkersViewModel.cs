@@ -37,8 +37,7 @@ namespace ViewModels
         #region Конструктор
 
         public WorkersViewModel()
-        {
-        }
+        {}
 
         #endregion
     }

@@ -31,8 +31,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <userControl:DepartmentView Grid.Column="0"/>
-            <userControl:WorkersView Grid.Column="1"/>
+            <userControl:DepartmentView Grid.Column="0" DataContext="{Binding DepartmentViewModel}"/>
+            <userControl:WorkersView Grid.Column="1" DataContext="{Binding WorkersViewModel}"/>
 
         </Grid>       
     </DockPanel>    

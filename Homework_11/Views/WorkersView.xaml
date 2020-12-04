@@ -10,9 +10,9 @@
              d:DesignHeight="500" 
              d:DesignWidth="600">
 
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:WorkersViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     
     <GroupBox Grid.Column="1" Header="Сотрудники">
         <ListBox ItemsSource="{Binding ListWorkers}">

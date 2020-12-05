@@ -2,6 +2,7 @@
 using Models;
 using System;
 using System.ComponentModel;
+using System.Windows;
 
 namespace ViewModels
 {
@@ -53,12 +54,29 @@ namespace ViewModels
             Title = "ООО РОГА И КОПЫТА";
             _company = new Company(Title);
 
-            DepartmentViewModel = new DepartmentViewModel();            
+            DepartmentViewModel = new DepartmentViewModel();
             DepartmentViewModel.ListDepartments = _company.Departments;
+            DepartmentViewModel.Notify += DepartmentViewModel_Notify;
             
             WorkersViewModel = new WorkersViewModel();
         }
-                
+
+        private void DepartmentViewModel_Notify(string path, ArgumentActions e)
+        {
+            switch (e)
+            {
+                case ArgumentActions.ADD:
+                    MessageBox.Show(path);
+                    _company.AddDepartment(path);
+                    DepartmentViewModel.ListDepartments = _company.Departments;
+                    break;
+                case ArgumentActions.DELETE:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #region Открытые методы
         #endregion
 

@@ -33,7 +33,8 @@
 
             <TreeView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Добавить департамент" Command="{Binding AddNextDepartment}"/>
+                    <MenuItem Header="Добавить департамент" Command="{Binding AddDepartment}"/>
+                    <MenuItem Header="Добавить поддепартамент" Command="{Binding AddNextDepartment}"/>
                 </ContextMenu>
             </TreeView.ContextMenu>
 

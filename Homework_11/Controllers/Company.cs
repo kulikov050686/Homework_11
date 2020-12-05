@@ -11,8 +11,8 @@ namespace Controllers
     {
         #region Закрытые поля       
 
-        BindingList<Worker> _WorkersList;
-        string _Path;
+        BindingList<Worker> _workersList;
+        string _path;
 
         #endregion
 
@@ -24,8 +24,8 @@ namespace Controllers
         /// <param name="nameCompany"> Название Компании </param>
         public Company(string nameCompany) : base(nameCompany)
         {
-            _Path = NameMinistry + ".json";
-            LoadWorkerListFromFile(_Path);
+            _path = NameMinistry + ".json";
+            LoadWorkerListFromFile(_path);
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace Controllers
         public new void AddGeneralDirector(string name, string surname, long age)
         {
             base.AddGeneralDirector(name, surname, age);
-            SaveListWorkersToFile(_Path);
+            SaveListWorkersToFile(_path);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Controllers
         public new void DeleteGeneralDirector()
         {
             base.DeleteGeneralDirector();
-            SaveListWorkersToFile(_Path);
+            SaveListWorkersToFile(_path);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Controllers
         public new void AddChiefAccountant(string name, string surname, long age)
         {
             base.AddChiefAccountant(name, surname, age);
-            SaveListWorkersToFile(_Path);
+            SaveListWorkersToFile(_path);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Controllers
         public new void DeleteChiefAccountant()
         {
             base.DeleteChiefAccountant();
-            SaveListWorkersToFile(_Path);
+            SaveListWorkersToFile(_path);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Controllers
         public new void AddDeputyDirector(string name, string surname, long age)
         {
             base.AddDeputyDirector(name, surname, age);
-            SaveListWorkersToFile(_Path);
+            SaveListWorkersToFile(_path);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Controllers
         public new void DeleteDeputyDirector()
         {
             base.DeleteDeputyDirector();
-            SaveListWorkersToFile(_Path);
+            SaveListWorkersToFile(_path);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Controllers
         {
             if(base.AddSupervisorDepartment(name, surname, age, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(_Path);
+                SaveListWorkersToFile(_path);
                 return true;
             }
 
@@ -122,7 +122,7 @@ namespace Controllers
         {
             if(base.DeleteSupervisorDepartment(pathToDepartment))
             {
-                SaveListWorkersToFile(_Path);
+                SaveListWorkersToFile(_path);
                 return true;
             }
 
@@ -135,14 +135,14 @@ namespace Controllers
         /// <param name="name"> Имя </param>
         /// <param name="surname"> Фамилия </param>
         /// <param name="age"> Возраст </param>
-        /// <param name="salary"> зарплата </param>
+        /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название занимаемой должности </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new bool AddIntern(string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
         {
             if(base.AddIntern(name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(_Path);
+                SaveListWorkersToFile(_path);
                 return true;
             }
 
@@ -156,14 +156,14 @@ namespace Controllers
         /// <param name="name"> Имя </param>
         /// <param name="surname"> Фамилия </param>
         /// <param name="age"> Возраст </param>
-        /// <param name="salary"> зарплата </param>
+        /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название занимаемой должности </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new bool DeleteIntern(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
         {
             if(base.DeleteIntern(id, name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(_Path);
+                SaveListWorkersToFile(_path);
                 return true;                
             }
 
@@ -183,7 +183,7 @@ namespace Controllers
         {
             if(base.AddEmployee(name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(_Path);
+                SaveListWorkersToFile(_path);
                 return true;
             }
 
@@ -204,7 +204,7 @@ namespace Controllers
         {
             if(base.DeleteEmployee(id, name, surname, age, salary, jobTitle, pathToDepartment))
             {
-                SaveListWorkersToFile(_Path);
+                SaveListWorkersToFile(_path);
                 return true;
             }
 
@@ -222,7 +222,7 @@ namespace Controllers
         private void SaveListWorkersToFile(string paht)
         {
             RefreshListOfWorkers();
-            FileIOService.SaveAsJSON(paht, _WorkersList); 
+            FileIOService.SaveAsJSON(paht, _workersList); 
         }
 
         /// <summary>
@@ -231,8 +231,8 @@ namespace Controllers
         /// <param name="path"> Путь </param>
         private void LoadWorkerListFromFile(string path)
         {
-            _WorkersList = FileIOService.OpenAsJSON(path);
-            SetListOfAllWorkers(_WorkersList);            
+            _workersList = FileIOService.OpenAsJSON(path);
+            SetListOfAllWorkers(_workersList);            
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Controllers
         /// </summary>
         private void RefreshListOfWorkers()
         {
-            _WorkersList = GetListOfAllWorkers();
+            _workersList = GetListOfAllWorkers();
         }
 
         #endregion

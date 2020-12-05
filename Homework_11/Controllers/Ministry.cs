@@ -12,11 +12,11 @@ namespace Controllers
     {
         #region Закрытые поля
                
-        const double _MinSalary = 1300;
-        double _SalaryGeneralDirector;
-        double _SalaryChiefAccountant;
-        double _SalaryDeputyDirector;        
-        double _TotalSalary;
+        const double _minSalary = 1300;
+        double _salaryGeneralDirector;
+        double _salaryChiefAccountant;
+        double _salaryDeputyDirector;        
+        double _totalSalary;
 
         #endregion
 
@@ -28,9 +28,9 @@ namespace Controllers
         /// <param name="nameMinistry"> Название министерства </param>
         public Ministry(string nameMinistry) : base(nameMinistry) 
         {
-            _SalaryGeneralDirector = 0;
-            _SalaryChiefAccountant = 0;
-            _SalaryDeputyDirector = 0;
+            _salaryGeneralDirector = 0;
+            _salaryChiefAccountant = 0;
+            _salaryDeputyDirector = 0;
         }
 
         #endregion
@@ -64,7 +64,7 @@ namespace Controllers
 
             if(base.DeleteDepartment(pathToDepartment))
             {
-                pathToDepartment = ShortenPath(pathToDepartment);
+                pathToDepartment = CutPathFromEnd(pathToDepartment);
                 СalculateSalary(pathToDepartment);
                 return true;
             }
@@ -80,7 +80,7 @@ namespace Controllers
         /// <param name="age"> Возраст </param>
         public void AddGeneralDirector(string name, string surname, long age)
         {
-            GeneralDirector = new GeneralDirector(name, surname, age, _MinSalary, "Генеральный директор");            
+            GeneralDirector = new GeneralDirector(name, surname, age, _minSalary, "Генеральный директор");            
             СalculateSalary();            
         }
 
@@ -91,7 +91,7 @@ namespace Controllers
         {
             if(GeneralDirector != null)
             {                
-                _SalaryGeneralDirector = 0;
+                _salaryGeneralDirector = 0;
                 GeneralDirector = null;
             }
         }
@@ -104,7 +104,7 @@ namespace Controllers
         /// <param name="age"> Возраст </param>
         public void AddChiefAccountant(string name, string surname, long age)
         {
-            ChiefAccountant = new ChiefAccountant(name, surname, age, _MinSalary, "Главный бухгалтер");            
+            ChiefAccountant = new ChiefAccountant(name, surname, age, _minSalary, "Главный бухгалтер");            
             СalculateSalary();            
         }
 
@@ -128,7 +128,7 @@ namespace Controllers
         /// <param name="age"> Возраст </param>
         public void AddDeputyDirector(string name, string surname, long age)
         {
-            DeputyDirector = new DeputyDirector(name, surname, age, _MinSalary, "Заместитель генерального директора");            
+            DeputyDirector = new DeputyDirector(name, surname, age, _minSalary, "Заместитель генерального директора");            
             СalculateSalary();                      
         }
 
@@ -159,7 +159,7 @@ namespace Controllers
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
             }
 
-            var supervisor = new Supervisor(name, surname, age, _MinSalary, jobTitle);
+            var supervisor = new Supervisor(name, surname, age, _minSalary, jobTitle);
 
             if(AddDeleteSupervisor(supervisor, pathToDepartment))
             {
@@ -224,7 +224,7 @@ namespace Controllers
         /// <param name="name"> Имя </param>
         /// <param name="surname"> Фамилия </param>
         /// <param name="age"> Возраст </param>
-        /// <param name="salary"> зарплата </param>
+        /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название занимаемой должности </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public bool DeleteIntern(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
@@ -528,17 +528,17 @@ namespace Controllers
 
                 if (supervisor != null)
                 {                    
-                    if (salarySupervisorDepartment > _MinSalary)
+                    if (salarySupervisorDepartment > _minSalary)
                     {
                         supervisor.Salary = salarySupervisorDepartment;
                     }
                     else
                     {
-                        supervisor.Salary = _MinSalary;
+                        supervisor.Salary = _minSalary;
                     }
                 }
 
-                pathToDepartment = ShortenPath(pathToDepartment);
+                pathToDepartment = CutPathFromEnd(pathToDepartment);
 
                 if (pathToDepartment.Length != 0)
                 {
@@ -554,11 +554,11 @@ namespace Controllers
         {
             if (Departments != null)
             {
-                _TotalSalary = 0;
+                _totalSalary = 0;
 
                 for (int i = 0; i < Departments.Count; i++)
                 {
-                    _TotalSalary += TotalSalaryOfAllEmployeesDepartment(Departments[i], true);
+                    _totalSalary += TotalSalaryOfAllEmployeesDepartment(Departments[i], true);
                 }
             }            
         }
@@ -578,86 +578,53 @@ namespace Controllers
 
             if(DeputyDirector != null)
             {
-                _SalaryDeputyDirector = 0.15 * _TotalSalary;
+                _salaryDeputyDirector = 0.15 * _totalSalary;
 
-                if(_SalaryDeputyDirector > _MinSalary)
+                if(_salaryDeputyDirector > _minSalary)
                 {
-                    DeputyDirector.Salary = _SalaryDeputyDirector;
+                    DeputyDirector.Salary = _salaryDeputyDirector;
                 }
                 else
                 {
-                    DeputyDirector.Salary = _MinSalary;
+                    DeputyDirector.Salary = _minSalary;
                 }
             }
             else
             {
-                _SalaryDeputyDirector = 0;
+                _salaryDeputyDirector = 0;
             }
 
             if(ChiefAccountant != null)
             {
-                _SalaryChiefAccountant = 0.15 * _TotalSalary;
+                _salaryChiefAccountant = 0.15 * _totalSalary;
 
-                if(_SalaryChiefAccountant > _MinSalary)
+                if(_salaryChiefAccountant > _minSalary)
                 {
-                    ChiefAccountant.Salary = _SalaryChiefAccountant;
+                    ChiefAccountant.Salary = _salaryChiefAccountant;
                 }
                 else
                 {
-                    ChiefAccountant.Salary = _MinSalary;
+                    ChiefAccountant.Salary = _minSalary;
                 }
             }
             else
             {
-                _SalaryChiefAccountant = 0;
+                _salaryChiefAccountant = 0;
             }
             
             if(GeneralDirector != null)
             {
-                _SalaryGeneralDirector = 0.15 * (_SalaryChiefAccountant + _SalaryDeputyDirector + _TotalSalary);
+                _salaryGeneralDirector = 0.15 * (_salaryChiefAccountant + _salaryDeputyDirector + _totalSalary);
 
-                if(_SalaryGeneralDirector > _MinSalary)
+                if(_salaryGeneralDirector > _minSalary)
                 {
-                    GeneralDirector.Salary = _SalaryGeneralDirector;
+                    GeneralDirector.Salary = _salaryGeneralDirector;
                 }
                 else
                 {
-                    GeneralDirector.Salary = _MinSalary;
+                    GeneralDirector.Salary = _minSalary;
                 }
             }
-        }
-
-        /// <summary>
-        /// Сократить путь с конца
-        /// </summary>
-        /// <param name="path"> Путь к родителю </param>
-        private string ShortenPath(string path)
-        {
-            if(path[path.Length - 1] == '/')
-            {
-                path = path.Substring(0, path.Length - 1);
-            }
-
-            int temp = 0;
-
-            for(int i = path.Length - 1; i >= 0; i--)
-            {
-                if(path[i] != '/')
-                {
-                    temp++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            if (temp == path.Length)
-            {
-                return "";
-            }
-
-            return path.Substring(0, path.Length - (++temp));
         }
 
         /// <summary>

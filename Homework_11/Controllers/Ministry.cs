@@ -1,7 +1,7 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Controllers
 {
@@ -303,7 +303,7 @@ namespace Controllers
         /// <summary>
         /// Получить список всех работников министерства
         /// </summary>        
-        public BindingList<Worker> GetListOfAllWorkers()
+        public ObservableCollection<Worker> GetListOfAllWorkers()
         {
             List<Worker> workers = new List<Worker>();
 
@@ -339,7 +339,7 @@ namespace Controllers
 
             if(workers.Count != 0)
             {
-                BindingList<Worker> blworkers = new BindingList<Worker>();
+                ObservableCollection<Worker> blworkers = new ObservableCollection<Worker>();
 
                 for(int i = 0; i < workers.Count; i++)
                 {
@@ -356,7 +356,7 @@ namespace Controllers
         /// Установить список всех работников министерства
         /// </summary>
         /// <param name="workers"> Список работников </param>
-        public bool SetListOfAllWorkers(BindingList<Worker> workers)
+        public bool SetListOfAllWorkers(ObservableCollection<Worker> workers)
         {
             if(workers != null)
             {
@@ -421,7 +421,7 @@ namespace Controllers
         /// Получить список всех работников департамента
         /// </summary>
         /// <param name="pathToDepartment"> Путь до департамента </param>        
-        public BindingList<Worker> GetListOfAllWorkersDepartment(string pathToDepartment)
+        public ObservableCollection<Worker> GetListOfAllWorkersDepartment(string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
@@ -432,11 +432,11 @@ namespace Controllers
 
             if(department != null)
             {
-                BindingList<Worker> temp;
+                ObservableCollection<Worker> temp;
 
                 if(department.CountWorkers != 0)
                 {
-                    temp = new BindingList<Worker>();
+                    temp = new ObservableCollection<Worker>();
 
                     for(int i = 0; i < department.CountWorkers; i++)
                     {
@@ -463,7 +463,7 @@ namespace Controllers
         {
             if(worker != null)
             {
-                BindingList<Worker> workers = GetListOfAllWorkers();
+                ObservableCollection<Worker> workers = GetListOfAllWorkers();
 
                 if (workers != null)
                 {

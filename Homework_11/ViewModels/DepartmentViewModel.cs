@@ -1,6 +1,6 @@
 ﻿using Commands;
 using Models;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace ViewModels
@@ -16,7 +16,7 @@ namespace ViewModels
         #region Закрытые поля
                 
         Department _selectedDepartment;
-        BindingList<Department> _listDepartments;
+        ObservableCollection<Department> _listDepartments;
         ICommand _addDepartament;
         ICommand _addNextDepartament;
 
@@ -43,7 +43,7 @@ namespace ViewModels
         /// <summary>
         /// Лист департаментов
         /// </summary>
-        public BindingList<Department> ListDepartments
+        public ObservableCollection<Department> ListDepartments
         {
             get => _listDepartments;
             set => Set(ref _listDepartments, value);
@@ -74,7 +74,6 @@ namespace ViewModels
                     }
 
                     Notify?.Invoke(path, ArgumentActions.ADD);
-
                 }, (obj) => (SelectedDepartment != null)));
             }
         }

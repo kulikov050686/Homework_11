@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Homework_11.Views
+namespace UserControls
 {    
     public partial class DepartmentView : UserControl
     {

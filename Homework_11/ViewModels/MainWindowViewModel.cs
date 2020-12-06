@@ -1,7 +1,4 @@
 ﻿using Controllers;
-using Models;
-using System;
-using System.ComponentModel;
 using System.Windows;
 
 namespace ViewModels

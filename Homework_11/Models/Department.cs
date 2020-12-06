@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Models
 {
@@ -36,12 +36,12 @@ namespace Models
         /// <summary>
         /// Лист сотрудников департамента
         /// </summary>
-        public BindingList<BaseWorker> Workers { get; set; }
+        public ObservableCollection<BaseWorker> Workers { get; set; }
 
         /// <summary>
         /// Лист поддепартаментов
         /// </summary>
-        public BindingList<Department> NextDepartments { get; set; } 
+        public ObservableCollection<Department> NextDepartments { get; set; } 
         
         /// <summary>
         /// Количество поддепартаментов в данном департаменте

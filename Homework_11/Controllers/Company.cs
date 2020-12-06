@@ -1,6 +1,6 @@
 ﻿using Models;
 using Services;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Controllers
 {
@@ -11,7 +11,7 @@ namespace Controllers
     {
         #region Закрытые поля       
 
-        BindingList<Worker> _workersList;
+        ObservableCollection<Worker> _workersList;
         string _path;
 
         #endregion

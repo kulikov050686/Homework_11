@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using Models;
 
 namespace Controllers
@@ -38,7 +38,7 @@ namespace Controllers
         /// <summary>
         /// Список департаментов первого уровня
         /// </summary>
-        public BindingList<Department> Departments { get; private set; }
+        public ObservableCollection<Department> Departments { get; private set; }
 
         /// <summary>
         /// Генеральный директор
@@ -86,13 +86,13 @@ namespace Controllers
             {
                 if(pathToDepartment.Length == 0)
                 {
-                    Departments = new BindingList<Department>();                    
+                    Departments = new ObservableCollection<Department>();                    
                     Departments.Add(new Department(ParentDepartment, Path));
                     return;                    
                 }
                 else
                 {
-                    Departments = new BindingList<Department>();
+                    Departments = new ObservableCollection<Department>();
                     Departments.Add(new Department(ParentDepartment, Path));
                 }                
             }
@@ -199,7 +199,7 @@ namespace Controllers
                     {
                         if (Departments[numberDepartments].Workers == null)
                         {
-                            Departments[numberDepartments].Workers = new BindingList<BaseWorker>();
+                            Departments[numberDepartments].Workers = new ObservableCollection<BaseWorker>();
                         }
 
                         Departments[numberDepartments].Workers.Add(worker);
@@ -369,7 +369,7 @@ namespace Controllers
         /// Получить лист с данными работников департамента
         /// </summary>
         /// <param name="pathToDepartment"> Путь до департамента </param>        
-        protected BindingList<BaseWorker> GetWorkersOfDepartment(string pathToDepartment)
+        protected ObservableCollection<BaseWorker> GetWorkersOfDepartment(string pathToDepartment)
         {
             string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
             int numberDepartments = SearchNumber(NameDepartment);
@@ -491,12 +491,12 @@ namespace Controllers
             {
                 if (pathToDepartment.Length == 0)
                 {
-                    department.NextDepartments = new BindingList<Department>();
+                    department.NextDepartments = new ObservableCollection<Department>();
                     department.NextDepartments.Add(new Department(ParentDepartment, path));
                 }
                 else
                 {
-                    department.NextDepartments = new BindingList<Department>();
+                    department.NextDepartments = new ObservableCollection<Department>();
                     department.NextDepartments.Add(new Department(ParentDepartment, path));
                     DepartmentSearchAndAdding(pathToDepartment, department.NextDepartments[0], path);
                 }
@@ -605,7 +605,7 @@ namespace Controllers
             {
                 if(department.Workers == null)
                 {
-                    department.Workers = new BindingList<BaseWorker>();
+                    department.Workers = new ObservableCollection<BaseWorker>();
                 }
 
                 department.Workers.Add(worker);
@@ -727,7 +727,7 @@ namespace Controllers
         /// </summary>
         /// <param name="pathToDepartment"> Путь до департамента </param>
         /// <param name="department"> Текущий департамент </param>        
-        private BindingList<BaseWorker> DepartmentSearchAndGetWorkers(string pathToDepartment, Department department)
+        private ObservableCollection<BaseWorker> DepartmentSearchAndGetWorkers(string pathToDepartment, Department department)
         {
             string NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
             pathToDepartment = CutPathFromBeginning(pathToDepartment);

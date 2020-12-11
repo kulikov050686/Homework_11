@@ -75,13 +75,11 @@ namespace Controllers
         /// <summary>
         /// Добавить генерального директора
         /// </summary>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        public void AddGeneralDirector(string name, string surname, long age)
+        /// <param name="generalDirector"> Генеральный директор </param>
+        public void AddGeneralDirector(GeneralDirector generalDirector)
         {
-            GeneralDirector = new GeneralDirector(name, surname, age, _minSalary, "Генеральный директор");            
-            СalculateSalary();            
+            GeneralDirector = generalDirector;
+            СalculateSalary();
         }
 
         /// <summary>
@@ -99,13 +97,11 @@ namespace Controllers
         /// <summary>
         /// Добавить главного бухгалтера
         /// </summary>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        public void AddChiefAccountant(string name, string surname, long age)
+        /// <param name="chiefAccountant"> Главный бухгалтер </param>
+        public void AddChiefAccountant(ChiefAccountant chiefAccountant)
         {
-            ChiefAccountant = new ChiefAccountant(name, surname, age, _minSalary, "Главный бухгалтер");            
-            СalculateSalary();            
+            ChiefAccountant = chiefAccountant;
+            СalculateSalary();
         }
 
         /// <summary>
@@ -123,13 +119,11 @@ namespace Controllers
         /// <summary>
         /// Добавить заместителя директора
         /// </summary>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        public void AddDeputyDirector(string name, string surname, long age)
+        /// <param name="deputyDirector"> Заместитель генерального директора </param>
+        public void AddDeputyDirector(DeputyDirector deputyDirector)
         {
-            DeputyDirector = new DeputyDirector(name, surname, age, _minSalary, "Заместитель генерального директора");            
-            СalculateSalary();                      
+            DeputyDirector = deputyDirector;
+            СalculateSalary();
         }
 
         /// <summary>
@@ -143,33 +137,28 @@ namespace Controllers
                 СalculateSalary();
             }
         }
-
+        
         /// <summary>
         /// Добавить руководителя депортамента
         /// </summary>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        /// <param name="jobTitle"> Название занимаемой должности </param>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool AddSupervisorDepartment(string name, string surname, long age, string jobTitle, string pathToDepartment)
+        /// <param name="supervisor"> Руководитель департамента </param>
+        /// <param name="pathToDepartment"> Путь до департамента </param>        
+        public bool AddSupervisorDepartment(Supervisor supervisor, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
             }
 
-            var supervisor = new Supervisor(name, surname, age, _minSalary, jobTitle);
-
-            if(AddDeleteSupervisor(supervisor, pathToDepartment))
+            if (AddDeleteSupervisor(supervisor, pathToDepartment))
             {
-                СalculateSalary(pathToDepartment);                             
+                СalculateSalary(pathToDepartment);
                 return true;
             }
-            
+
             return false;
         }
-        
+
         /// <summary>
         /// Удалить руководителя департамента
         /// </summary>
@@ -192,21 +181,15 @@ namespace Controllers
 
         /// <summary>
         /// Добавить интерна в департамент
-        /// </summary>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        /// <param name="salary"> зарплата </param>
-        /// <param name="jobTitle"> Название занимаемой должности </param>
+        /// </summary>        
+        /// <param name="intern"> Интерн </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool AddIntern(string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
+        public bool AddIntern(Intern intern, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
-
-            var intern = new Intern(name, surname, age, salary, jobTitle);
+            }            
 
             if(AddWorker(intern, pathToDepartment))
             {
@@ -220,21 +203,14 @@ namespace Controllers
         /// <summary>
         /// Удалить интерна из департамента
         /// </summary>
-        /// <param name="id"> Идентификатор </param>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        /// <param name="salary"> Зарплата </param>
-        /// <param name="jobTitle"> Название занимаемой должности </param>
+        /// <param name="intern"> Интерн </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool DeleteIntern(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
+        public bool DeleteIntern(Intern intern, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
-
-            var intern = new Intern(id, name, surname, age, salary, jobTitle);
+            }            
 
             if(DeleteWorker(intern, pathToDepartment))
             {                
@@ -248,20 +224,14 @@ namespace Controllers
         /// <summary>
         /// Добавить сотрудника в депортамент
         /// </summary>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        /// <param name="salary"> Зарплата </param>
-        /// <param name="jobTitle"> Название занимаемой должности</param>
+        /// <param name="employee"> Сотрудник </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>        
-        public bool AddEmployee(string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
+        public bool AddEmployee(Employee employee, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
             }
-
-            var employee = new Employee(name, surname, age, salary, jobTitle);
 
             if(AddWorker(employee, pathToDepartment))
             {
@@ -275,21 +245,14 @@ namespace Controllers
         /// <summary>
         /// Удалить сотрудника из департамента
         /// </summary>
-        /// <param name="id"> Идентификатор </param>
-        /// <param name="name"> Имя </param>
-        /// <param name="surname"> Фамилия </param>
-        /// <param name="age"> Возраст </param>
-        /// <param name="salary"> Зарплата </param>
-        /// <param name="jobTitle"> Название занимаемой должности</param>
+        /// <param name="employee"> Сотрудник </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool DeleteEmployee(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
+        public bool DeleteEmployee(Employee employee, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
-
-            var employee = new Employee(id, name, surname, age, salary, jobTitle);
+            }            
 
             if(DeleteWorker(employee, pathToDepartment))
             {                

@@ -22,78 +22,35 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
+        <!-- Департаменты -->
 
-        <Grid Grid.Column="0">
-            
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            
-            <!-- -->
+        <GroupBox Grid.Row="1" Header="Департаменты">
 
-            <GroupBox Grid.Row="0" 
-                      Header="Руководители">
-                <StackPanel>
-                    <Border BorderBrush="Blue"
-                            BorderThickness="1"
-                            CornerRadius="5"
-                            Margin="5 5 5 5">
-                        <StackPanel>
-                            <DockPanel>
-                                <TextBlock Text="Имя: " Foreground="White"/>
-                                <TextBlock Text="" Foreground="White"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <TextBlock Text="Имя: " Foreground="White"/>
-                                <TextBlock Text="" Foreground="White"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <TextBlock Text="Возраст" Foreground="White"/>
-                                <TextBlock Text="" Foreground="White"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <TextBlock Text="Возраст" Foreground="White"/>
-                                <TextBlock Text=""  Foreground="White"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <TextBlock Text="Возраст" Foreground="White"/>
-                                <TextBlock Text="" Foreground="White"/>
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </GroupBox>
-            
-            <!-- Список департаментов -->
-
-            <GroupBox Grid.Row="1" Header="Департаменты">
-
-                <GroupBox.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type model:Department}" 
+            <GroupBox.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type model:Department}" 
                                           ItemsSource="{Binding NextDepartments}">
-                        <ContentPresenter Content="{Binding NameDepartment, UpdateSourceTrigger=PropertyChanged}"/>
-                    </HierarchicalDataTemplate>
-                </GroupBox.Resources>
+                    <ContentPresenter Content="{Binding NameDepartment, UpdateSourceTrigger=PropertyChanged}"/>
+                </HierarchicalDataTemplate>
+            </GroupBox.Resources>
 
-                <TreeView Grid.Row="1" 
+            <TreeView Grid.Row="1" 
                       ItemsSource="{Binding ListDepartments}">
 
-                    <b:Interaction.Behaviors>
-                        <bihaviors:SelectedItemTreeView SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}"/>
-                    </b:Interaction.Behaviors>
+                <b:Interaction.Behaviors>
+                    <bihaviors:SelectedItemTreeView SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}"/>
+                </b:Interaction.Behaviors>
 
-                    <TreeView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Добавить департамент" Command="{Binding AddDepartment}"/>
-                            <MenuItem Header="Добавить поддепартамент" Command="{Binding AddNextDepartment}"/>
-                        </ContextMenu>
-                    </TreeView.ContextMenu>
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить департамент" Command="{Binding AddDepartment}"/>
+                        <MenuItem Header="Добавить поддепартамент" Command="{Binding AddNextDepartment}"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
 
-                </TreeView>
-            </GroupBox>
-        </Grid>
-        
+            </TreeView>
+        </GroupBox>
+
         <!-- Состав Департамента -->
         
         <GroupBox Grid.Column="1" Header="{Binding SelectedDepartment.NameDepartment}">

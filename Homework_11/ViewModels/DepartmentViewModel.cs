@@ -42,6 +42,21 @@ namespace ViewModels
             get => _listDepartments;
             set => Set(ref _listDepartments, value);
         }
+
+        /// <summary>
+        /// Генеральный директор
+        /// </summary>
+        public GeneralDirector GeneralDirector { get; set; }
+
+        /// <summary>
+        /// Главный бухгалтер
+        /// </summary>
+        public ChiefAccountant ChiefAccountant { get; set; }
+
+        /// <summary>
+        /// Заместитель генеральный директора
+        /// </summary>
+        public DeputyDirector DeputyDirector { get; set; }
                
         #endregion
 

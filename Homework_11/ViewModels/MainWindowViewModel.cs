@@ -1,16 +1,13 @@
-﻿using Controllers;
-using System.Windows;
+﻿using DataModels;
 
 namespace ViewModels
 {
+    /// <summary>
+    /// Класс Модели-Представления главного окна
+    /// </summary>
     public class MainWindowViewModel : BaseClassINPC
     {
-        #region Закрытые поля
-
-        Company _company;
-        DepartmentViewModel _departmentViewModel;
-        WorkersViewModel _workersViewModel;
-
+        #region Закрытые поля        
         #endregion
 
         #region Открытые поля
@@ -21,23 +18,10 @@ namespace ViewModels
         public string Title { get; set; }
 
         /// <summary>
-        /// 
+        /// Страница отображаемая на главном окне
         /// </summary>
-        public DepartmentViewModel DepartmentViewModel
-        { 
-            get => _departmentViewModel; 
-            set => Set(ref _departmentViewModel, value); 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public WorkersViewModel WorkersViewModel
-        { 
-            get => _workersViewModel; 
-            set => Set(ref _workersViewModel, value); 
-        }
-                
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Main;
+   
         #endregion
 
         #region Команды
@@ -49,31 +33,8 @@ namespace ViewModels
         public MainWindowViewModel()
         {
             Title = "ООО РОГА И КОПЫТА";
-            _company = new Company(Title);
-
-            DepartmentViewModel = new DepartmentViewModel();
-            DepartmentViewModel.ListDepartments = _company.Departments;
-            DepartmentViewModel.Notify += DepartmentViewModel_Notify;
-            
-            WorkersViewModel = new WorkersViewModel();
         }
-
-        private void DepartmentViewModel_Notify(string path, ArgumentActions e)
-        {
-            switch (e)
-            {
-                case ArgumentActions.ADD:
-                    MessageBox.Show(path);
-                    _company.AddDepartment(path);
-                    DepartmentViewModel.ListDepartments = _company.Departments;
-                    break;
-                case ArgumentActions.DELETE:
-                    break;
-                default:
-                    break;
-            }
-        }
-
+        
         #region Открытые методы
         #endregion
 

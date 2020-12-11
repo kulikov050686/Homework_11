@@ -1,35 +1,29 @@
 ﻿using Commands;
+using Controllers;
 using Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace ViewModels
 {
-    public enum ArgumentActions
-    {
-        ADD = 0,
-        DELETE = 1
-    }        
-
     public class DepartmentViewModel : BaseClassINPC
     {
         #region Закрытые поля
-                
+
+        Company _company;
         Department _selectedDepartment;
         ObservableCollection<Department> _listDepartments;
         ICommand _addDepartament;
         ICommand _addNextDepartament;
 
         #endregion
-
-        #region Событие
-
-        public delegate void MyDelegate(string path, ArgumentActions e);
-        public event MyDelegate Notify;
-
-        #endregion
-
+        
         #region Открытые свойства
+
+        /// <summary>
+        /// Название компании
+        /// </summary>
+        public string Title { get; set; }
 
         /// <summary>
         /// Выбранный департамент
@@ -60,11 +54,11 @@ namespace ViewModels
         {
             get
             {
-                return _addDepartament ?? (_addDepartament = new RelayCommand((obj) => 
+                return _addDepartament ?? (_addDepartament = new RelayCommand((obj) =>
                 {
                     string path = ShortenPath(SelectedDepartment.Path);
 
-                    if(path.Length == 0)
+                    if (path.Length == 0)
                     {
                         path = "Департамент_6";
                     }
@@ -72,10 +66,9 @@ namespace ViewModels
                     {
                         path += "/Департамент_5";
                     }
-
-                    Notify?.Invoke(path, ArgumentActions.ADD);
+                    
                 }, (obj) => (SelectedDepartment != null)));
-            }
+            }            
         }
 
         /// <summary>
@@ -97,8 +90,7 @@ namespace ViewModels
                     {
                         path += "/Departament_2";
                     }
-
-                    Notify?.Invoke(path, ArgumentActions.ADD);
+                    
                 }, (obj) => (SelectedDepartment != null) && (SelectedDepartment.NextDepartments == null)));
             }
         }
@@ -108,7 +100,11 @@ namespace ViewModels
         #region Конструкторы
 
         public DepartmentViewModel()
-        {}
+        {
+            Title = "ООО РОГА И КОПЫТА";
+            _company = new Company(Title);
+            ListDepartments = _company.Departments;
+        }
 
         #endregion
 

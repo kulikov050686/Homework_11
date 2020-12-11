@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_11"
-        xmlns:vm="clr-namespace:ViewModels"
-        xmlns:userControl="clr-namespace:UserControls"
+        xmlns:vm="clr-namespace:ViewModels"        
+        xmlns:converter="clr-namespace:Converters"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450" 
@@ -15,27 +15,9 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
 
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File">
-                <MenuItem Header="Exit"/>
-            </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="About the program"/>
-            </MenuItem>            
-        </Menu>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="230"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <userControl:DepartmentView Grid.Column="0" DataContext="{Binding DepartmentViewModel}"/>
-            <userControl:WorkersView Grid.Column="1" DataContext="{Binding WorkersViewModel}"/>
-
-        </Grid>       
-    </DockPanel>    
+    <Grid>
+        <Frame Content="{Binding CurrentPage, Converter={converter:ApplicationPageValueConverter}}"/>
+    </Grid>
 </Window>
 
     

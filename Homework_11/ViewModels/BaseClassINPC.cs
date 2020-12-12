@@ -58,9 +58,9 @@ namespace ViewModels
         /// Метод для обновления значения свойства
         /// </summary>
         /// <typeparam name="T"> Тип данных свойства и поля </typeparam>
-        /// <param name="field"> Поле </param>
-        /// <param name="value"> Значение </param>
-        /// <param name="property"> Изменившееся свойство </param>        
+        /// <param name="field"> Ссылка на поле значения свойства </param>
+        /// <param name="value"> Новое значение </param>
+        /// <param name="property"> Название свойства </param>        
         public bool Set<T>(ref T field, T value, [CallerMemberName] string property = null)
         {
             if (Equals(field, value)) return false;

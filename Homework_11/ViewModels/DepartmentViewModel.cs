@@ -2,6 +2,7 @@
 using Controllers;
 using Models;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ViewModels
@@ -12,12 +13,25 @@ namespace ViewModels
 
         Company _company;
         Department _selectedDepartment;
-        ObservableCollection<Department> _listDepartments;
+        ObservableCollection<Department> _listDepartments;        
+        GeneralDirector _generalDirector;
+        ChiefAccountant _chiefAccountant;
+        DeputyDirector _deputyDirector;
+        Visibility _visibilityDepartmentСomposition;
+        Visibility _visibilityGeneralDirector;
+        Visibility _visibilityDeputyDirector;
+        Visibility _visibilityChiefAccountant;
         ICommand _addDepartament;
         ICommand _addNextDepartament;
+        ICommand _addGeneralDirector;
+        ICommand _addChiefAccountant;
+        ICommand _addDeputyDirector;
+        ICommand _deleteGeneralDirector;
+        ICommand _deleteDeputyDirector;
+        ICommand _deleteChiefAccountant;
 
         #endregion
-        
+
         #region Открытые свойства
 
         /// <summary>
@@ -30,7 +44,20 @@ namespace ViewModels
         /// </summary>
         public Department SelectedDepartment
         {
-            get => _selectedDepartment;
+            get 
+            {
+                if(_selectedDepartment == null)
+                {
+                    VisibilityDepartmentСomposition = Visibility.Hidden;
+                }
+                else
+                {
+                    VisibilityDepartmentСomposition = Visibility.Visible;
+                }
+
+                return _selectedDepartment; 
+            }
+
             set => Set(ref _selectedDepartment, value);
         }
 
@@ -46,21 +73,192 @@ namespace ViewModels
         /// <summary>
         /// Генеральный директор
         /// </summary>
-        public GeneralDirector GeneralDirector { get; set; }
+        public GeneralDirector GeneralDirector
+        {
+            get 
+            { 
+                if(_generalDirector == null)
+                {
+                    VisibilityGeneralDirector = Visibility.Hidden;
+                }
+                else
+                {
+                    VisibilityGeneralDirector = Visibility.Visible;
+                }
+
+                return _generalDirector; 
+            }
+
+            set => Set(ref _generalDirector, value);
+        }
 
         /// <summary>
         /// Главный бухгалтер
         /// </summary>
-        public ChiefAccountant ChiefAccountant { get; set; }
+        public ChiefAccountant ChiefAccountant
+        {
+            get 
+            {
+                if(_chiefAccountant == null)
+                {
+                    VisibilityChiefAccountant = Visibility.Hidden;
+                }
+                else
+                {
+                    VisibilityChiefAccountant = Visibility.Visible;
+                }
+
+                return _chiefAccountant; 
+            }
+
+            set => Set(ref _chiefAccountant, value);
+        }
 
         /// <summary>
         /// Заместитель генеральный директора
         /// </summary>
-        public DeputyDirector DeputyDirector { get; set; }
-               
+        public DeputyDirector DeputyDirector
+        {
+            get 
+            {
+                if(_deputyDirector == null)
+                {
+                    VisibilityDeputyDirector = Visibility.Hidden;
+                }
+                else
+                {
+                    VisibilityDeputyDirector = Visibility.Visible;
+                }
+
+                return _deputyDirector; 
+            }
+
+            set => Set(ref _deputyDirector, value);
+        }
+
+        /// <summary>
+        /// Отображение состава департамента
+        /// </summary>
+        public Visibility VisibilityDepartmentСomposition
+        {
+            get => _visibilityDepartmentСomposition;
+            set => Set(ref _visibilityDepartmentСomposition, value);
+        }
+
+        /// <summary>
+        /// Отображение генерального директора
+        /// </summary>
+        public Visibility VisibilityGeneralDirector
+        {
+            get => _visibilityGeneralDirector;
+            set => Set(ref _visibilityGeneralDirector, value);
+        }
+
+        /// <summary>
+        /// Отображение заместителя генерального директора
+        /// </summary>
+        public Visibility VisibilityDeputyDirector
+        {
+            get => _visibilityDeputyDirector;
+            set => Set(ref _visibilityDeputyDirector, value);
+        }
+
+        /// <summary>
+        /// Отображение главного бухгалтера
+        /// </summary>
+        public Visibility VisibilityChiefAccountant
+        {
+            get => _visibilityChiefAccountant;
+            set => Set(ref _visibilityChiefAccountant, value);
+        }
+
         #endregion
 
-        #region Команды        
+        #region Команды
+
+        /// <summary>
+        /// Добавить генерального директора
+        /// </summary>
+        public ICommand AddGeneralDirector
+        {
+            get
+            {
+                return _addGeneralDirector ?? (_addGeneralDirector = new RelayCommand((obj) => 
+                {
+                    // логика добавления генерального директора
+                }, (obj) => GeneralDirector == null));
+            }
+        }
+
+        /// <summary>
+        /// Удалить генерального директора
+        /// </summary>
+        public ICommand DeleteGeneralDirector
+        {
+            get
+            {
+                return _deleteGeneralDirector ?? (_deleteGeneralDirector = new RelayCommand((obj) =>
+                {
+                    // логика удаления генерального директора
+                }, (obj) => GeneralDirector != null));
+            }
+        }
+
+        /// <summary>
+        /// Добавить заместителя генерального директора
+        /// </summary>
+        public ICommand AddDeputyDirector
+        {
+            get
+            {
+                return _addDeputyDirector ?? (_addDeputyDirector = new RelayCommand((obj) => 
+                {
+                    // логика добавления заместителя генерального директора
+                }, (obj) => DeputyDirector == null));
+            }
+        }
+
+        /// <summary>
+        /// Удалить генерального директора
+        /// </summary>
+        public ICommand DeleteDeputyDirector
+        {
+            get
+            {
+                return _deleteDeputyDirector ?? (_deleteDeputyDirector = new RelayCommand((obj) =>
+                {
+                    // логика удаления заместителя генерального директора
+                }, (obj) => DeputyDirector != null));
+            }
+        }
+
+        /// <summary>
+        /// Добавить главного бухгалтера
+        /// </summary>
+        public ICommand AddChiefAccountant
+        {
+            get
+            {
+                return _addChiefAccountant ?? (_addChiefAccountant = new RelayCommand((obj) => 
+                {
+                    // логика добавления главного бухгалтера
+                }, (obj) => ChiefAccountant == null));
+            }
+        }
+
+        /// <summary>
+        /// Удалить главного бухгалтера
+        /// </summary>
+        public ICommand DeleteChiefAccountant
+        {
+            get
+            {
+                return _deleteChiefAccountant ?? (_deleteChiefAccountant = new RelayCommand((obj) =>
+                {
+                    // логика удаления главного бухгалтера
+                }, (obj) => ChiefAccountant != null));
+            }
+        }
 
         /// <summary>
         /// Добавить департамент
@@ -72,17 +270,9 @@ namespace ViewModels
                 return _addDepartament ?? (_addDepartament = new RelayCommand((obj) =>
                 {
                     string path = ShortenPath(SelectedDepartment.Path);
-
-                    if (path.Length == 0)
-                    {
-                        path = "Департамент_6";
-                    }
-                    else
-                    {
-                        path += "/Департамент_5";
-                    }
+                                       
                     
-                }, (obj) => (SelectedDepartment != null)));
+                }, (obj) => (SelectedDepartment != null) || (ListDepartments == null)));
             }            
         }
 
@@ -97,14 +287,6 @@ namespace ViewModels
                 {
                     string path = SelectedDepartment.Path;
 
-                    if(path == SelectedDepartment.NameDepartment)
-                    {
-                        path += "/Departament_1";
-                    }
-                    else
-                    {
-                        path += "/Departament_2";
-                    }
                     
                 }, (obj) => (SelectedDepartment != null) && (SelectedDepartment.NextDepartments == null)));
             }
@@ -117,13 +299,30 @@ namespace ViewModels
         public DepartmentViewModel()
         {
             Title = "ООО РОГА И КОПЫТА";
+            VisibilityDepartmentСomposition = Visibility.Hidden;
+            VisibilityGeneralDirector = Visibility.Hidden;
+            VisibilityDeputyDirector = Visibility.Hidden;
+            VisibilityChiefAccountant = Visibility.Hidden;
             _company = new Company(Title);
-            ListDepartments = _company.Departments;
+
+            UpdateData();
         }
 
         #endregion
 
         #region Закрытые методы
+
+        /// <summary>
+        /// Обновить данные
+        /// </summary>
+        public void UpdateData()
+        {
+            ListDepartments = _company.Departments;
+
+            GeneralDirector = _company.GetGeneralDirector();
+            DeputyDirector = _company.GetDeputyDirector();
+            ChiefAccountant = _company.GetChiefAccountant();
+        }
 
         /// <summary>
         /// Сократить путь с конца

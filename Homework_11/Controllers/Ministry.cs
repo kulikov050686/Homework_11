@@ -443,6 +443,30 @@ namespace Controllers
             return false;
         }
 
+        /// <summary>
+        /// Получить данные генерального директора
+        /// </summary>        
+        public GeneralDirector GetGeneralDirector()
+        {
+            return GeneralDirector;
+        }
+
+        /// <summary>
+        /// Получить данные заместителя генерального директора
+        /// </summary>        
+        public DeputyDirector GetDeputyDirector()
+        {
+            return DeputyDirector;
+        }
+
+        /// <summary>
+        /// Получить данные главного бухгалтера
+        /// </summary>        
+        public ChiefAccountant GetChiefAccountant()
+        {
+            return ChiefAccountant;
+        }
+
         #endregion
 
         #region Закрытые методы

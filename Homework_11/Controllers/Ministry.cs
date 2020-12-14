@@ -445,7 +445,7 @@ namespace Controllers
 
         /// <summary>
         /// Получить данные генерального директора
-        /// </summary>        
+        /// </summary>
         public GeneralDirector GetGeneralDirector()
         {
             return GeneralDirector;
@@ -453,7 +453,7 @@ namespace Controllers
 
         /// <summary>
         /// Получить данные заместителя генерального директора
-        /// </summary>        
+        /// </summary>
         public DeputyDirector GetDeputyDirector()
         {
             return DeputyDirector;
@@ -461,7 +461,7 @@ namespace Controllers
 
         /// <summary>
         /// Получить данные главного бухгалтера
-        /// </summary>        
+        /// </summary>
         public ChiefAccountant GetChiefAccountant()
         {
             return ChiefAccountant;

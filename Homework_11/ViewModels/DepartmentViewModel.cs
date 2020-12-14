@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controllers;
 using Models;
+using Services;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -29,6 +30,7 @@ namespace ViewModels
         ICommand _deleteGeneralDirector;
         ICommand _deleteDeputyDirector;
         ICommand _deleteChiefAccountant;
+        ICommand _deleteDepartment;
 
         #endregion
 
@@ -185,7 +187,13 @@ namespace ViewModels
             {
                 return _addGeneralDirector ?? (_addGeneralDirector = new RelayCommand((obj) => 
                 {
-                    // логика добавления генерального директора
+                    BaseWorker temp = AddChiefDialog.Show();
+                    
+                    if(temp != null)
+                    {
+                        
+                    }
+
                 }, (obj) => GeneralDirector == null));
             }
         }
@@ -199,7 +207,11 @@ namespace ViewModels
             {
                 return _deleteGeneralDirector ?? (_deleteGeneralDirector = new RelayCommand((obj) =>
                 {
-                    // логика удаления генерального директора
+                    if(MessageBox.Show("Удалить генерального директора?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        _company.DeleteGeneralDirector();
+                        UpdateData();
+                    }
                 }, (obj) => GeneralDirector != null));
             }
         }
@@ -213,7 +225,7 @@ namespace ViewModels
             {
                 return _addDeputyDirector ?? (_addDeputyDirector = new RelayCommand((obj) => 
                 {
-                    // логика добавления заместителя генерального директора
+                    AddChiefDialog.Show();
                 }, (obj) => DeputyDirector == null));
             }
         }
@@ -227,7 +239,11 @@ namespace ViewModels
             {
                 return _deleteDeputyDirector ?? (_deleteDeputyDirector = new RelayCommand((obj) =>
                 {
-                    // логика удаления заместителя генерального директора
+                    if(MessageBox.Show("Удалить заместителя генерального директора?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        _company.DeleteDeputyDirector();
+                        UpdateData();
+                    }
                 }, (obj) => DeputyDirector != null));
             }
         }
@@ -241,7 +257,7 @@ namespace ViewModels
             {
                 return _addChiefAccountant ?? (_addChiefAccountant = new RelayCommand((obj) => 
                 {
-                    // логика добавления главного бухгалтера
+                    AddChiefDialog.Show();
                 }, (obj) => ChiefAccountant == null));
             }
         }
@@ -255,7 +271,11 @@ namespace ViewModels
             {
                 return _deleteChiefAccountant ?? (_deleteChiefAccountant = new RelayCommand((obj) =>
                 {
-                    // логика удаления главного бухгалтера
+                    if(MessageBox.Show("Удалить главного бухгалтера?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        _company.DeleteChiefAccountant();
+                        UpdateData();
+                    }
                 }, (obj) => ChiefAccountant != null));
             }
         }
@@ -269,9 +289,23 @@ namespace ViewModels
             {
                 return _addDepartament ?? (_addDepartament = new RelayCommand((obj) =>
                 {
-                    string path = ShortenPath(SelectedDepartment.Path);
-                                       
-                    
+                    string path = "";
+
+                    if (SelectedDepartment != null)
+                    {
+                        path = AddDepartmentDialog.Show(ShortenPath(SelectedDepartment.Path));                        
+                    }
+                    else
+                    {
+                        path = AddDepartmentDialog.Show(path);                        
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(path))
+                    {
+                        _company.AddDepartment(path);
+                        ListDepartments = _company.Departments;
+                    }
+
                 }, (obj) => (SelectedDepartment != null) || (ListDepartments == null)));
             }            
         }
@@ -287,8 +321,33 @@ namespace ViewModels
                 {
                     string path = SelectedDepartment.Path;
 
-                    
+                    path = AddDepartmentDialog.Show(path);
+
+                    if (!string.IsNullOrWhiteSpace(path))
+                    {
+                        _company.AddDepartment(path);
+                        ListDepartments = _company.Departments;                        
+                    }
+
                 }, (obj) => (SelectedDepartment != null) && (SelectedDepartment.NextDepartments == null)));
+            }
+        }
+
+        /// <summary>
+        /// Удалить департамент
+        /// </summary>
+        public ICommand DeleteDepartment
+        {
+            get
+            {
+                return _deleteDepartment ?? (_deleteDepartment = new RelayCommand((obj) =>
+                {
+                    if(MessageBox.Show("Удалить департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        _company.DeleteDepartment(SelectedDepartment.Path);
+                        UpdateData();                       
+                    }
+                }, (obj) => SelectedDepartment != null));
             }
         }
 
@@ -307,7 +366,7 @@ namespace ViewModels
 
             UpdateData();
         }
-
+        
         #endregion
 
         #region Закрытые методы
@@ -318,10 +377,9 @@ namespace ViewModels
         public void UpdateData()
         {
             ListDepartments = _company.Departments;
-
             GeneralDirector = _company.GetGeneralDirector();
             DeputyDirector = _company.GetDeputyDirector();
-            ChiefAccountant = _company.GetChiefAccountant();
+            ChiefAccountant = _company.GetChiefAccountant();            
         }
 
         /// <summary>

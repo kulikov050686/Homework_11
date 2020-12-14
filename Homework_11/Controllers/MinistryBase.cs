@@ -135,8 +135,14 @@ namespace Controllers
                 if (pathToDepartment.Length == 0)
                 {
                     if (numberDepartments > -1)
-                    {
+                    {                        
                         Departments.RemoveAt(numberDepartments);
+
+                        if(Departments.Count == 0)
+                        {
+                            Departments = null;
+                        }
+
                         return true;
                     }
                 }
@@ -249,6 +255,12 @@ namespace Controllers
                             if(numberWorker > -1)
                             {
                                 Departments[numberDepartments].Workers.RemoveAt(numberWorker);
+
+                                if(Departments[numberDepartments].Workers.Count == 0)
+                                {
+                                    Departments[numberDepartments].Workers = null;
+                                }
+
                                 return true;
                             }                            
                         }
@@ -553,6 +565,12 @@ namespace Controllers
                         if (numberDepartments > -1)
                         {
                             department.NextDepartments.RemoveAt(numberDepartments);
+
+                            if(department.NextDepartments.Count == 0)
+                            {
+                                department.NextDepartments = null;
+                            }
+
                             return true;
                         }
                     }
@@ -652,6 +670,12 @@ namespace Controllers
                     if(k > -1)
                     {
                         department.Workers.RemoveAt(k);
+
+                        if(department.Workers.Count == 0)
+                        {
+                            department.Workers = null;
+                        }
+
                         return true;
                     }                    
                 }

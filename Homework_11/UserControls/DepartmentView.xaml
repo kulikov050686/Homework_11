@@ -45,6 +45,7 @@
                     <ContextMenu>
                         <MenuItem Header="Добавить департамент" Command="{Binding AddDepartment}"/>
                         <MenuItem Header="Добавить поддепартамент" Command="{Binding AddNextDepartment}"/>
+                        <MenuItem Header="Удалить департамент" Command="{Binding DeleteDepartment}"/>
                     </ContextMenu>
                 </TreeView.ContextMenu>
 
@@ -153,8 +154,19 @@
                             </DockPanel>
                         </StackPanel>
                     </Border>
-
                 </DockPanel>
+
+                <GroupBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить генерального директора" Command="{Binding AddGeneralDirector}"/>
+                        <MenuItem Header="Удалить генерального директора" Command="{Binding DeleteGeneralDirector}"/>
+                        <MenuItem Header="Добавить заместителя генерального директора" Command="{Binding AddDeputyDirector}"/>
+                        <MenuItem Header="Удалить заместителя генерального директора" Command="{Binding DeleteDeputyDirector}"/>
+                        <MenuItem Header="Добавить главного бухгалтера" Command="{Binding AddChiefAccountant}"/>
+                        <MenuItem Header="Удалить главного бухгалтера" Command="{Binding DeleteChiefAccountant}"/>
+                    </ContextMenu>
+                </GroupBox.ContextMenu>
+                
             </GroupBox>
 
             <!-- Состав Департамента -->
@@ -197,6 +209,14 @@
                                 </DockPanel>
                             </StackPanel>
                         </Border>
+
+                        <DockPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Добавить руководителя"/>
+                                <MenuItem Header="Удалить руководителя"/>
+                            </ContextMenu>
+                        </DockPanel.ContextMenu>
+                        
                     </DockPanel>
 
                     <!-- Сотрудники Департамента -->
@@ -233,6 +253,13 @@
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Добавить работника"/>
+                                <MenuItem Header="Удалить работника"/>                                
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
                     </ListBox>
                 </Grid>
             </GroupBox>

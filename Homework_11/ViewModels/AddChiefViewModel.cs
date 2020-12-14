@@ -1,5 +1,6 @@
 ﻿using Commands;
 using Models;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using Views;
@@ -72,7 +73,28 @@ namespace ViewModels
                    (18 <= ChiefAge && ChiefAge < 99) && 
                    (0 < ChiefSalary))
                 {
+                    switch(ChiefSelected)
+                    {
+                        case 0:
+                            ChiefEmployeePosition = EmployeePosition.GeneralDirector;
+                            ChiefJobTitle = "Генеральный директор";
+                            break;
+                        case 1:
+                            ChiefEmployeePosition = EmployeePosition.DeputyDirector;
+                            ChiefJobTitle = "Заместитель генерального директора";
+                            break;
+                        case 2:
+                            ChiefEmployeePosition = EmployeePosition.ChiefAccountant;
+                            ChiefJobTitle = "Главный бухгалтер";
+                            break;
+                        case 3:
+                            ChiefEmployeePosition = EmployeePosition.Supervisor;
+                            ChiefJobTitle = "Руководитель департамента";
+                            break;
+                    }
 
+                    YesNo = true;
+                    Close();
                 }
                 else 
                 {
@@ -93,16 +115,36 @@ namespace ViewModels
             }));
         }
 
+        /// <summary>
+        /// Список руководителей
+        /// </summary>
+        public List<string> ChiefCollection { get; set; }
+
+        /// <summary>
+        /// Номер выбранного руководителя
+        /// </summary>
+        public int ChiefSelected { get; set; }
+
         #endregion
 
         #region Конструктор
 
         public AddChiefViewModel()
         {
-            YesNo = false;
-            ChiefEmployeePosition = EmployeePosition.Supervisor;
+            YesNo = false;            
             ChiefAge = 18;
             ChiefSalary = 1300;
+
+            ChiefCollection = new List<string>()
+            {
+                "Генеральный директор",
+                "Заместитель генерального директора",
+                "Главный бухгалтер",
+                "Руководитель департамента"
+            };
+
+            ChiefSelected = 3;
+            ChiefEmployeePosition = EmployeePosition.Supervisor;
         }
 
         #endregion

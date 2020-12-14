@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
         Title="{Binding Title}" 
-        Height="400" 
+        Height="320" 
         Width="250"
         ResizeMode="NoResize" 
         Topmost="True" 
@@ -20,12 +20,11 @@
         <TextBox Text="{Binding ChiefSurname}" FontSize="16" Margin="0 5 0 5"/>
 
         <TextBlock Text="Возраст" FontSize="16" Margin="0 5 0 5" HorizontalAlignment="Center"/>
-        <TextBox Text="" FontSize="16" Margin="0 5 0 5"/>
+        <TextBox Text="" FontSize="16" Margin="0 5 0 5"/>      
 
-        <TextBlock Text="Название должности" FontSize="16" Margin="0 5 0 5" HorizontalAlignment="Center"/>
-        <TextBox Text="{Binding ChiefJobTitle}" FontSize="16" Margin="0 5 0 5"/>
-
-        <ComboBox Margin="0 5 0 5"/>
+        <ComboBox Margin="0 5 0 5" 
+                  ItemsSource="{Binding ChiefCollection}" 
+                  SelectedIndex="{Binding ChiefSelected}"/>
 
 
         <Grid Height="30" Margin="0 10 0 0">

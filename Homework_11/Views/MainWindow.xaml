@@ -16,7 +16,7 @@
     </Window.DataContext>
 
     <Grid>
-        <Frame Content="{Binding CurrentPage, Converter={converter:ApplicationPageValueConverter}}"/>
+        
     </Grid>
 </Window>
 

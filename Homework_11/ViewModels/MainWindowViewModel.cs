@@ -1,6 +1,4 @@
-﻿using DataModels;
-
-namespace ViewModels
+﻿namespace ViewModels
 {
     /// <summary>
     /// Класс Модели-Представления главного окна
@@ -16,12 +14,7 @@ namespace ViewModels
         /// Название приложения
         /// </summary>
         public string Title { get; set; }
-
-        /// <summary>
-        /// Страница отображаемая на главном окне
-        /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Main;
-   
+        
         #endregion
 
         #region Команды

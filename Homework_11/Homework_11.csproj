@@ -62,80 +62,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\SelectedItemTreeView.cs" />
-    <Compile Include="Converters\ApplicationPageValueConverter.cs" />
-    <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="Pages\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\AddChiefDialog.cs" />
-    <Compile Include="Services\AddDepartmentDialog.cs" />
-    <Compile Include="Services\AddWorkerDialog.cs" />
-    <Compile Include="ViewModels\AddChiefViewModel.cs" />
-    <Compile Include="ViewModels\AddDepartmentViewModel.cs" />
-    <Compile Include="ViewModels\AddWorkerViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\BaseClassINPC.cs" />
     <Compile Include="Converters\BaseValueConverter.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Controllers\Company.cs" />
-    <Compile Include="Controllers\Ministry.cs" />
-    <Compile Include="Controllers\MinistryBase.cs" />
-    <Compile Include="Models\BaseWorker.cs" />
-    <Compile Include="Models\ChiefAccountant.cs" />
-    <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\DeputyDirector.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\EmployeePosition.cs" />
-    <Compile Include="Models\GeneralDirector.cs" />
-    <Compile Include="Models\Intern.cs" />
-    <Compile Include="Models\Supervisor.cs" />
-    <Compile Include="Models\Worker.cs" />
-    <Compile Include="Services\FileIOService.cs" />
-    <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\BaseClassINPC.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="UserControls\DepartmentView.xaml.cs">
-      <DependentUpon>DepartmentView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowAddChief.xaml.cs">
-      <DependentUpon>WindowAddChief.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowAddDepartment.xaml.cs">
-      <DependentUpon>WindowAddDepartment.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowAddWorker.xaml.cs">
-      <DependentUpon>WindowAddWorker.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Pages\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\DepartmentView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WindowAddChief.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WindowAddDepartment.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WindowAddWorker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +106,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataModels\" />
+    <Folder Include="Pages\" />
+    <Folder Include="Services\" />
+    <Folder Include="UserControls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

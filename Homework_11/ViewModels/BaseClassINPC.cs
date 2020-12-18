@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Markup;
 
 namespace ViewModels
 {
     /// <summary>
     /// Базовый класс с реализацией интерфейса INotifyPropertyChanged
     /// </summary>
-    public abstract class BaseClassINPC : INotifyPropertyChanged
+    public abstract class BaseClassINPC : MarkupExtension, INotifyPropertyChanged
     {
         /// <summary>
         /// Событие для извещения об изменения свойства
@@ -58,9 +60,9 @@ namespace ViewModels
         /// Метод для обновления значения свойства
         /// </summary>
         /// <typeparam name="T"> Тип данных свойства и поля </typeparam>
-        /// <param name="field"> Ссылка на поле значения свойства </param>
-        /// <param name="value"> Новое значение </param>
-        /// <param name="property"> Название свойства </param>        
+        /// <param name="field"> Поле </param>
+        /// <param name="value"> Значение </param>
+        /// <param name="property"> Изменившееся свойство </param>        
         public bool Set<T>(ref T field, T value, [CallerMemberName] string property = null)
         {
             if (Equals(field, value)) return false;
@@ -69,6 +71,15 @@ namespace ViewModels
             OnPropertyChanged(property);
 
             return true;
+        }
+
+        /// <summary>
+        /// Метод возвращает объект, предоставляемый как значение целевого свойства для расширения разметки
+        /// </summary>
+        /// <param name="serviceProvider"> Поставщик услуг </param>        
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
         }
     }
 }

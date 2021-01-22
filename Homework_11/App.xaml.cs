@@ -6,7 +6,7 @@ using ViewModels;
 
 namespace Homework_11
 {
-    public partial class App : Application
+    public partial class App //: Application
     {
         private static IHost _Host;
 
@@ -14,6 +14,7 @@ namespace Homework_11
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
+            // Регистрируем Модель-Представление главного окна
             services.AddSingleton<MainWindowViewModel>();
         }
 

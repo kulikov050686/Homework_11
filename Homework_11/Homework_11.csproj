@@ -211,18 +211,50 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Ministry.cs" />
+    <Compile Include="Controllers\MinistryBase.cs" />
     <Compile Include="Converters\BaseValueConverter.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Infrastructure\FileDialog.cs" />
+    <Compile Include="Infrastructure\FileIOService.cs" />
+    <Compile Include="Models\BaseClassModelINPC.cs" />
+    <Compile Include="Models\BaseWorker.cs" />
+    <Compile Include="Models\ChiefAccountant.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DeputyDirector.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeePosition.cs" />
+    <Compile Include="Models\GeneralDirector.cs" />
+    <Compile Include="Models\Intern.cs" />
+    <Compile Include="Models\Supervisor.cs" />
+    <Compile Include="Models\Worker.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ViewModels\BaseClassINPC.cs" />
+    <Compile Include="Services\AddDepartmentDialog.cs" />
+    <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
+      <DependentUpon>DepartmentUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AddDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\BaseClassViewModelINPC.cs" />
+    <Compile Include="ViewModels\DepartmentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowAddDepartment.xaml.cs">
+      <DependentUpon>WindowAddDepartment.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UserControls\DepartmentUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowAddDepartment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +275,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -252,13 +287,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataModels\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Pages\" />
-    <Folder Include="Services\" />
-    <Folder Include="UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

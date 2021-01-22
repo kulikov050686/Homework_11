@@ -4,19 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_11"
-        xmlns:vm="clr-namespace:ViewModels"        
-        xmlns:converter="clr-namespace:Converters"
+        xmlns:vm="clr-namespace:ViewModels"
+        xmlns:userControl="clr-namespace:UserControls"        
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450" 
-        Width="800">
-
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
+        Width="800" 
+        DataContext="{vm:MainWindowViewModel}">   
 
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <userControl:DepartmentUserControl Grid.Row="1" 
+                                           Grid.Column="0" 
+                                           DataContext="{Binding DepartmentViewModel}"/>
+
     </Grid>
 </Window>
     

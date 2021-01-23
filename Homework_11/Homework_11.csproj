@@ -216,6 +216,8 @@
     <Compile Include="Converters\BaseValueConverter.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\ConverterIntToStatusWorker.cs" />
+    <Compile Include="Converters\ConverterStringToDouble.cs" />
     <Compile Include="Infrastructure\FileDialog.cs" />
     <Compile Include="Infrastructure\FileIOService.cs" />
     <Compile Include="Models\BaseClassModelINPC.cs" />
@@ -231,20 +233,41 @@
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\AddDepartmentDialog.cs" />
+    <Compile Include="Services\AddWorkerDialog.cs" />
     <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
       <DependentUpon>DepartmentUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainMenuUserControl.xaml.cs">
+      <DependentUpon>MainMenuUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WorkerUserControl.xaml.cs">
+      <DependentUpon>WorkerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\BaseClassViewModelINPC.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowAddDepartment.xaml.cs">
       <DependentUpon>WindowAddDepartment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowAddWorker.xaml.cs">
+      <DependentUpon>WindowAddWorker.xaml</DependentUpon>
+    </Compile>
     <Page Include="UserControls\DepartmentUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainMenuUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WorkerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,6 +276,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowAddDepartment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowAddWorker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

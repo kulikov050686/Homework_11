@@ -15,13 +15,23 @@ namespace ViewModels
     {
         #region Закрытые поля
 
+        WorkerViewModel _workerViewModel;
         Ministry _ministry;
         Department _selectedDepartment;
-        ObservableCollection<Department> _departments;   
+        ObservableCollection<Department> _departments;
 
         #endregion
-        
+
         #region Открытые поля
+
+        /// <summary>
+        /// Модель-представление списка работников 
+        /// </summary>
+        public WorkerViewModel WorkerViewModel
+        {
+            get => _workerViewModel;
+            set => Set(ref _workerViewModel, value);
+        }
 
         /// <summary>
         /// Список департаментов
@@ -38,7 +48,12 @@ namespace ViewModels
         public Department SelectedDepartmentVM
         {
             get => _selectedDepartment;
-            set => Set(ref _selectedDepartment, value);
+
+            set 
+            { 
+                Set(ref _selectedDepartment, value);
+                _workerViewModel.DepartmentVM = _selectedDepartment;
+            }
         }
 
         #endregion
@@ -125,6 +140,7 @@ namespace ViewModels
         public DepartmentViewModel(Ministry ministry)
         {
             _ministry = ministry;
+            _workerViewModel = new WorkerViewModel();
         }
     }
 }

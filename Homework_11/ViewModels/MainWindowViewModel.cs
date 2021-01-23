@@ -33,6 +33,17 @@ namespace ViewModels
 
         #endregion
 
+        #region Модель-представление контрола главного меню
+
+        private MainMenuViewModel _mainMenuViewModel;
+        public MainMenuViewModel MainMenuViewModel
+        {
+            get => _mainMenuViewModel;
+            set => Set(ref _mainMenuViewModel, value);
+        }
+
+        #endregion
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -42,6 +53,7 @@ namespace ViewModels
             _ministry = new Ministry(Title);
 
             _departmentViewModel = new DepartmentViewModel(_ministry);
+            _mainMenuViewModel = new MainMenuViewModel(_ministry);
         }       
     }
 }

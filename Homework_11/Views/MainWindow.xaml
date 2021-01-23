@@ -13,7 +13,6 @@
         DataContext="{vm:MainWindowViewModel}">   
 
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
@@ -24,10 +23,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <userControl:MainMenuUserControl Grid.Row="0" 
+                                         Grid.ColumnSpan="2" 
+                                         DataContext="{Binding MainMenuViewModel}"/>
+        
         <userControl:DepartmentUserControl Grid.Row="1" 
                                            Grid.Column="0" 
                                            DataContext="{Binding DepartmentViewModel}"/>
 
+        <userControl:WorkerUserControl Grid.Row="1" 
+                                       Grid.Column="1" 
+                                       DataContext="{Binding DepartmentViewModel.WorkerViewModel}"/>
     </Grid>
 </Window>
     

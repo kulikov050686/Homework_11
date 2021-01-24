@@ -332,11 +332,9 @@ namespace Controllers
 
                 if(Departments != null)
                 {
-                    BaseWorker baseWorker;
-
                     for(int i = 0; i < Departments.Count; i++)
                     {
-                        baseWorker = WorkerSearchByIdAndGetData(Departments[i], id);
+                        BaseWorker baseWorker = WorkerSearchByIdAndGetData(Departments[i], id);
 
                         if(baseWorker != null)
                         {

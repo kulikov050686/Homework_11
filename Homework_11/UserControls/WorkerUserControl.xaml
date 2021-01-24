@@ -11,8 +11,7 @@
     <GroupBox Header="Работники департамента">
     <DataGrid AutoGenerateColumns="False" 
               ItemsSource="{Binding DepartmentVM.Workers, Mode=TwoWay}"
-              SelectedItem="{Binding SelectedWorkerVM, Mode=TwoWay}" 
-              SelectedIndex="{Binding SelectedIndexVM}">
+              SelectedItem="{Binding SelectedWorkerVM, Mode=TwoWay}">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
             <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>

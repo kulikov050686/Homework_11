@@ -184,14 +184,14 @@ namespace Controllers
         /// </summary>        
         /// <param name="intern"> Интерн </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool AddIntern(Intern intern, string pathToDepartment)
+        public new bool AddWorker(BaseWorker worker, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
             }            
 
-            if(AddWorker(intern, pathToDepartment))
+            if(base.AddWorker(worker, pathToDepartment))
             {
                 СalculateSalary(pathToDepartment);                               
                 return true;
@@ -205,14 +205,14 @@ namespace Controllers
         /// </summary>
         /// <param name="intern"> Интерн </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool DeleteIntern(Intern intern, string pathToDepartment)
+        public new bool DeleteWorker(BaseWorker worker, string pathToDepartment)
         {
             if (string.IsNullOrWhiteSpace(pathToDepartment))
             {
                 throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
             }            
 
-            if(DeleteWorker(intern, pathToDepartment))
+            if(base.DeleteWorker(worker, pathToDepartment))
             {                
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -220,49 +220,7 @@ namespace Controllers
 
             return false;
         }
-
-        /// <summary>
-        /// Добавить сотрудника в депортамент
-        /// </summary>
-        /// <param name="employee"> Сотрудник </param>
-        /// <param name="pathToDepartment"> Путь до департамента </param>        
-        public bool AddEmployee(Employee employee, string pathToDepartment)
-        {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
-
-            if(AddWorker(employee, pathToDepartment))
-            {
-                СalculateSalary(pathToDepartment);                
-                return true;
-            }
-            
-            return false;
-        }
-
-        /// <summary>
-        /// Удалить сотрудника из департамента
-        /// </summary>
-        /// <param name="employee"> Сотрудник </param>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        public bool DeleteEmployee(Employee employee, string pathToDepartment)
-        {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }            
-
-            if(DeleteWorker(employee, pathToDepartment))
-            {                
-                СalculateSalary(pathToDepartment);
-                return true;
-            }
-
-            return false;
-        }
-
+        
         /// <summary>
         /// Получить список всех работников министерства
         /// </summary>        

@@ -140,7 +140,7 @@ namespace ViewModels
         public DepartmentViewModel(Ministry ministry)
         {
             _ministry = ministry;
-            _workerViewModel = new WorkerViewModel();
+            _workerViewModel = new WorkerViewModel(ministry);
         }
     }
 }

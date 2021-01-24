@@ -1,7 +1,7 @@
 ﻿using Commands;
+using Controllers;
 using Models;
 using Services;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,9 +13,9 @@ namespace ViewModels
     public class WorkerViewModel : BaseClassViewModelINPC
     {
         #region Закрытые поля
-                
-        BaseWorker _selectedWorker;
-        int _selectedIndex;
+
+        Ministry _ministry;
+        BaseWorker _selectedWorker;        
         Department _department;
         
         #endregion
@@ -29,15 +29,6 @@ namespace ViewModels
         {
             get => _selectedWorker;
             set => Set(ref _selectedWorker, value);
-        }
-
-        /// <summary>
-        /// Номер выбранного работника
-        /// </summary>
-        public int SelectedIndexVM
-        {
-            get => _selectedIndex;
-            set => Set(ref _selectedIndex, value);
         }
 
         /// <summary>
@@ -59,16 +50,12 @@ namespace ViewModels
             get => _addWorker ?? (_addWorker = new RelayCommand((obj) =>
             {
                 BaseWorker tempWorker = AddWorkerDialog.Show();
+                string path = DepartmentVM.Path;
 
-                if(DepartmentVM.Workers == null && tempWorker != null)
+                if(tempWorker != null)
                 {
-                    DepartmentVM.Workers = new ObservableCollection<BaseWorker>();
-                    DepartmentVM.Workers.Add(tempWorker);
-                }
-                else if(DepartmentVM.Workers != null && tempWorker != null)
-                {
-                    DepartmentVM.Workers.Add(tempWorker);
-                }
+                    _ministry.AddWorker(tempWorker, path);                    
+                }                
             }, (obj) => DepartmentVM != null));
         }
 
@@ -81,19 +68,12 @@ namespace ViewModels
         {
             get => _deleteWorker ?? (_deleteWorker = new RelayCommand((obj) =>
             {
-                if(DepartmentVM.Workers != null)
+                if (MessageBox.Show("Удалить работника?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    if (MessageBox.Show("Удалить работника?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    {
-                        DepartmentVM.Workers.RemoveAt(SelectedIndexVM);
-
-                        if (DepartmentVM.CountWorkers == 0)
-                        {
-                            DepartmentVM.Workers = null;
-                        }
-                    }
-                }
-            }, (obj) => DepartmentVM != null));
+                    string path = DepartmentVM.Path;
+                    _ministry.DeleteWorker(SelectedWorkerVM, path);
+                }                
+            }, (obj) => DepartmentVM != null && SelectedWorkerVM != null));
         }
 
         #endregion
@@ -101,8 +81,9 @@ namespace ViewModels
         /// <summary>
         /// Конструктор
         /// </summary>
-        public WorkerViewModel()
+        public WorkerViewModel(Ministry ministry)
         {
+            _ministry = ministry;
         }
     }
 }

@@ -123,11 +123,25 @@ namespace ViewModels
             {
                 return _deleteDepartment ?? (_deleteDepartment = new RelayCommand((obj) =>
                 {
-                    if (MessageBox.Show("Удалить департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if(SelectedDepartmentVM.CountDepartments == 0)
                     {
-                        _ministry.DeleteDepartment(SelectedDepartmentVM.Path);
-                        DepartmentsVM = _ministry.Departments;
+                        if(SelectedDepartmentVM.TotalMan == 0)
+                        {
+                            if (MessageBox.Show("Удалить департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                            {
+                                _ministry.DeleteDepartment(SelectedDepartmentVM.Path);
+                                DepartmentsVM = _ministry.Departments;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Удалить департамент невозможно, так как в департаменте есть сотрудники!", "Внимание!!!");
+                        }
                     }
+                    else
+                    {
+                        MessageBox.Show("Удалить департамент невозможно, так как существуют поддепартаменты!", "Внимание!!!");
+                    }                    
                 }, (obj) => SelectedDepartmentVM != null));
             }
         }

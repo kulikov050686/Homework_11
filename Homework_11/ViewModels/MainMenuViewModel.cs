@@ -61,7 +61,7 @@ namespace ViewModels
                 return _saveFile ?? (_saveFile = new RelayCommand((obj) =>
                 {
                     FileDialog<Department>.SaveFileDialog(_minystry.Departments);
-                }));
+                }, (obj) => _minystry.Departments != null));
             }
         }
 

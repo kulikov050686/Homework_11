@@ -180,9 +180,9 @@ namespace Controllers
         }
 
         /// <summary>
-        /// Добавить интерна в департамент
+        /// Добавить работника в департамент
         /// </summary>        
-        /// <param name="intern"> Интерн </param>
+        /// <param name="worker"> Работник </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new bool AddWorker(BaseWorker worker, string pathToDepartment)
         {
@@ -193,7 +193,7 @@ namespace Controllers
 
             if(base.AddWorker(worker, pathToDepartment))
             {
-                СalculateSalary(pathToDepartment);                               
+                СalculateSalary(pathToDepartment);
                 return true;
             }
 
@@ -201,9 +201,9 @@ namespace Controllers
         }
 
         /// <summary>
-        /// Удалить интерна из департамента
+        /// Удалить работника из департамента
         /// </summary>
-        /// <param name="intern"> Интерн </param>
+        /// <param name="worker"> Работник </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new bool DeleteWorker(BaseWorker worker, string pathToDepartment)
         {
@@ -374,6 +374,27 @@ namespace Controllers
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Установить список всех работников департамента
+        /// </summary>
+        /// <param name="workers"> Список работников </param>
+        /// <param name="pathToDepartment"> Путь до департамента </param>        
+        public bool SetListOfAllWorkersDepartment(ObservableCollection<BaseWorker> workers, string pathToDepartment)
+        {
+            if (string.IsNullOrWhiteSpace(pathToDepartment))
+            {
+                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
+            }
+
+            if(SetWorkersOfDepartment(workers, pathToDepartment))
+            {
+                СalculateSalary(pathToDepartment);
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

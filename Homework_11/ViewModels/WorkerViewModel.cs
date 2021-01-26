@@ -78,6 +78,44 @@ namespace ViewModels
 
         #endregion
 
+        #region Команда редактировать данные работника
+
+        private ICommand _editDataWorker;
+        public ICommand editDataWorker
+        {
+            get
+            {
+                return _editDataWorker ?? (_editDataWorker = new RelayCommand((obj) => 
+                {
+                    if (MessageBox.Show("Редактировать данные работника?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        /// реализовать редактирование данных работника
+                    }
+                }, (obj) => DepartmentVM != null && SelectedWorkerVM != null));
+            }
+        }
+
+        #endregion
+
+        #region Команда переместить работника
+
+        private ICommand _relocateWorker;
+        public ICommand RelocateWorker
+        {
+            get
+            {
+                return _relocateWorker ?? (_relocateWorker = new RelayCommand((obj) => 
+                {
+                    if (MessageBox.Show("Переместить работника?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        /// реализовать перемещение работника в другой департамент
+                    }
+                }, (obj) => DepartmentVM != null && SelectedWorkerVM != null));
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Конструктор
         /// </summary>

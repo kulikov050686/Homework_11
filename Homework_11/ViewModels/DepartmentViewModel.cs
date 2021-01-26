@@ -148,6 +148,25 @@ namespace ViewModels
 
         #endregion
 
+        #region Команда переименовать департамент
+
+        private ICommand _renameDepartment;
+        public ICommand RenameDepartment
+        {
+            get
+            {
+                return _renameDepartment ?? (_renameDepartment = new RelayCommand((obj) => 
+                {
+                    if (MessageBox.Show("Переименовать департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        /// Реализовать функцию переименования департамента
+                    }
+                }, (obj) => SelectedDepartmentVM != null));
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Конструктор
         /// </summary>        

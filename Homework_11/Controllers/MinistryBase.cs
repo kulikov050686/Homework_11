@@ -350,7 +350,7 @@ namespace Controllers
         /// <summary>
         /// Получить данные дапартамента
         /// </summary>
-        /// <param name="pathToDepartment"> Путь до департамента </param>        
+        /// <param name="pathToDepartment"> Путь до департамента </param>
         protected Department GetDepartment(string pathToDepartment)
         {
             string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
@@ -417,6 +417,38 @@ namespace Controllers
             }
 
             return null;            
+        }
+
+        /// <summary>
+        /// Установить лист с данными работников департамента
+        /// </summary>
+        /// <param name="workers"> Лист работников </param>
+        /// <param name="pathToDepartment"> Путь до департамента </param>        
+        protected bool SetWorkersOfDepartment(ObservableCollection<BaseWorker> workers, string pathToDepartment)
+        {
+            if(workers != null)
+            {
+                Department department = GetDepartment(pathToDepartment);
+
+                if (department != null)
+                {
+                    if(department.Workers != null)
+                    {
+                        for(int i =0; i < workers.Count; i++)
+                        {
+                            department.Workers.Add(workers[i]);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        department.Workers = workers;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

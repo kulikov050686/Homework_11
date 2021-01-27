@@ -9,7 +9,7 @@ namespace Services
     /// </summary>
     public static class AddWorkerDialog
     {
-        public static BaseWorker Show()
+        public static BaseWorker Show(string path)
         {
             WindowAddWorker addWorker = new WindowAddWorker();
             AddWorkerViewModel addWorkerViewModel = new AddWorkerViewModel();
@@ -25,7 +25,8 @@ namespace Services
                    !string.IsNullOrWhiteSpace(addWorkerViewModel.WorkerSurname) && 
                    (18 <= addWorkerViewModel.WorkerAge && addWorkerViewModel.WorkerAge <= 99) && 
                    0 < addWorkerViewModel.WorkerSalary && 
-                   !string.IsNullOrWhiteSpace(addWorkerViewModel.WorkerJobTitle))
+                   !string.IsNullOrWhiteSpace(addWorkerViewModel.WorkerJobTitle) && 
+                   !string.IsNullOrWhiteSpace(path))
                 {
                     if(addWorkerViewModel.WorkerEmployeePosition == EmployeePosition.Intern)
                     {
@@ -33,7 +34,8 @@ namespace Services
                                           addWorkerViewModel.WorkerSurname, 
                                           addWorkerViewModel.WorkerAge, 
                                           addWorkerViewModel.WorkerSalary, 
-                                          addWorkerViewModel.WorkerJobTitle);
+                                          addWorkerViewModel.WorkerJobTitle, 
+                                          path);
                     }
 
                     if(addWorkerViewModel.WorkerEmployeePosition == EmployeePosition.Employee)
@@ -42,7 +44,8 @@ namespace Services
                                             addWorkerViewModel.WorkerSurname,
                                             addWorkerViewModel.WorkerAge,
                                             addWorkerViewModel.WorkerSalary,
-                                            addWorkerViewModel.WorkerJobTitle);
+                                            addWorkerViewModel.WorkerJobTitle, 
+                                            path);
                     }
                 }
             }

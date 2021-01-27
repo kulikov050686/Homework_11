@@ -35,7 +35,7 @@ namespace ViewModels
         /// <summary>
         /// Нажатая кнопка Add = true, Cancel = false
         /// </summary>
-        public bool AddCancel { get; private set; }
+        public bool AddCancel { get; private set; } = false;
 
         #endregion
 

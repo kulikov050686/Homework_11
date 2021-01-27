@@ -230,7 +230,6 @@
     <Compile Include="Models\GeneralDirector.cs" />
     <Compile Include="Models\Intern.cs" />
     <Compile Include="Models\Supervisor.cs" />
-    <Compile Include="Models\Worker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\AddDepartmentDialog.cs" />
     <Compile Include="Services\AddWorkerDialog.cs" />

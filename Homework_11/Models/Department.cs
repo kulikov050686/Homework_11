@@ -27,7 +27,7 @@ namespace Models
                     throw new ArgumentNullException("Название департамента не может быть пустым!!!");
                 }
 
-                _nameDepartment = value;
+                Set(ref _nameDepartment, value);
             }
         }
 

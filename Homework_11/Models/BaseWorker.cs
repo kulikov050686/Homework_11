@@ -1,29 +1,37 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
     /// <summary>
     /// Базовый класс работник
     /// </summary>
-    public abstract class BaseWorker
-    {        
-        string _Name;
-        string _Surname;
-        long _Age;
-        double _Salary;
-        string _JobTitle;
+    public class BaseWorker : BaseClassModelINPC
+    {
+        ulong _id;
+        string _name;
+        string _surname;
+        long _age;
+        double _salary;
+        string _jobTitle;
+        EmployeePosition _employeePosition;
+        string _pathToDepartment;
 
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public ulong Id { get; set; }        
+        public ulong Id
+        {
+            get => _id;
+            set => Set(ref _id, value);
+        }        
 
         /// <summary>
         /// Имя
         /// </summary>
         public string Name
         {
-            get => _Name;
+            get => _name;
 
             set
             {
@@ -32,7 +40,7 @@ namespace Models
                     throw new ArgumentNullException("Имя не может быть пустым!!!");
                 }
 
-                _Name = value;
+                Set(ref _name, value);
             }
         }
 
@@ -41,7 +49,7 @@ namespace Models
         /// </summary>
         public string Surname
         {
-            get => _Surname;
+            get => _surname;
 
             set
             {
@@ -50,7 +58,7 @@ namespace Models
                     throw new ArgumentNullException("Фамилия не может быть пустой!!!");
                 }
 
-                _Surname = value;
+                Set(ref _surname, value);
             }
         }
 
@@ -59,7 +67,7 @@ namespace Models
         /// </summary>
         public long Age
         {
-            get => _Age;
+            get => _age;
 
             set
             {
@@ -68,7 +76,7 @@ namespace Models
                     throw new ArgumentException("Невозможный возраст!!!");
                 }
 
-                _Age = value;
+                Set(ref _age, value);
             }
         }
 
@@ -77,16 +85,16 @@ namespace Models
         /// </summary>
         public double Salary
         {
-            get => _Salary;
+            get => _salary;
 
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
                     throw new ArgumentException("Невозможная зарплата!!!");
                 }
 
-                _Salary = value;
+                Set(ref _salary, value);
             }
         }
 
@@ -95,7 +103,7 @@ namespace Models
         /// </summary>
         public string JobTitle
         {
-            get => _JobTitle;
+            get => _jobTitle;
 
             set
             {
@@ -104,14 +112,27 @@ namespace Models
                     throw new ArgumentNullException("Название должности не может быть пустым!!!");
                 }
 
-                _JobTitle = value;
+                Set(ref _jobTitle, value);
             }
         }
 
         /// <summary>
         /// Статус
         /// </summary>
-        public EmployeePosition EmployeePosition { get; set; }
+        public EmployeePosition EmployeePosition
+        {
+            get => _employeePosition;
+            set => Set(ref _employeePosition, value); 
+        }
+
+        /// <summary>
+        /// Путь до департамента
+        /// </summary>
+        public string PathToDepartment
+        {
+            get => _pathToDepartment;
+            set => Set(ref _pathToDepartment, value);
+        }
 
         /// <summary>
         /// Конструктор 
@@ -121,13 +142,15 @@ namespace Models
         /// <param name="age"> Возраст </param>
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
-        public BaseWorker(string name, string surname, long age, double salary, string jobTitle)
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        public BaseWorker(string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
         {
             Name = name;
             Surname = surname;
             Age = age;
             Salary = salary;
             JobTitle = jobTitle;
+            PathToDepartment = pathToDepartment;
         }
 
         /// <summary>
@@ -139,7 +162,8 @@ namespace Models
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
         /// <param name="employeePosition"> Статус работника </param>
-        public BaseWorker(string name, string surname, long age, double salary, string jobTitle, EmployeePosition employeePosition)
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        public BaseWorker(string name, string surname, long age, double salary, string jobTitle, EmployeePosition employeePosition, string pathToDepartment)
         {
             Name = name;
             Surname = surname;
@@ -147,6 +171,7 @@ namespace Models
             Salary = salary;
             JobTitle = jobTitle;
             EmployeePosition = employeePosition;
+            PathToDepartment = pathToDepartment;
         }
 
         /// <summary>
@@ -158,7 +183,8 @@ namespace Models
         /// <param name="age"> Возраст </param>
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
-        public BaseWorker(ulong id, string name, string surname, long age, double salary, string jobTitle)
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        public BaseWorker(ulong id, string name, string surname, long age, double salary, string jobTitle, string pathToDepartment)
         {
             Id = id;
             Name = name;
@@ -166,6 +192,7 @@ namespace Models
             Age = age;
             Salary = salary;
             JobTitle = jobTitle;
+            PathToDepartment = pathToDepartment;
         }
 
         /// <summary>
@@ -178,7 +205,9 @@ namespace Models
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
         /// <param name="employeePosition"> Статус работника </param>
-        public BaseWorker(ulong id, string name, string surname, long age, double salary, string jobTitle, EmployeePosition employeePosition)
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        [JsonConstructor]
+        public BaseWorker(ulong id, string name, string surname, long age, double salary, string jobTitle, EmployeePosition employeePosition, string pathToDepartment)
         {
             Id = id;
             Name = name;
@@ -187,6 +216,7 @@ namespace Models
             Salary = salary;
             JobTitle = jobTitle;
             EmployeePosition = employeePosition;
+            PathToDepartment = pathToDepartment;
         }
 
         /// <summary>
@@ -202,7 +232,8 @@ namespace Models
                        (worker.Age == Age) &&
                        (worker.Salary == Salary) &&
                        (worker.JobTitle == JobTitle) &&
-                       (worker.EmployeePosition == EmployeePosition);
+                       (worker.EmployeePosition == EmployeePosition) &&
+                       (worker.PathToDepartment == PathToDepartment);
             }
 
             return false;

@@ -13,7 +13,7 @@
         /// <param name="age"> Возраст </param>
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
-        public GeneralDirector(string name, string surname, long age, double salary, string jobTitle) : base(name, surname, age, salary, jobTitle)
+        public GeneralDirector(string name, string surname, long age, double salary, string jobTitle) : base(name, surname, age, salary, jobTitle, null)
         {
             EmployeePosition = EmployeePosition.GeneralDirector;
         }
@@ -27,7 +27,7 @@
         /// <param name="age"> Возраст </param>
         /// <param name="salary"> Зарплата </param>
         /// <param name="jobTitle"> Название должности </param>
-        public GeneralDirector(ulong id, string name, string surname, long age, double salary, string jobTitle) : base(id, name, surname, age, salary, jobTitle)
+        public GeneralDirector(ulong id, string name, string surname, long age, double salary, string jobTitle) : base(id, name, surname, age, salary, jobTitle, null)
         {
             EmployeePosition = EmployeePosition.GeneralDirector;
         }

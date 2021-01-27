@@ -43,11 +43,7 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new void AddDepartment(string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
-
+            PathErrorToDepartment(pathToDepartment);
             base.AddDepartment(pathToDepartment);
         }
 
@@ -57,12 +53,9 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до родительского департамента </param>
         public new bool DeleteDepartment(string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
+            PathErrorToDepartment(pathToDepartment);
 
-            if(base.DeleteDepartment(pathToDepartment))
+            if (base.DeleteDepartment(pathToDepartment))
             {
                 pathToDepartment = CutPathFromEnd(pathToDepartment);
                 СalculateSalary(pathToDepartment);
@@ -145,10 +138,7 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>        
         public bool AddSupervisorDepartment(Supervisor supervisor, string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
+            PathErrorToDepartment(pathToDepartment);
 
             if (AddDeleteSupervisor(supervisor, pathToDepartment))
             {
@@ -165,12 +155,9 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public bool DeleteSupervisorDepartment(string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
+            PathErrorToDepartment(pathToDepartment);
 
-            if(AddDeleteSupervisor(null, pathToDepartment))
+            if (AddDeleteSupervisor(null, pathToDepartment))
             {
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -186,12 +173,9 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new bool AddWorker(BaseWorker worker, string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }            
+            PathErrorToDepartment(pathToDepartment);
 
-            if(base.AddWorker(worker, pathToDepartment))
+            if (base.AddWorker(worker, pathToDepartment))
             {
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -207,12 +191,9 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>
         public new bool DeleteWorker(BaseWorker worker, string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }            
+            PathErrorToDepartment(pathToDepartment);
 
-            if(base.DeleteWorker(worker, pathToDepartment))
+            if (base.DeleteWorker(worker, pathToDepartment))
             {                
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -224,28 +205,28 @@ namespace Controllers
         /// <summary>
         /// Получить список всех работников министерства
         /// </summary>        
-        public ObservableCollection<Worker> GetListOfAllWorkers()
+        public ObservableCollection<BaseWorker> GetListOfAllWorkers()
         {
-            List<Worker> workers = new List<Worker>();
+            List<BaseWorker> workers = new List<BaseWorker>();
 
             if(GeneralDirector != null)
             {
-                workers.Add(new Worker(GeneralDirector, null));
+                workers.Add(GeneralDirector);
             }
 
             if(ChiefAccountant != null)
             {
-                workers.Add(new Worker(ChiefAccountant, null));
+                workers.Add(ChiefAccountant);
             }
 
             if(DeputyDirector != null)
             {
-                workers.Add(new Worker(DeputyDirector, null));
+                workers.Add(DeputyDirector);
             }
 
             if(Departments != null)
             {
-                List<Worker> temp;
+                List<BaseWorker> temp;
 
                 for(int i = 0; i < Departments.Count; i++)
                 {
@@ -260,7 +241,7 @@ namespace Controllers
 
             if(workers.Count != 0)
             {
-                ObservableCollection<Worker> blworkers = new ObservableCollection<Worker>();
+                ObservableCollection<BaseWorker> blworkers = new ObservableCollection<BaseWorker>();
 
                 for(int i = 0; i < workers.Count; i++)
                 {
@@ -277,34 +258,27 @@ namespace Controllers
         /// Установить список всех работников министерства
         /// </summary>
         /// <param name="workers"> Список работников </param>
-        public bool SetListOfAllWorkers(ObservableCollection<Worker> workers)
+        public bool SetListOfAllWorkers(ObservableCollection<BaseWorker> workers)
         {
             if(workers != null)
             {
-                bool key = true;
-
-                for(int i = 0; i < workers.Count && key; i++)
+                for(int i = 0; i < workers.Count; i++)
                 {
                     if(string.IsNullOrWhiteSpace(workers[i].PathToDepartment))
                     {
-                        key = false;
-
                         if(workers[i].EmployeePosition == EmployeePosition.GeneralDirector)
                         {
-                            GeneralDirector = new GeneralDirector(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);
-                            key = true;
+                            GeneralDirector = new GeneralDirector(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);                            
                         }
 
                         if(workers[i].EmployeePosition == EmployeePosition.ChiefAccountant)
                         {
-                            ChiefAccountant = new ChiefAccountant(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);
-                            key = true;
+                            ChiefAccountant = new ChiefAccountant(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);                            
                         }
 
                         if(workers[i].EmployeePosition == EmployeePosition.DeputyDirector)
                         {
-                            DeputyDirector = new DeputyDirector(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);
-                            key = true;
+                            DeputyDirector = new DeputyDirector(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);                            
                         }
                     }
                     else
@@ -314,25 +288,25 @@ namespace Controllers
 
                         if(workers[i].EmployeePosition == EmployeePosition.Intern)
                         {
-                            var intern = new Intern(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);
-                            key = AddWorker(intern, pathToDepartment);
+                            var intern = new Intern(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle, pathToDepartment);
+                            AddWorker(intern, pathToDepartment);
                         }
 
                         if(workers[i].EmployeePosition == EmployeePosition.Employee)
                         {
-                            var employee = new Employee(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);
-                            key = AddWorker(employee, pathToDepartment);
+                            var employee = new Employee(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle, pathToDepartment);
+                            AddWorker(employee, pathToDepartment);
                         }
 
                         if(workers[i].EmployeePosition == EmployeePosition.Supervisor)
                         {
-                            var supervisor = new Supervisor(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle);
-                            key = AddDeleteSupervisor(supervisor, pathToDepartment);
+                            var supervisor = new Supervisor(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle, pathToDepartment);
+                            AddDeleteSupervisor(supervisor, pathToDepartment);
                         }
                     }
                 }
 
-                return key;
+                return true;
             }
 
             return false;
@@ -342,38 +316,10 @@ namespace Controllers
         /// Получить список всех работников департамента
         /// </summary>
         /// <param name="pathToDepartment"> Путь до департамента </param>        
-        public ObservableCollection<Worker> GetListOfAllWorkersDepartment(string pathToDepartment)
+        public ObservableCollection<BaseWorker> GetListOfAllWorkersDepartment(string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
-
-            Department department = GetDepartment(pathToDepartment);
-
-            if(department != null)
-            {
-                ObservableCollection<Worker> temp;
-
-                if(department.CountWorkers != 0)
-                {
-                    temp = new ObservableCollection<Worker>();
-
-                    for(int i = 0; i < department.CountWorkers; i++)
-                    {
-                        temp.Add(new Worker(department.Workers[i], pathToDepartment));
-                    }
-
-                    if (department.Supervisor != null)
-                    {
-                        temp.Add(new Worker(department.Supervisor, pathToDepartment));
-                    }
-
-                    return temp;
-                }                
-            }
-
-            return null;
+            PathErrorToDepartment(pathToDepartment);
+            return GetWorkersOfDepartment(pathToDepartment);
         }
 
         /// <summary>
@@ -383,12 +329,9 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>        
         public bool SetListOfAllWorkersDepartment(ObservableCollection<BaseWorker> workers, string pathToDepartment)
         {
-            if (string.IsNullOrWhiteSpace(pathToDepartment))
-            {
-                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
-            }
+            PathErrorToDepartment(pathToDepartment);
 
-            if(SetWorkersOfDepartment(workers, pathToDepartment))
+            if (SetWorkersOfDepartment(workers, pathToDepartment))
             {
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -396,32 +339,7 @@ namespace Controllers
 
             return false;
         }
-
-        /// <summary>
-        /// Поиск работника
-        /// </summary>
-        /// <param name="worker"> Работник </param>        
-        public bool WorkerSearch(Worker worker)
-        {
-            if(worker != null)
-            {
-                ObservableCollection<Worker> workers = GetListOfAllWorkers();
-
-                if (workers != null)
-                {
-                    for (int i = 0; i < workers.Count; i++)
-                    {
-                        if (worker.Equals(workers[i]))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }        
-
+        
         #endregion
 
         #region Закрытые методы
@@ -570,17 +488,29 @@ namespace Controllers
         }
 
         /// <summary>
+        /// Ошибка пути до департамента
+        /// </summary>
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        private void PathErrorToDepartment(string pathToDepartment)
+        {
+            if (string.IsNullOrWhiteSpace(pathToDepartment))
+            {
+                throw new ArgumentNullException("Путь до департамента не может быть пустым!!!");
+            }
+        }
+
+        /// <summary>
         /// Лист всех работников
         /// </summary>
         /// <param name="department"> Департамент </param>
         /// <param name="nameDepartment"> Имя текущего департамента </param>        
-        private List<Worker> ListOfAllWorkers(Department department, string nameDepartment)
+        private List<BaseWorker> ListOfAllWorkers(Department department, string nameDepartment)
         {
-            List<Worker> workers = new List<Worker>();
+            List<BaseWorker> workers = new List<BaseWorker>();
 
             if (department.NextDepartments != null)
             {
-                List<Worker> temp;
+                List<BaseWorker> temp;
 
                 for (int i = 0; i < department.CountDepartments; i++)
                 {
@@ -594,14 +524,14 @@ namespace Controllers
 
                 if (department.Supervisor != null)
                 {
-                    workers.Add(new Worker(department.Supervisor, nameDepartment));
+                    workers.Add(department.Supervisor);
                 }
 
                 if (department.CountWorkers != 0)
                 {
                     for (int j = 0; j < department.CountWorkers; j++)
                     {
-                        workers.Add(new Worker(department.Workers[j], nameDepartment));
+                        workers.Add(department.Workers[j]);
                     }
                 }
             }
@@ -609,14 +539,14 @@ namespace Controllers
             {
                 if (department.Supervisor != null)
                 {
-                    workers.Add(new Worker(department.Supervisor, nameDepartment));
+                    workers.Add(department.Supervisor);
                 }
 
                 if (department.CountWorkers != 0)
                 {
                     for (int i = 0; i < department.CountWorkers; i++)
                     {
-                        workers.Add(new Worker(department.Workers[i], nameDepartment));
+                        workers.Add(department.Workers[i]);
                     }
                 }
             }

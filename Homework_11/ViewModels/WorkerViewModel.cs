@@ -49,7 +49,7 @@ namespace ViewModels
         {
             get => _addWorker ?? (_addWorker = new RelayCommand((obj) =>
             {
-                BaseWorker tempWorker = AddWorkerDialog.Show();
+                BaseWorker tempWorker = AddWorkerDialog.Show(DepartmentVM.Path);
                 string path = DepartmentVM.Path;
 
                 if(tempWorker != null)

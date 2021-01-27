@@ -266,7 +266,7 @@ namespace Controllers
 
                             for (int i = 0; i < Departments[numberDepartments].Workers.Count; i++)
                             {
-                                if(Equals(Departments[numberDepartments].Workers[i], worker))
+                                if(Departments[numberDepartments].Workers[i].Equals(worker))
                                 {
                                     numberWorker = i;
                                 }
@@ -377,74 +377,60 @@ namespace Controllers
         /// <param name="pathToDepartment"> Путь до департамента </param>        
         protected Supervisor GetSupervisorOfDepartment(string pathToDepartment)
         {
-            string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
-            int numberDepartments = SearchNumber(NameDepartment);
+            Department department = GetDepartment(pathToDepartment);
 
-            if (numberDepartments > -1)
+            if (department == null)
             {
-                if (CutPathFromBeginning(pathToDepartment).Length == 0)
-                {
-                    return Departments[numberDepartments].Supervisor;
-                }
-                else
-                {
-                    return DepartmentSearchAndGetSupervisor(pathToDepartment, Departments[numberDepartments]);
-                }
+                throw new ArgumentNullException("Такого департамента не существует!!!");
             }
-
-            return null;
+                        
+            return department.Supervisor;
         }
 
         /// <summary>
-        /// Получить лист с данными работников департамента
+        /// Получить список всех работников департамента
         /// </summary>
         /// <param name="pathToDepartment"> Путь до департамента </param>        
         protected ObservableCollection<BaseWorker> GetWorkersOfDepartment(string pathToDepartment)
         {
-            string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
-            int numberDepartments = SearchNumber(NameDepartment);
+            Department department = GetDepartment(pathToDepartment);
 
-            if (numberDepartments > -1)
+            if (department == null)
             {
-                if (CutPathFromBeginning(pathToDepartment).Length == 0)
-                {
-                    return Departments[numberDepartments].Workers;
-                }
-                else
-                {
-                    return DepartmentSearchAndGetWorkers(pathToDepartment, Departments[numberDepartments]);
-                }
+                throw new ArgumentNullException("Такого департамента не существует!!!");
             }
 
-            return null;            
+            return department.Workers;
         }
 
         /// <summary>
-        /// Установить лист с данными работников департамента
+        /// Установить список всех работников департамента
         /// </summary>
         /// <param name="workers"> Лист работников </param>
         /// <param name="pathToDepartment"> Путь до департамента </param>        
         protected bool SetWorkersOfDepartment(ObservableCollection<BaseWorker> workers, string pathToDepartment)
         {
-            if(workers != null)
-            {
-                Department department = GetDepartment(pathToDepartment);
+            Department department = GetDepartment(pathToDepartment);
 
-                if (department != null)
+            if (department == null)
+            {
+                throw new ArgumentNullException("Такого департамента не существует!!!");
+            }
+
+            if (workers != null)
+            {
+                if (department.Workers != null)
                 {
-                    if(department.Workers != null)
+                    for (int i = 0; i < workers.Count; i++)
                     {
-                        for(int i =0; i < workers.Count; i++)
-                        {
-                            department.Workers.Add(workers[i]);
-                        }
-                        return true;
+                        department.Workers.Add(workers[i]);
                     }
-                    else
-                    {
-                        department.Workers = workers;
-                        return true;
-                    }
+                    return true;
+                }
+                else
+                {
+                    department.Workers = workers;
+                    return true;
                 }
             }
 
@@ -511,28 +497,7 @@ namespace Controllers
 
             return path.Substring(0, path.Length - (++temp));
         }
-
-        /// <summary>
-        /// Определяет равны ли объекты друг другу
-        /// </summary>
-        /// <param name="worker_1"> Первый объект </param>
-        /// <param name="worker_2"> Второй объект </param>
-        public bool Equals(BaseWorker worker_1, BaseWorker worker_2)
-        {
-            if(worker_1 != null && worker_2 != null)
-            {
-                return (worker_1.Id == worker_2.Id) && 
-                       (worker_1.Name == worker_2.Name) &&
-                       (worker_1.Surname == worker_2.Surname) &&
-                       (worker_1.Age == worker_2.Age) &&
-                       (worker_1.Salary == worker_2.Salary) &&
-                       (worker_1.JobTitle == worker_2.JobTitle) &&
-                       (worker_1.EmployeePosition == worker_2.EmployeePosition);
-            }
-
-            return false;
-        }
-
+        
         #endregion
 
         #region Закрытые методы
@@ -710,7 +675,7 @@ namespace Controllers
 
                     for(int i = 0; i < department.Workers.Count; i++)
                     {
-                        if(Equals(department.Workers[i], worker))
+                        if(department.Workers[i].Equals(worker))
                         {
                             k = i;                           
                             break;

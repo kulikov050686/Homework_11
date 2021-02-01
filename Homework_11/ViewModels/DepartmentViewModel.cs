@@ -148,10 +148,10 @@ namespace ViewModels
 
         #endregion
 
-        #region Команда переименовать департамент
+        #region Команда Переименовать департамент
 
         private ICommand _renameDepartment;
-        public ICommand RenameDepartment
+        public ICommand RenameDepartmentVM
         {
             get
             {
@@ -159,7 +159,26 @@ namespace ViewModels
                 {
                     if (MessageBox.Show("Переименовать департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        /// Реализовать функцию переименования департамента
+                        SelectedDepartmentVM.NameDepartment = RenameDepartmentDialog.Show(SelectedDepartmentVM.NameDepartment);
+                    }
+                }, (obj) => SelectedDepartmentVM != null));
+            }
+        }
+
+        #endregion
+
+        #region Команда Переместить департамент
+
+        private ICommand _relocateDepartment;
+        public ICommand RelocateDepartment
+        {
+            get
+            {
+                return _relocateDepartment ?? (_relocateDepartment = new RelayCommand((obj) =>
+                {
+                    if (MessageBox.Show("Переместить департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        /// Реализовать функцию перемещения департамента
                     }
                 }, (obj) => SelectedDepartmentVM != null));
             }

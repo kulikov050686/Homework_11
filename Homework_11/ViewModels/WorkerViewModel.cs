@@ -42,7 +42,7 @@ namespace ViewModels
 
         #endregion
 
-        #region Команда добавить работника
+        #region Команда Добавить работника
 
         private ICommand _addWorker;
         public ICommand AddWorkerVM
@@ -61,7 +61,7 @@ namespace ViewModels
 
         #endregion
 
-        #region Команда удалить работника
+        #region Команда Удалить работника
         
         private ICommand _deleteWorker;
         public ICommand DeleteWorkerVM
@@ -78,7 +78,7 @@ namespace ViewModels
 
         #endregion
 
-        #region Команда редактировать данные работника
+        #region Команда Редактировать данные работника
 
         private ICommand _editDataWorker;
         public ICommand editDataWorker
@@ -97,7 +97,7 @@ namespace ViewModels
 
         #endregion
 
-        #region Команда переместить работника
+        #region Команда Переместить работника
 
         private ICommand _relocateWorker;
         public ICommand RelocateWorker

@@ -233,6 +233,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Services\AddDepartmentDialog.cs" />
     <Compile Include="Services\AddWorkerDialog.cs" />
+    <Compile Include="Services\RenameDepartmentDialog.cs" />
     <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
       <DependentUpon>DepartmentUserControl.xaml</DependentUpon>
     </Compile>

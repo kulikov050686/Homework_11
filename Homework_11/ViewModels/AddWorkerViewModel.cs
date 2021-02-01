@@ -52,17 +52,17 @@ namespace ViewModels
         /// <summary>
         /// Статус
         /// </summary>
-        public EmployeePosition WorkerEmployeePosition { get; set; }
+        public EmployeePosition WorkerEmployeePosition { get; set; } = EmployeePosition.Intern;
         
         /// <summary>
         /// Название статуса работника
         /// </summary>
-        public List<string> StatusWorker { get; set; }
+        public List<string> StatusWorker { get; set; } = new List<string> { "Интерн", "Штатный сотрудник" };
 
         #endregion
 
         #region Команда добавить
-        
+
         private ICommand _add;
         public ICommand Add
         {
@@ -93,10 +93,7 @@ namespace ViewModels
 
         public AddWorkerViewModel()
         {
-            AddCancel = false;
-            WorkerEmployeePosition = EmployeePosition.Intern;
-
-            StatusWorker = new List<string> { "Интерн", "Штатный сотрудник" };
+            AddCancel = false;                    
         }
 
         #endregion

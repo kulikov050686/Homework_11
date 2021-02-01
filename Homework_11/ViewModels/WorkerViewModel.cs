@@ -81,7 +81,7 @@ namespace ViewModels
         #region Команда Редактировать данные работника
 
         private ICommand _editDataWorker;
-        public ICommand editDataWorker
+        public ICommand EditDataWorkerVM
         {
             get
             {
@@ -89,7 +89,15 @@ namespace ViewModels
                 {
                     if (MessageBox.Show("Редактировать данные работника?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        /// реализовать редактирование данных работника
+                        BaseWorker tempWorker = EditDataWorkerDialog.Show(SelectedWorkerVM);
+
+                        if(!tempWorker.Equals(SelectedWorkerVM))
+                        {
+                            if(_ministry.DeleteWorker(SelectedWorkerVM, DepartmentVM.Path))
+                            {
+                                _ministry.AddWorker(tempWorker, DepartmentVM.Path);
+                            }
+                        }
                     }
                 }, (obj) => DepartmentVM != null && SelectedWorkerVM != null));
             }

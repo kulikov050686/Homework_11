@@ -159,7 +159,12 @@ namespace ViewModels
                 {
                     if (MessageBox.Show("Переименовать департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        SelectedDepartmentVM.NameDepartment = RenameDepartmentDialog.Show(SelectedDepartmentVM.NameDepartment);
+                        string newNameDepartment = RenameDepartmentDialog.Show(SelectedDepartmentVM.NameDepartment);
+
+                        if(!_ministry.RenameDepartment(SelectedDepartmentVM.Path, newNameDepartment))
+                        {
+                            MessageBox.Show("Департамент переименовать невозможно!!!", "Внимание!!!");
+                        }
                     }
                 }, (obj) => SelectedDepartmentVM != null));
             }

@@ -66,6 +66,23 @@ namespace Controllers
         }
 
         /// <summary>
+        /// Переименовать департамент
+        /// </summary>
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        /// <param name="newNameDepartment"> Новое имя департамента </param>        
+        public new bool RenameDepartment(string pathToDepartment, string newNameDepartment)
+        {
+            PathErrorToDepartment(pathToDepartment);
+
+            if (string.IsNullOrWhiteSpace(newNameDepartment))
+            {
+                throw new ArgumentNullException("Имя департамента не может пустым!!!");
+            }
+
+            return base.RenameDepartment(pathToDepartment, newNameDepartment);
+        }
+
+        /// <summary>
         /// Добавить генерального директора
         /// </summary>
         /// <param name="generalDirector"> Генеральный директор </param>

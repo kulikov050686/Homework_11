@@ -273,6 +273,44 @@ namespace Controllers
         }
 
         /// <summary>
+        /// Переименовать департамент
+        /// </summary>
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        /// <param name="newNameDepartment"> Новое имя департамента </param>
+        protected bool RenameDepartment(string pathToDepartment, string newNameDepartment)
+        {
+            Department department = GetDepartment(pathToDepartment);
+
+            if (department == null)
+            {
+                throw new ArgumentNullException("Такого департамента не существует!!!");
+            }
+
+            pathToDepartment = CutPathFromEnd(pathToDepartment);
+
+            if(pathToDepartment.Length == 0)
+            {
+                if(SearchNumber(newNameDepartment) == -1)
+                {
+                    department.NameDepartment = newNameDepartment;
+                    department.Path = newNameDepartment;
+                    return true;
+                }
+            }
+            else
+            {
+                if(SearchNumber(newNameDepartment, GetDepartment(pathToDepartment)) == -1)
+                {
+                    department.NameDepartment = newNameDepartment;
+                    department.Path = pathToDepartment + '/' + newNameDepartment;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Добавить руководителя в департамент
         /// </summary>
         /// <param name="supervisor"> Руководитель департамента </param>

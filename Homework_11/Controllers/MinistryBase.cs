@@ -141,6 +141,76 @@ namespace Controllers
         }
 
         /// <summary>
+        /// Добавить департамент
+        /// </summary>
+        /// <param name="department"> Добавляемый департамент </param>
+        /// <param name="pathToParentDepartment"> Путь до родительского департамента </param>        
+        protected bool AddDepartment(Department department, string pathToParentDepartment = null)
+        {
+            if(department != null)
+            {
+                if (!string.IsNullOrWhiteSpace(pathToParentDepartment))
+                {
+                    department.Path = pathToParentDepartment + '/' + department.NameDepartment;
+                }
+
+                string Path = CutPathFromEnd(department.Path);
+
+                if(Path.Length == 0)
+                {
+                    if(Departments == null)
+                    {
+                        Departments = new ObservableCollection<Department>();
+                        department.Path = department.NameDepartment;
+                        Departments.Add(department);
+                        return true;
+                    }
+                    else
+                    {
+                        if (SearchNumber(department.NameDepartment) == -1)
+                        {
+                            department.Path = department.NameDepartment;
+                            Departments.Add(department);
+                            return true;
+                        }                        
+                    }
+                }
+                else
+                {
+                    Department ParentDepartment = GetDepartment(Path);
+
+                    if (ParentDepartment == null)
+                    {
+                        AddDepartment(Path);
+                        ParentDepartment = GetDepartment(Path);
+                        ParentDepartment.NextDepartments = new ObservableCollection<Department>();
+                        ParentDepartment.NextDepartments.Add(department);
+                        return true;
+                    }
+                    else
+                    {
+                        if(ParentDepartment.NextDepartments == null)
+                        {
+                            ParentDepartment.NextDepartments = new ObservableCollection<Department>();
+                            ParentDepartment.NextDepartments.Add(department);
+                            return true;
+                        }
+                        else
+                        {
+                            if(SearchNumber(department.NameDepartment, ParentDepartment) == -1)
+                            {
+                                ParentDepartment.NextDepartments.Add(department);
+                                return true;
+                            }
+                        }
+                    }
+                }               
+            }           
+
+            return false;
+        }
+
+        /// <summary>
         /// Удалить департамент
         /// </summary>             
         /// <param name="pathToDepartment"> Путь до родительского департамента </param>
@@ -179,11 +249,10 @@ namespace Controllers
         }
 
         /// <summary>
-        /// Добавить или удалить руководителя в департамент
+        /// Получить дапартамент
         /// </summary>
-        /// <param name="supervisor"> Руководитель департамента </param>
-        /// <param name="pathToDepartment"> Путь до депортамента </param>
-        protected bool AddDeleteSupervisor(Supervisor supervisor, string pathToDepartment)
+        /// <param name="pathToDepartment"> Путь до департамента </param>
+        protected Department GetDepartment(string pathToDepartment)
         {
             string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
             int numberDepartments = SearchNumber(NameDepartment);
@@ -192,20 +261,54 @@ namespace Controllers
             {
                 if (CutPathFromBeginning(pathToDepartment).Length == 0)
                 {
-                    Departments[numberDepartments].Supervisor = supervisor;
-                    return true;
+                    return Departments[numberDepartments];
                 }
                 else
                 {
-                    if (DepartmentSearchAndAddingDeleteSupervisor(pathToDepartment, supervisor, Departments[numberDepartments]))
-                    {
-                        return true;
-                    }
+                    return DepartmentSearchAndGet(pathToDepartment, Departments[numberDepartments]);
                 }
             }
 
+            return null;
+        }
+
+        /// <summary>
+        /// Добавить руководителя в департамент
+        /// </summary>
+        /// <param name="supervisor"> Руководитель департамента </param>
+        /// <param name="pathToDepartment"> Путь до депортамента </param>
+        protected bool AddSupervisor(Supervisor supervisor, string pathToDepartment)
+        {
+            if(supervisor != null)
+            {
+                Department department = GetDepartment(pathToDepartment);
+
+                if (department != null)
+                {
+                    department.Supervisor = supervisor;
+                    return true;
+                }
+            }           
+
             return false;
-        }       
+        }
+
+        /// <summary>
+        /// Удалить руководителя департамента
+        /// </summary>
+        /// <param name="pathToDepartment"> Путь до депортамента </param>
+        protected bool DeleteSupervisor(string pathToDepartment)
+        {
+            Department department = GetDepartment(pathToDepartment);
+
+            if (department != null)
+            {
+                department.Supervisor = null;
+                return true;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Добавить работника в департамент
@@ -216,29 +319,22 @@ namespace Controllers
         {            
             if (worker != null)
             {
-                string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
-                int numberDepartments = SearchNumber(NameDepartment);
+                Department department = GetDepartment(pathToDepartment);
 
-                if (numberDepartments > -1) 
+                if(department != null)
                 {
-                    if (CutPathFromBeginning(pathToDepartment).Length == 0)
+                    if (department.Workers == null)
                     {
-                        if (Departments[numberDepartments].Workers == null)
-                        {
-                            Departments[numberDepartments].Workers = new ObservableCollection<BaseWorker>();
-                        }
-
-                        Departments[numberDepartments].Workers.Add(worker);
+                        department.Workers = new ObservableCollection<BaseWorker>();
+                        department.Workers.Add(worker);
                         return true;
                     }
                     else
                     {
-                        if (DepartmentSearchAndAddingWorker(pathToDepartment, worker, Departments[numberDepartments]))
-                        {
-                            return true;
-                        }
+                        department.Workers.Add(worker);
+                        return true;
                     }
-                }                                
+                }                                               
             }
 
             return false;
@@ -253,46 +349,35 @@ namespace Controllers
         {
             if (worker != null)
             {
-                string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
-                int numberDepartments = SearchNumber(NameDepartment);
+                Department department = GetDepartment(pathToDepartment);
 
-                if(numberDepartments > -1)
+                if(department != null)
                 {
-                    if (CutPathFromBeginning(pathToDepartment).Length == 0)
+                    if(department.Workers != null)
                     {
-                        if (Departments[numberDepartments].Workers != null)
-                        {
-                            int numberWorker = -1;
+                        int numberWorker = -1;
 
-                            for (int i = 0; i < Departments[numberDepartments].Workers.Count; i++)
+                        for(int i = 0; i < department.CountWorkers; i++)
+                        {
+                            if(department.Workers[i].Equals(worker))
                             {
-                                if(Departments[numberDepartments].Workers[i].Equals(worker))
-                                {
-                                    numberWorker = i;
-                                }
+                                numberWorker = i;
+                            }
+                        }
+
+                        if(numberWorker > -1)
+                        {
+                            department.Workers.RemoveAt(numberWorker);
+
+                            if(department.CountWorkers == 0)
+                            {
+                                department.Workers = null;
                             }
 
-                            if(numberWorker > -1)
-                            {
-                                Departments[numberDepartments].Workers.RemoveAt(numberWorker);
-
-                                if(Departments[numberDepartments].Workers.Count == 0)
-                                {
-                                    Departments[numberDepartments].Workers = null;
-                                }
-
-                                return true;
-                            }                            
-                        }
-                    }
-                    else
-                    {
-                        if (DepartmentSearchAndDeleteWorker(pathToDepartment, worker, Departments[numberDepartments]))
-                        {
                             return true;
                         }
                     }
-                }               
+                }                               
             }
 
             return false;
@@ -346,31 +431,7 @@ namespace Controllers
 
             return null;
         }
-
-        /// <summary>
-        /// Получить данные дапартамента
-        /// </summary>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        protected Department GetDepartment(string pathToDepartment)
-        {
-            string NameDepartment = NameOfCurrentDepartment(pathToDepartment);
-            int numberDepartments = SearchNumber(NameDepartment);
-
-            if (numberDepartments > -1)
-            {
-                if (CutPathFromBeginning(pathToDepartment).Length == 0)
-                {
-                    return Departments[numberDepartments];
-                }
-                else
-                {
-                    return DepartmentSearchAndGet(pathToDepartment, Departments[numberDepartments]);
-                }
-            }
-
-            return null;
-        }
-
+        
         /// <summary>
         /// Получить данные руководителя департамента
         /// </summary>
@@ -594,121 +655,7 @@ namespace Controllers
 
             return false;
         }
-
-        /// <summary>
-        /// Поиск департамента и добавление руководителя
-        /// </summary>
-        /// <param name="pathTotDepartment"> Путь до департамента </param>        
-        /// <param name="supervisor"> Руководитель </param>        
-        /// <param name="department"> Текущий департамент </param>        
-        private bool DepartmentSearchAndAddingDeleteSupervisor(string pathToDepartment, Supervisor supervisor, Department department)
-        {
-            string NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            pathToDepartment = CutPathFromBeginning(pathToDepartment);
-
-            if (department.NameDepartment == NameParentDepartment && pathToDepartment.Length == 0)
-            {
-                department.Supervisor = supervisor;
-                return true;
-            }
-
-            NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);            
-            int numberDepartments = SearchNumber(NameParentDepartment, department);
-            
-            if (numberDepartments > -1)
-            {
-                return DepartmentSearchAndAddingDeleteSupervisor(pathToDepartment, supervisor, department.NextDepartments[numberDepartments]);
-            }
-
-            return false;
-        }
-                
-        /// <summary>
-        /// Поиск департамента и добавление интерна
-        /// </summary>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        /// <param name="intern"> Интерн </param>
-        /// <param name="department"> Текущий департамент </param>        
-        private bool DepartmentSearchAndAddingWorker(string pathToDepartment, BaseWorker worker, Department department)
-        {
-            string NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            pathToDepartment = CutPathFromBeginning(pathToDepartment);
-
-            if (department.NameDepartment == NameParentDepartment && pathToDepartment.Length == 0)
-            {
-                if(department.Workers == null)
-                {
-                    department.Workers = new ObservableCollection<BaseWorker>();
-                }
-
-                department.Workers.Add(worker);
-                return true;
-            }
-
-            NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);            
-            int numberDepartments = SearchNumber(NameParentDepartment, department);
-
-            if (numberDepartments > -1)
-            {
-                return DepartmentSearchAndAddingWorker(pathToDepartment, worker, department.NextDepartments[numberDepartments]);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Поиск департамента и удаление работника
-        /// </summary>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        /// <param name="worker"> Работник </param>
-        /// <param name="department"> Текущий департамент </param>
-        private bool DepartmentSearchAndDeleteWorker(string pathToDepartment, BaseWorker worker, Department department)
-        {            
-            string NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            pathToDepartment = CutPathFromBeginning(pathToDepartment);
-
-            if (department.NameDepartment == NameParentDepartment && pathToDepartment.Length == 0)
-            {
-                if (department.Workers != null)
-                {
-                    int k = -1;                   
-
-                    for(int i = 0; i < department.Workers.Count; i++)
-                    {
-                        if(department.Workers[i].Equals(worker))
-                        {
-                            k = i;                           
-                            break;
-                        }
-                    }
-
-                    if(k > -1)
-                    {
-                        department.Workers.RemoveAt(k);
-
-                        if(department.Workers.Count == 0)
-                        {
-                            department.Workers = null;
-                        }
-
-                        return true;
-                    }                    
-                }
-
-                return false;
-            }
-
-            NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            int numberDepartments = SearchNumber(NameParentDepartment, department);
-
-            if (numberDepartments > -1)
-            {
-                return DepartmentSearchAndDeleteWorker(pathToDepartment, worker, department.NextDepartments[numberDepartments]);
-            }
-
-            return false;
-        }        
-
+        
         /// <summary>
         /// Поиск департамента и получение данных о нём
         /// </summary>
@@ -734,61 +681,9 @@ namespace Controllers
 
             return null;
         }
-
+        
         /// <summary>
-        /// Поиск департамента и получение данных о руководителе
-        /// </summary>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        /// <param name="department"> Текущий департамент </param>        
-        private Supervisor DepartmentSearchAndGetSupervisor(string pathToDepartment, Department department)
-        {
-            string NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            pathToDepartment = CutPathFromBeginning(pathToDepartment);
-
-            if (department.NameDepartment == NameParentDepartment && pathToDepartment.Length == 0)
-            {                
-                return department.Supervisor;
-            }
-
-            NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            int numberDepartments = SearchNumber(NameParentDepartment, department);
-
-            if (numberDepartments > -1)
-            {
-                return DepartmentSearchAndGetSupervisor(pathToDepartment, department.NextDepartments[numberDepartments]);
-            }
-            
-            return null;
-        }
-
-        /// <summary>
-        /// Поиск департамента и получение данных о работниках
-        /// </summary>
-        /// <param name="pathToDepartment"> Путь до департамента </param>
-        /// <param name="department"> Текущий департамент </param>        
-        private ObservableCollection<BaseWorker> DepartmentSearchAndGetWorkers(string pathToDepartment, Department department)
-        {
-            string NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            pathToDepartment = CutPathFromBeginning(pathToDepartment);
-
-            if (department.NameDepartment == NameParentDepartment && pathToDepartment.Length == 0)
-            {
-                return department.Workers;
-            }
-
-            NameParentDepartment = NameOfCurrentDepartment(pathToDepartment);
-            int numberDepartments = SearchNumber(NameParentDepartment, department);
-            
-            if (numberDepartments > -1)
-            {
-                return DepartmentSearchAndGetWorkers(pathToDepartment, department.NextDepartments[numberDepartments]);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Поиск работника по идентификатору и получение данных 
+        /// Поиск работника по идентификатору
         /// </summary>
         /// <param name="department"></param>
         /// <param name="id"></param>        

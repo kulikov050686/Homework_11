@@ -140,7 +140,7 @@ namespace Controllers
         {
             PathErrorToDepartment(pathToDepartment);
 
-            if (AddDeleteSupervisor(supervisor, pathToDepartment))
+            if (AddSupervisor(supervisor, pathToDepartment))
             {
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -157,7 +157,7 @@ namespace Controllers
         {
             PathErrorToDepartment(pathToDepartment);
 
-            if (AddDeleteSupervisor(null, pathToDepartment))
+            if (DeleteSupervisor(pathToDepartment))
             {
                 СalculateSalary(pathToDepartment);
                 return true;
@@ -301,7 +301,7 @@ namespace Controllers
                         if(workers[i].EmployeePosition == EmployeePosition.Supervisor)
                         {
                             var supervisor = new Supervisor(workers[i].Id, workers[i].Name, workers[i].Surname, workers[i].Age, workers[i].Salary, workers[i].JobTitle, pathToDepartment);
-                            AddDeleteSupervisor(supervisor, pathToDepartment);
+                            AddSupervisor(supervisor, pathToDepartment);
                         }
                     }
                 }

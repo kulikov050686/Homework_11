@@ -3,6 +3,9 @@ using Views;
 
 namespace Services
 {
+    /// <summary>
+    /// Открытие диалогового окна переименования департамента
+    /// </summary>
     public static class RenameDepartmentDialog
     {
         public static string Show(string nameDepartment)

@@ -1,6 +1,5 @@
 ﻿using Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Controllers
@@ -221,10 +220,10 @@ namespace Controllers
         
         /// <summary>
         /// Получить список всех работников министерства
-        /// </summary>        
-        public ObservableCollection<BaseWorker> GetListOfAllWorkers()
+        /// </summary>
+        public ObservableCollection<BaseWorker> GetListOfAllWorkersMinistry()
         {
-            List<BaseWorker> workers = new List<BaseWorker>();
+            ObservableCollection<BaseWorker> workers = new ObservableCollection<BaseWorker>();
 
             if(GeneralDirector != null)
             {
@@ -243,7 +242,7 @@ namespace Controllers
 
             if(Departments != null)
             {
-                List<BaseWorker> temp;
+                ObservableCollection<BaseWorker> temp;
 
                 for(int i = 0; i < Departments.Count; i++)
                 {
@@ -251,31 +250,22 @@ namespace Controllers
 
                     if (temp.Count != 0)
                     {
-                        workers.AddRange(temp);
+                        for(int j = 0; j < temp.Count; j++)
+                        {
+                            workers.Add(temp[j]);
+                        }                        
                     }                                        
                 }
-            }
+            }           
 
-            if(workers.Count != 0)
-            {
-                ObservableCollection<BaseWorker> blworkers = new ObservableCollection<BaseWorker>();
-
-                for(int i = 0; i < workers.Count; i++)
-                {
-                    blworkers.Add(workers[i]);
-                }
-
-                return blworkers;
-            }
-
-            return null;
+            return workers;
         }
 
         /// <summary>
         /// Установить список всех работников министерства
         /// </summary>
         /// <param name="workers"> Список работников </param>
-        public bool SetListOfAllWorkers(ObservableCollection<BaseWorker> workers)
+        public void SetListOfAllWorkersMinistry(ObservableCollection<BaseWorker> workers)
         {
             if(workers != null)
             {
@@ -321,12 +311,8 @@ namespace Controllers
                             AddSupervisor(supervisor, pathToDepartment);
                         }
                     }
-                }
-
-                return true;
-            }
-
-            return false;
+                }                
+            }            
         }
 
         /// <summary>
@@ -521,13 +507,13 @@ namespace Controllers
         /// </summary>
         /// <param name="department"> Департамент </param>
         /// <param name="nameDepartment"> Имя текущего департамента </param>        
-        private List<BaseWorker> ListOfAllWorkers(Department department, string nameDepartment)
+        private ObservableCollection<BaseWorker> ListOfAllWorkers(Department department, string nameDepartment)
         {
-            List<BaseWorker> workers = new List<BaseWorker>();
+            ObservableCollection<BaseWorker> workers = new ObservableCollection<BaseWorker>();
 
             if (department.NextDepartments != null)
             {
-                List<BaseWorker> temp;
+                ObservableCollection<BaseWorker> temp;
 
                 for (int i = 0; i < department.CountDepartments; i++)
                 {
@@ -535,8 +521,11 @@ namespace Controllers
 
                     if (temp.Count != 0)
                     {
-                        workers.AddRange(temp);
-                    }                    
+                        for (int j = 0; j < temp.Count; j++)
+                        {
+                            workers.Add(temp[j]);
+                        }
+                    }
                 }
 
                 if (department.Supervisor != null)

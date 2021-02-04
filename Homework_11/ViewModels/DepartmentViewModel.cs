@@ -5,6 +5,7 @@ using Services;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.Specialized;
 
 namespace ViewModels
 {
@@ -15,23 +16,24 @@ namespace ViewModels
     {
         #region Закрытые поля
 
-        WorkerViewModel _workerViewModel;
         Ministry _ministry;
         Department _selectedDepartment;
         ObservableCollection<Department> _departments;
 
         #endregion
 
-        #region Открытые поля
-
-        /// <summary>
-        /// Модель-представление списка работников 
-        /// </summary>
+        #region Модель-представление списка работников 
+                
+        WorkerViewModel _workerViewModel;
         public WorkerViewModel WorkerViewModel
         {
             get => _workerViewModel;
             set => Set(ref _workerViewModel, value);
         }
+
+        #endregion
+        
+        #region Открытые поля
 
         /// <summary>
         /// Список департаментов
@@ -80,10 +82,9 @@ namespace ViewModels
 
                     if (!string.IsNullOrWhiteSpace(path))
                     {
-                        _ministry.AddDepartment(path);
-                        DepartmentsVM = _ministry.Departments;
+                        _ministry.AddDepartment(path);                        
                     }
-                }, (obj) => (SelectedDepartmentVM != null) || (DepartmentsVM == null)));
+                }, (obj) => (SelectedDepartmentVM != null) || (DepartmentsVM.Count == 0)));
             }
         }
 
@@ -104,8 +105,7 @@ namespace ViewModels
 
                     if (!string.IsNullOrWhiteSpace(path))
                     {
-                        _ministry.AddDepartment(path);
-                        DepartmentsVM = _ministry.Departments;
+                        _ministry.AddDepartment(path);                        
                     }
 
                 }, (obj) => (SelectedDepartmentVM != null) && (SelectedDepartmentVM.NextDepartments == null)));
@@ -129,8 +129,7 @@ namespace ViewModels
                         {
                             if (MessageBox.Show("Удалить департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                             {
-                                _ministry.DeleteDepartment(SelectedDepartmentVM.Path);
-                                DepartmentsVM = _ministry.Departments;
+                                _ministry.DeleteDepartment(SelectedDepartmentVM.Path);                                
                             }
                         }
                         else
@@ -197,7 +196,14 @@ namespace ViewModels
         public DepartmentViewModel(Ministry ministry)
         {
             _ministry = ministry;
-            _workerViewModel = new WorkerViewModel(ministry);
+            DepartmentsVM = _ministry.Departments;
+            _workerViewModel = new WorkerViewModel(_ministry);
+            _ministry.Departments.CollectionChanged += Departments_CollectionChanged;
+        }
+
+        private void Departments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {            
+            DepartmentsVM = _ministry.Departments;
         }
     }
 }

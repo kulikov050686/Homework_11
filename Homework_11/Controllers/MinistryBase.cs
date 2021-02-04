@@ -45,7 +45,7 @@ namespace Controllers
         public ObservableCollection<Department> Departments
         {
             get => _departments;
-            set => Set(ref _departments, value); 
+            private set => Set(ref _departments, value); 
         }
 
         /// <summary>
@@ -85,7 +85,8 @@ namespace Controllers
         /// <param name="nameMinistry"> Название министерства </param>
         public MinistryBase(string nameMinistry)
         {
-            NameMinistry = nameMinistry;           
+            NameMinistry = nameMinistry;
+            Departments = new ObservableCollection<Department>();
         }
 
         #endregion

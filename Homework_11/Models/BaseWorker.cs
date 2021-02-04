@@ -135,6 +135,12 @@ namespace Models
         }
 
         /// <summary>
+        /// Конструктор
+        /// </summary>
+        public BaseWorker()
+        {}
+
+        /// <summary>
         /// Конструктор 
         /// </summary>        
         /// <param name="name"> Имя </param>

@@ -44,7 +44,7 @@ namespace ViewModels
             {
                 return _openFile ?? (_openFile = new RelayCommand((obj) =>
                 {
-                    _minystry.Departments = FileDialog<Department>.OpenFileDialog();                    
+                    _minystry.SetListOfAllWorkersMinistry(FileDialog<BaseWorker>.OpenFileDialog());                    
                 }));
             }
         }
@@ -60,7 +60,7 @@ namespace ViewModels
             {
                 return _saveFile ?? (_saveFile = new RelayCommand((obj) =>
                 {
-                    FileDialog<Department>.SaveFileDialog(_minystry.Departments);
+                    FileDialog<BaseWorker>.SaveFileDialog(_minystry.GetListOfAllWorkersMinistry());
                 }, (obj) => _minystry.Departments != null));
             }
         }

@@ -53,7 +53,7 @@ namespace ViewModels
             _ministry = new Ministry(Title);
 
             _departmentViewModel = new DepartmentViewModel(_ministry);
-            _mainMenuViewModel = new MainMenuViewModel(_ministry);
+            _mainMenuViewModel = new MainMenuViewModel(_ministry);            
         }       
     }
 }

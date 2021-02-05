@@ -365,12 +365,14 @@ namespace Controllers
                     if (department.Workers == null)
                     {
                         department.Workers = new ObservableCollection<BaseWorker>();
+                        worker.PathToDepartment = pathToDepartment;
                         department.Workers.Add(worker);
                         return true;
                     }
                     else
                     {
-                        department.Workers.Add(worker);
+                        worker.PathToDepartment = pathToDepartment;
+                        department.Workers.Add(worker);                        
                         return true;
                     }
                 }                                               

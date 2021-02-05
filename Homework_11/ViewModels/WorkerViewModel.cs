@@ -116,7 +116,14 @@ namespace ViewModels
                 {
                     if (MessageBox.Show("Переместить работника?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        /// реализовать перемещение работника в другой департамент
+                        string newPath = DepartmentSelectionDialog.Show(_ministry);
+
+                        if(newPath != null)
+                        {
+                            BaseWorker worker = SelectedWorkerVM;
+                            _ministry.AddWorker(SelectedWorkerVM, newPath);
+                            _ministry.DeleteWorker(worker, DepartmentVM.Path);
+                        }                     
                     }
                 }, (obj) => DepartmentVM != null && SelectedWorkerVM != null));
             }

@@ -233,6 +233,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Services\AddDepartmentDialog.cs" />
     <Compile Include="Services\AddWorkerDialog.cs" />
+    <Compile Include="Services\DepartmentSelectionDialog.cs" />
     <Compile Include="Services\EditDataWorkerDialog.cs" />
     <Compile Include="Services\RenameDepartmentDialog.cs" />
     <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
@@ -248,6 +249,7 @@
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\BaseClassViewModelINPC.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\LocationSelectionViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
@@ -259,6 +261,9 @@
     </Compile>
     <Compile Include="Views\WindowAddWorker.xaml.cs">
       <DependentUpon>WindowAddWorker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowLocationSelection.xaml.cs">
+      <DependentUpon>WindowLocationSelection.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\DepartmentUserControl.xaml">
       <SubType>Designer</SubType>
@@ -281,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WindowAddWorker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowLocationSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

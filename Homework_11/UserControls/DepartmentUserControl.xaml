@@ -27,7 +27,7 @@
             </b:Interaction.Behaviors>
 
             <TreeView.ContextMenu>
-                <ContextMenu>
+                <ContextMenu Visibility="{Binding VisibilityContextMenu}">
                     <MenuItem Header="Добавить департамент" Command="{Binding AddDepartmentVM}"/>
                     <MenuItem Header="Добавить поддепартамент" Command="{Binding AddNextDepartmentVM}"/>
                     <MenuItem Header="Удалить департамент" Command="{Binding DeleteDepartmentVM}"/>

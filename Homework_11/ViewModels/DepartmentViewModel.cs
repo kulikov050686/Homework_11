@@ -58,6 +58,11 @@ namespace ViewModels
             }
         }
 
+        /// <summary>
+        /// Отображение контекстного меню
+        /// </summary>
+        public Visibility VisibilityContextMenu { get; set; } = Visibility.Visible;
+
         #endregion
 
         #region Команда Добавить департамент
@@ -200,7 +205,7 @@ namespace ViewModels
             _workerViewModel = new WorkerViewModel(_ministry);
             _ministry.Departments.CollectionChanged += Departments_CollectionChanged;
         }
-
+                
         private void Departments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {            
             DepartmentsVM = _ministry.Departments;

@@ -165,7 +165,7 @@ namespace ViewModels
                     {
                         string newNameDepartment = RenameDepartmentDialog.Show(SelectedDepartmentVM.NameDepartment);
 
-                        if(!_ministry.RenameDepartment(SelectedDepartmentVM.Path, newNameDepartment))
+                        if(newNameDepartment != null  && !_ministry.RenameDepartment(SelectedDepartmentVM.Path, newNameDepartment))
                         {
                             MessageBox.Show("Департамент переименовать невозможно!!!", "Внимание!!!");
                         }
@@ -179,7 +179,7 @@ namespace ViewModels
         #region Команда Переместить департамент
 
         private ICommand _relocateDepartment;
-        public ICommand RelocateDepartment
+        public ICommand RelocateDepartmentVM
         {
             get
             {
@@ -187,7 +187,13 @@ namespace ViewModels
                 {
                     if (MessageBox.Show("Переместить департамент?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        /// Реализовать функцию перемещения департамента
+                        string newPath = DepartmentSelectionDialog.Show(_ministry);
+                        string oldPath = SelectedDepartmentVM.Path;
+
+                        if (newPath != null)
+                        {
+                            /// Реализовать функцию перемещения департамента
+                        }
                     }
                 }, (obj) => SelectedDepartmentVM != null));
             }
@@ -205,10 +211,17 @@ namespace ViewModels
             _workerViewModel = new WorkerViewModel(_ministry);
             _ministry.Departments.CollectionChanged += Departments_CollectionChanged;
         }
-                
+
+        #region Закрытые методы
+
+        /// <summary>
+        /// Обработчик события при изменении списка департаментов
+        /// </summary>        
         private void Departments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {            
             DepartmentsVM = _ministry.Departments;
         }
+
+        #endregion
     }
 }

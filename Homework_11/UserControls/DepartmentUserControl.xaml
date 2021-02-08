@@ -32,6 +32,7 @@
                     <MenuItem Header="Добавить поддепартамент" Command="{Binding AddNextDepartmentVM}"/>
                     <MenuItem Header="Удалить департамент" Command="{Binding DeleteDepartmentVM}"/>
                     <MenuItem Header="Переименовать департамент" Command="{Binding RenameDepartmentVM}"/>
+                    <MenuItem Header="Переместить департамент" Command="{Binding RelocateDepartmentVM}"/>
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>

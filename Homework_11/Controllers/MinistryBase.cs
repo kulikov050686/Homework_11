@@ -164,6 +164,7 @@ namespace Controllers
                         Departments = new ObservableCollection<Department>();
                         department.Path = department.NameDepartment;
                         Departments.Add(department);
+                        RewritePathToDepartment(department);
                         return true;
                     }
                     else
@@ -172,6 +173,7 @@ namespace Controllers
                         {
                             department.Path = department.NameDepartment;
                             Departments.Add(department);
+                            RewritePathToDepartment(department);
                             return true;
                         }                        
                     }
@@ -186,6 +188,7 @@ namespace Controllers
                         ParentDepartment = GetDepartment(Path);
                         ParentDepartment.NextDepartments = new ObservableCollection<Department>();
                         ParentDepartment.NextDepartments.Add(department);
+                        RewritePathToDepartment(department);
                         return true;
                     }
                     else
@@ -194,6 +197,7 @@ namespace Controllers
                         {
                             ParentDepartment.NextDepartments = new ObservableCollection<Department>();
                             ParentDepartment.NextDepartments.Add(department);
+                            RewritePathToDepartment(department);
                             return true;
                         }
                         else
@@ -201,6 +205,7 @@ namespace Controllers
                             if(SearchNumber(department.NameDepartment, ParentDepartment) == -1)
                             {
                                 ParentDepartment.NextDepartments.Add(department);
+                                RewritePathToDepartment(department);
                                 return true;
                             }
                         }
@@ -295,6 +300,7 @@ namespace Controllers
                 {
                     department.NameDepartment = newNameDepartment;
                     department.Path = newNameDepartment;
+                    RewritePathToDepartment(department);
                     return true;
                 }
             }
@@ -304,6 +310,7 @@ namespace Controllers
                 {
                     department.NameDepartment = newNameDepartment;
                     department.Path = pathToDepartment + '/' + newNameDepartment;
+                    RewritePathToDepartment(department);
                     return true;
                 }
             }
@@ -763,7 +770,30 @@ namespace Controllers
 
             return null;
         }
-        
+
+        /// <summary>
+        /// Переписывает пути
+        /// </summary>
+        /// <param name="department"> Департамент </param>
+        private void RewritePathToDepartment(Department department)
+        {
+            for (int i = 0; i < department.CountWorkers; i++)
+            {
+                department.Workers[i].PathToDepartment = department.Path;
+            }
+
+            if (department.Supervisor != null)
+            {
+                department.Supervisor.PathToDepartment = department.Path;
+            }
+
+            for (int i = 0; i < department.CountDepartments; i++)
+            {
+                department.NextDepartments[i].Path = department.Path + '/' + department.NextDepartments[i].NameDepartment;
+                RewritePathToDepartment(department.NextDepartments[i]);
+            }
+        }
+
         /// <summary>
         /// Название текущего департамента
         /// </summary>

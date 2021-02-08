@@ -119,12 +119,34 @@ namespace Models
         public ulong Id { get; set; }
 
         /// <summary>
-        /// Конструктор департамента
+        /// Конструктор
         /// </summary>
         /// <param name="nameDepartment"> Название департамента </param>
-        /// <param name="id"> Идентификатор департамента </param>
+        public Department(string nameDepartment)
+        {
+            NameDepartment = nameDepartment;
+        }
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="nameDepartment"> Название департамента </param>
+        /// <param name="path"> Полный путь до департамента </param>
         public Department(string nameDepartment, string path)
         {
+            NameDepartment = nameDepartment;
+            Path = path;
+        }
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="id"> Идентификатор департамента </param>
+        /// <param name="nameDepartment"> Имя департамента</param>
+        /// <param name="path"> Полный путь до департамента </param>
+        public Department(ulong id, string nameDepartment, string path)
+        {
+            Id = id;
             NameDepartment = nameDepartment;
             Path = path;
         }

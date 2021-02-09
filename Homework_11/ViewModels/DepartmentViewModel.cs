@@ -192,7 +192,14 @@ namespace ViewModels
 
                         if (newPath != null)
                         {
-                            /// Реализовать функцию перемещения департамента
+                            if (PathAnalysis(newPath, oldPath))
+                            {
+                                MessageBox.Show("Перемещать МОЖНО!!!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Перемещать НЕЛЬЗЯ!!!");
+                            }
                         }
                     }
                 }, (obj) => SelectedDepartmentVM != null));
@@ -220,6 +227,88 @@ namespace ViewModels
         private void Departments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {            
             DepartmentsVM = _ministry.Departments;
+        }
+
+        /// <summary>
+        /// Анализ путей
+        /// </summary>
+        /// <param name="newPath"> Новый путь </param>
+        /// <param name="oldPath"> Старый путь </param>        
+        private bool PathAnalysis(string newPath, string oldPath)
+        {
+            if(TrimTail(newPath) != TrimTail(oldPath))
+            {
+                return true;
+            }
+            else
+            {
+                if (newPath != oldPath)
+                {
+                    newPath = TrimHead(newPath);
+                    oldPath = TrimHead(oldPath);
+
+                    if(oldPath.Length == 0 && newPath.Length != 0)
+                    {
+                        return false;
+                    }
+
+                    if(newPath.Length == 0 && oldPath.Length != 0)
+                    {
+                        return true;
+                    }
+
+                    return PathAnalysis(newPath, oldPath);
+                }
+            }           
+
+            return false;
+        }
+
+        /// <summary>
+        /// Обрезает путь с хвоста
+        /// </summary>
+        /// <param name="path"> Путь </param>        
+        private string TrimTail(string path)
+        {
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                int temp = 0;
+
+                for (int i = 0; i < path.Length; i++)
+                {
+                    if (path[i] != '/')
+                    {
+                        temp++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                return path.Substring(0, temp);
+            }
+
+            return "";
+        }
+
+        /// <summary>
+        /// Обрезать путь с головы
+        /// </summary>
+        /// <param name="path"> Путь </param>        
+        private string TrimHead(string path)
+        {
+            if(!string.IsNullOrWhiteSpace(path))
+            {
+                int k = TrimTail(path).Length + 1;
+
+                if(k <= path.Length)
+                {
+                    return path.Substring(k, path.Length - k);
+                }                
+            }
+
+            return "";
         }
 
         #endregion

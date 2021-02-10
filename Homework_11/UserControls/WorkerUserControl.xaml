@@ -26,7 +26,7 @@
             <MenuItem Header="Добавить работника" Command="{Binding AddWorkerVM}"/>
             <MenuItem Header="Удалить работника" Command="{Binding DeleteWorkerVM}"/>
             <MenuItem Header="Изменить данные работника" Command="{Binding EditDataWorkerVM}"/>
-            <MenuItem Header="Переместить работника" Command="{Binding RelocateWorker}"/>
+            <MenuItem Header="Переместить работника" Command="{Binding RelocateWorkerVM}"/>
         </ContextMenu>
     </GroupBox.ContextMenu>
     </GroupBox>

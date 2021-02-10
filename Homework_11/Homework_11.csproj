@@ -232,6 +232,7 @@
     <Compile Include="Models\Supervisor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\AddDepartmentDialog.cs" />
+    <Compile Include="Services\AddSupervisorDialog.cs" />
     <Compile Include="Services\AddWorkerDialog.cs" />
     <Compile Include="Services\DepartmentSelectionDialog.cs" />
     <Compile Include="Services\EditDataWorkerDialog.cs" />
@@ -246,6 +247,7 @@
       <DependentUpon>WorkerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\AddSupervisorViewModel.cs" />
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\BaseClassViewModelINPC.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
@@ -258,6 +260,9 @@
     </Compile>
     <Compile Include="Views\WindowAddDepartment.xaml.cs">
       <DependentUpon>WindowAddDepartment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowAddSupervisor.xaml.cs">
+      <DependentUpon>WindowAddSupervisor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowAddWorker.xaml.cs">
       <DependentUpon>WindowAddWorker.xaml</DependentUpon>
@@ -282,6 +287,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowAddDepartment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowAddSupervisor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

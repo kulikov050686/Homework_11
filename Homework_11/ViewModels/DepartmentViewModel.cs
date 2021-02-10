@@ -218,7 +218,7 @@ namespace ViewModels
         {
             _ministry = ministry;
             DepartmentsVM = _ministry.Departments;
-            _workerViewModel = new WorkerViewModel(_ministry);
+            _workerViewModel = new WorkerViewModel(ministry);
             _ministry.Departments.CollectionChanged += Departments_CollectionChanged;
         }
 

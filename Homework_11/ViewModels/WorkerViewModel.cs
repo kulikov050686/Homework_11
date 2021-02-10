@@ -17,11 +17,12 @@ namespace ViewModels
         Ministry _ministry;
         BaseWorker _selectedWorker;        
         Department _department;
-        
+        Supervisor _supervisor;
+
         #endregion
-        
+
         #region Открытые Свойства
-        
+
         /// <summary>
         /// Выбранный работник
         /// </summary>
@@ -37,7 +38,20 @@ namespace ViewModels
         public Department DepartmentVM
         {
             get => _department;
-            set => Set(ref _department, value);            
+            set 
+            {
+                Set(ref _department, value);
+                SupervisorVM = _department.Supervisor;
+            }            
+        }
+
+        /// <summary>
+        /// Руководитель департамента
+        /// </summary>
+        public Supervisor SupervisorVM
+        {
+            get => _supervisor;
+            set => Set(ref _supervisor, value);
         }
 
         #endregion
@@ -108,7 +122,7 @@ namespace ViewModels
         #region Команда Переместить работника
 
         private ICommand _relocateWorker;
-        public ICommand RelocateWorker
+        public ICommand RelocateWorkerVM
         {
             get
             {
@@ -121,9 +135,12 @@ namespace ViewModels
                         if(newPath != null)
                         {
                             BaseWorker worker = SelectedWorkerVM;
-                            _ministry.AddWorker(SelectedWorkerVM, newPath);
-                            _ministry.DeleteWorker(worker, DepartmentVM.Path);
-                        }                     
+                            
+                            if(_ministry.AddWorker(SelectedWorkerVM, newPath))
+                            {
+                                _ministry.DeleteWorker(worker, DepartmentVM.Path);
+                            }
+                        }
                     }
                 }, (obj) => DepartmentVM != null && SelectedWorkerVM != null));
             }
@@ -131,12 +148,69 @@ namespace ViewModels
 
         #endregion
 
+        #region Команда Добавить руководителя
+
+        private ICommand _addSupervisor;
+        public ICommand AddSupervisorVM
+        {
+            get => _addSupervisor ?? (_addSupervisor = new RelayCommand((obj) =>
+            {
+                Supervisor supervisor = (Supervisor)AddSupervisorDialog.Show(EmployeePosition.Supervisor, DepartmentVM.Path);
+
+                if(supervisor != null)
+                {
+                    _ministry.AddSupervisorDepartment(supervisor, DepartmentVM.Path);
+                }
+            }, (obj) => DepartmentVM != null && SupervisorVM == null));
+        }
+
+        #endregion
+
+        #region Команда Удалить руководителя
+
+        private ICommand _deleteSupervisor;
+        public ICommand DeleteSupervisorVM
+        {
+            get => _deleteSupervisor ?? (_deleteSupervisor = new RelayCommand((obj) =>
+            {
+                _ministry.DeleteSupervisorDepartment(DepartmentVM.Path);
+            }, (obj) => SupervisorVM != null));
+        }
+
+        #endregion
+
+        #region Команда Редактировать данные руководителя
+
+        private ICommand _editDataSupervisor;
+        public ICommand EditDataSupervisor
+        {
+            get => _editDataSupervisor ?? (_editDataSupervisor = new RelayCommand((obj) =>
+            {
+                ///
+            }, (obj) => SupervisorVM != null));
+        }
+
+        #endregion
+
+        #region Команда Переместить руководителя
+
+        private ICommand _relocateSupervisor;
+        public ICommand RelocateSupervisor
+        {
+            get => _relocateSupervisor ?? (_relocateSupervisor = new RelayCommand((obj) =>
+            {
+                ///
+            }, (obj) => SupervisorVM != null));
+        }
+
+        #endregion
+        
         /// <summary>
         /// Конструктор
         /// </summary>
         public WorkerViewModel(Ministry ministry)
         {
-            _ministry = ministry;
+            _ministry = ministry;            
         }
     }
 }

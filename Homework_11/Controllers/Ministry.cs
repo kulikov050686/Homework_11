@@ -65,6 +65,16 @@ namespace Controllers
         }
 
         /// <summary>
+        /// Добавить департамент
+        /// </summary>
+        /// <param name="department"> Департамент </param>
+        /// <param name="pathToParentDepartment"> Путь до родительского департамента </param>        
+        public new bool AddDepartment(Department department, string pathToParentDepartment = null)
+        {
+            return base.AddDepartment(department, pathToParentDepartment);
+        }
+
+        /// <summary>
         /// Переименовать департамент
         /// </summary>
         /// <param name="pathToDepartment"> Путь до департамента </param>

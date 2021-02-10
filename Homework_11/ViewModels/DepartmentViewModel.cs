@@ -194,7 +194,10 @@ namespace ViewModels
                         {
                             if (PathAnalysis(newPath, oldPath))
                             {
-                                MessageBox.Show("Перемещать МОЖНО!!!");
+                                if(_ministry.AddDepartment(SelectedDepartmentVM, newPath))
+                                {
+                                    _ministry.DeleteDepartment(oldPath);
+                                }                                
                             }
                             else
                             {

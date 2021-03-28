@@ -6,6 +6,9 @@ namespace Homework_11
 {
     public static class Program
     {
+        /// <summary>
+        /// Точка входа в приложение
+        /// </summary>
         [STAThread]
         public static void Main()
         {
@@ -14,6 +17,10 @@ namespace Homework_11
             app.Run();
         }
 
+        /// <summary>
+        /// Создание хоста
+        /// </summary>
+        /// <param name="Args"> Аргументы командной строки </param>        
         public static IHostBuilder CreateHostBuilder(string[] Args)
         {
             var host_builder = Host.CreateDefaultBuilder(Args);

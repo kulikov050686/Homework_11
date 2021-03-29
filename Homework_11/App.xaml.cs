@@ -6,18 +6,33 @@ using ViewModels;
 
 namespace Homework_11
 {
-    public partial class App //: Application
+    public partial class App
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private static IHost _Host;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static IHost Host => _Host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build(); 
 
+        /// <summary>
+        /// Метод конфигурации сервисов
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="services"></param>
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             // Регистрируем Модель-Представление главного окна
             services.AddSingleton<MainWindowViewModel>();
         }
 
+        /// <summary>
+        /// Метод запуска
+        /// </summary>
+        /// <param name="e"></param>
         protected override async void OnStartup(StartupEventArgs e)
         {
             var host = Host;
@@ -26,6 +41,10 @@ namespace Homework_11
             await host.StartAsync().ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Метод остановки
+        /// </summary>
+        /// <param name="e"></param>
         protected override async void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);

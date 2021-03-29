@@ -18,6 +18,7 @@ namespace ViewModels
         BaseWorker _selectedWorker;        
         Department _department;
         Supervisor _supervisor;
+        Visibility _visibilitySupervisorVM = Visibility.Collapsed;
 
         #endregion
 
@@ -52,6 +53,15 @@ namespace ViewModels
         {
             get => _supervisor;
             set => Set(ref _supervisor, value);
+        }
+
+        /// <summary>
+        /// Видимость поля руководителя департамента
+        /// </summary>
+        public Visibility VisibilitySupervisorVM
+        {
+            get => _visibilitySupervisorVM;
+            set => Set(ref _visibilitySupervisorVM, value);
         }
 
         #endregion
@@ -160,6 +170,8 @@ namespace ViewModels
                 if(supervisor != null)
                 {
                     _ministry.AddSupervisorDepartment(supervisor, DepartmentVM.Path);
+                    SupervisorVM = DepartmentVM.Supervisor;
+                    VisibilitySupervisorVM = Visibility.Visible;
                 }
             }, (obj) => DepartmentVM != null && SupervisorVM == null));
         }

@@ -7,27 +7,87 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800">
-    
-    <GroupBox Header="Работники департамента">
-    <DataGrid AutoGenerateColumns="False" 
-              ItemsSource="{Binding DepartmentVM.Workers, Mode=TwoWay}"
-              SelectedItem="{Binding SelectedWorkerVM, Mode=TwoWay}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-            <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
-            <DataGridTextColumn Header="Возраст" Binding="{Binding Age}"/>
-            <DataGridTextColumn Header="Занимаемя должность" Binding="{Binding JobTitle}"/>
-            <DataGridTextColumn Header="Зарплата" Binding="{Binding Salary}"/>
-        </DataGrid.Columns>
-    </DataGrid>
 
-    <GroupBox.ContextMenu>
-        <ContextMenu>
-            <MenuItem Header="Добавить работника" Command="{Binding AddWorkerVM}"/>
-            <MenuItem Header="Удалить работника" Command="{Binding DeleteWorkerVM}"/>
-            <MenuItem Header="Изменить данные работника" Command="{Binding EditDataWorkerVM}"/>
-            <MenuItem Header="Переместить работника" Command="{Binding RelocateWorkerVM}"/>
-        </ContextMenu>
-    </GroupBox.ContextMenu>
-    </GroupBox>
+    <StackPanel>
+        <GroupBox Header="Руководитель департамента" 
+                  Visibility="{Binding VisibilitySupervisorVM, Mode=TwoWay}">
+            <Grid DataContext="{Binding DepartmentVM.Supervisor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" 
+                           Grid.Column="0" 
+                           Text="Имя" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="0" 
+                           Grid.Column="1" 
+                           Text="Фамилия" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="0" 
+                           Grid.Column="2" 
+                           Text="Возраст" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="0" 
+                           Grid.Column="3" 
+                           Text="Зарплата" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" 
+                           Grid.Column="0" 
+                           Text="{Binding Name}" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" 
+                           Grid.Column="1" 
+                           Text="{Binding Surname}" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" 
+                           Grid.Column="2" 
+                           Text="{Binding Age}" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" 
+                           Grid.Column="3" 
+                           Text="{Binding Salary}" 
+                           HorizontalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Header="Работники департамента">
+            <DataGrid AutoGenerateColumns="False" 
+                      ItemsSource="{Binding DepartmentVM.Workers, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedWorkerVM, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
+                    <DataGridTextColumn Header="Возраст" Binding="{Binding Age}"/>
+                    <DataGridTextColumn Header="Занимаемя должность" Binding="{Binding JobTitle}"/>
+                    <DataGridTextColumn Header="Зарплата" Binding="{Binding Salary}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <GroupBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить работника" Command="{Binding AddWorkerVM}"/>
+                    <MenuItem Header="Удалить работника" Command="{Binding DeleteWorkerVM}"/>
+                    <MenuItem Header="Изменить данные работника" Command="{Binding EditDataWorkerVM}"/>
+                    <MenuItem Header="Переместить работника" Command="{Binding RelocateWorkerVM}"/>
+                    <MenuItem Header="Добавить руководителя" Command="{Binding AddSupervisorVM}"/>
+                </ContextMenu>
+            </GroupBox.ContextMenu>
+        </GroupBox>
+    </StackPanel>    
 </UserControl>

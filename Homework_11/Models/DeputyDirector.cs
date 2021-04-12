@@ -3,7 +3,7 @@
     /// <summary>
     /// Заместитель генерального директора
     /// </summary>
-    public class DeputyDirector : BaseWorker
+    public class DeputyDirector : Supervisor
     {
         /// <summary>
         /// Конструктор Заместителя генерального директора

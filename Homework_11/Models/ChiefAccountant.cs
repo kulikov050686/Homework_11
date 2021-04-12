@@ -3,7 +3,7 @@
     /// <summary>
     /// Главный бухгалтер
     /// </summary>
-    public class ChiefAccountant : BaseWorker
+    public class ChiefAccountant : Supervisor
     {
         /// <summary>
         /// Конструктор Главного бухгалтера

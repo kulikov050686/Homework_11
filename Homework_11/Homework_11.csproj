@@ -220,6 +220,8 @@
     <Compile Include="Converters\ConverterStringToDouble.cs" />
     <Compile Include="Infrastructure\FileDialog.cs" />
     <Compile Include="Infrastructure\FileIOService.cs" />
+    <Compile Include="Interfaces\IDepartment.cs" />
+    <Compile Include="Interfaces\IWorker.cs" />
     <Compile Include="Models\BaseClassModelINPC.cs" />
     <Compile Include="Models\BaseWorker.cs" />
     <Compile Include="Models\ChiefAccountant.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Services\AddSupervisorDialog.cs" />
     <Compile Include="Services\AddWorkerDialog.cs" />
     <Compile Include="Services\DepartmentSelectionDialog.cs" />
+    <Compile Include="Services\EditDataSupervisorDialog.cs" />
     <Compile Include="Services\EditDataWorkerDialog.cs" />
     <Compile Include="Services\RenameDepartmentDialog.cs" />
     <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
@@ -333,9 +336,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

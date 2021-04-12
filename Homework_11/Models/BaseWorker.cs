@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Interfaces;
 
 namespace Models
 {
     /// <summary>
     /// Базовый класс работник
     /// </summary>
-    public class BaseWorker : BaseClassModelINPC
+    public class BaseWorker :  BaseClassModelINPC, IWorker
     {
         ulong _id;
         string _name;

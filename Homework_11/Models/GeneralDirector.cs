@@ -3,7 +3,7 @@
     /// <summary>
     /// Генеральный директор
     /// </summary>
-    public class GeneralDirector : BaseWorker
+    public class GeneralDirector : Supervisor
     {
         /// <summary>
         /// Конструктор генерального директора

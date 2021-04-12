@@ -64,6 +64,15 @@
                            Text="{Binding Salary}" 
                            HorizontalAlignment="Center"/>
             </Grid>
+
+            <GroupBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Изменить данные руководителя" Command="{Binding EditDataSupervisorVM}"/>
+                    <MenuItem Header="Переместить руководителя"/>
+                    <MenuItem Header="Удалить руководителя"/>
+                </ContextMenu>
+            </GroupBox.ContextMenu>
+            
         </GroupBox>
         
         <GroupBox Header="Работники департамента">

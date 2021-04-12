@@ -186,6 +186,8 @@ namespace ViewModels
             get => _deleteSupervisor ?? (_deleteSupervisor = new RelayCommand((obj) =>
             {
                 _ministry.DeleteSupervisorDepartment(DepartmentVM.Path);
+                SupervisorVM = DepartmentVM.Supervisor;
+                VisibilitySupervisorVM = Visibility.Collapsed;
             }, (obj) => SupervisorVM != null));
         }
 
@@ -194,11 +196,22 @@ namespace ViewModels
         #region Команда Редактировать данные руководителя
 
         private ICommand _editDataSupervisor;
-        public ICommand EditDataSupervisor
+        public ICommand EditDataSupervisorVM
         {
             get => _editDataSupervisor ?? (_editDataSupervisor = new RelayCommand((obj) =>
             {
-                ///
+                if (MessageBox.Show("Редактировать данные руководителя?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Supervisor tempSupervisor = EditDataSupervisorDialog.Show(SupervisorVM);
+
+                    if(!tempSupervisor.Equals(SupervisorVM))
+                    {
+                        if(_ministry.DeleteSupervisorDepartment(SupervisorVM.PathToDepartment))
+                        {
+                            _ministry.AddSupervisorDepartment(tempSupervisor, DepartmentVM.Path);
+                        }
+                    }
+                }
             }, (obj) => SupervisorVM != null));
         }
 
@@ -207,7 +220,7 @@ namespace ViewModels
         #region Команда Переместить руководителя
 
         private ICommand _relocateSupervisor;
-        public ICommand RelocateSupervisor
+        public ICommand RelocateSupervisorVM
         {
             get => _relocateSupervisor ?? (_relocateSupervisor = new RelayCommand((obj) =>
             {

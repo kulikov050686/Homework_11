@@ -43,6 +43,15 @@ namespace ViewModels
             {
                 Set(ref _department, value);
                 SupervisorVM = _department.Supervisor;
+
+                if(_department.Supervisor == null)
+                {
+                    VisibilitySupervisorVM = Visibility.Collapsed;
+                }
+                else
+                {
+                    VisibilitySupervisorVM = Visibility.Visible;
+                }
             }            
         }
 
@@ -60,7 +69,7 @@ namespace ViewModels
         /// </summary>
         public Visibility VisibilitySupervisorVM
         {
-            get => _visibilitySupervisorVM;
+            get => _visibilitySupervisorVM;               
             set => Set(ref _visibilitySupervisorVM, value);
         }
 
@@ -224,7 +233,26 @@ namespace ViewModels
         {
             get => _relocateSupervisor ?? (_relocateSupervisor = new RelayCommand((obj) =>
             {
-                ///
+                if (MessageBox.Show("Переместить руководителя?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    string newPath = DepartmentSelectionDialog.Show(_ministry);
+
+                    if (newPath != null)
+                    {
+                        if(_ministry.PresenceOfSupervisorInDepartment(newPath))
+                        {
+                            MessageBox.Show("Невозможно переместить руководителя!!!", "Внимание!!!");
+                        }
+                        else
+                        {
+                            if(_ministry.AddSupervisorDepartment(SupervisorVM, newPath))
+                            {
+                                _ministry.DeleteSupervisorDepartment(DepartmentVM.Path);
+                                VisibilitySupervisorVM = Visibility.Collapsed;
+                            }                          
+                        }
+                    }
+                }    
             }, (obj) => SupervisorVM != null));
         }
 

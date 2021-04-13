@@ -352,7 +352,16 @@ namespace Controllers
 
             return false;
         }
-        
+
+        /// <summary>
+        /// Наличие руководителя в департаменте
+        /// </summary>
+        /// <param name="pathToDepartment"> Путь до департамента </param>        
+        public bool PresenceOfSupervisorInDepartment(string pathToDepartment)
+        {
+            return GetSupervisorOfDepartment(pathToDepartment) != null;
+        }
+
         #endregion
 
         #region Закрытые методы

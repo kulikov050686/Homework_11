@@ -331,6 +331,7 @@ namespace Controllers
 
                 if (department != null)
                 {
+                    supervisor.PathToDepartment = pathToDepartment;
                     department.Supervisor = supervisor;
                     return true;
                 }

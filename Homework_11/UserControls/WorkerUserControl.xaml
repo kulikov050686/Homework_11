@@ -10,7 +10,7 @@
 
     <StackPanel>
         <GroupBox Header="Руководитель департамента" 
-                  Visibility="{Binding VisibilitySupervisorVM, Mode=TwoWay}">
+                  Visibility="{Binding VisibilitySupervisorVM}">
             <Grid DataContext="{Binding DepartmentVM.Supervisor}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
@@ -68,8 +68,8 @@
             <GroupBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Изменить данные руководителя" Command="{Binding EditDataSupervisorVM}"/>
-                    <MenuItem Header="Переместить руководителя"/>
-                    <MenuItem Header="Удалить руководителя"/>
+                    <MenuItem Header="Переместить руководителя" Command="{Binding RelocateSupervisorVM}"/>
+                    <MenuItem Header="Удалить руководителя" Command="{Binding DeleteSupervisorVM}"/>
                 </ContextMenu>
             </GroupBox.ContextMenu>
             

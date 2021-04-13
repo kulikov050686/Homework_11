@@ -240,6 +240,7 @@
     <Compile Include="Services\EditDataSupervisorDialog.cs" />
     <Compile Include="Services\EditDataWorkerDialog.cs" />
     <Compile Include="Services\RenameDepartmentDialog.cs" />
+    <Compile Include="Infrastructure\SortList.cs" />
     <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
       <DependentUpon>DepartmentUserControl.xaml</DependentUpon>
     </Compile>

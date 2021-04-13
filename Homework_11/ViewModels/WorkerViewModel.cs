@@ -1,5 +1,6 @@
 ﻿using Commands;
 using Controllers;
+using Infrastructure;
 using Models;
 using Services;
 using System.Windows;
@@ -257,7 +258,23 @@ namespace ViewModels
         }
 
         #endregion
-        
+
+        #region Команда Сортировки листа работников по имени
+
+        private ICommand _sortByName;
+        public ICommand SortByName
+        {
+            get => _sortByName ?? (_sortByName = new RelayCommand((obj) =>
+            {
+                if(DepartmentVM.CountWorkers != 0)
+                {
+                    SortList<string>.Sort(DepartmentVM.Workers, key => key.Name);
+                }
+            }, (obj) => DepartmentVM != null));
+        }
+
+        #endregion
+
         /// <summary>
         /// Конструктор
         /// </summary>

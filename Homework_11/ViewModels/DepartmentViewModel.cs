@@ -19,11 +19,12 @@ namespace ViewModels
         Ministry _ministry;
         Department _selectedDepartment;
         ObservableCollection<Department> _departments;
+        Visibility _visibilityWorkerUC;
 
         #endregion
 
         #region Модель-представление списка работников 
-                
+
         WorkerViewModel _workerViewModel;
         public WorkerViewModel WorkerViewModel
         {
@@ -55,6 +56,7 @@ namespace ViewModels
             { 
                 Set(ref _selectedDepartment, value);
                 _workerViewModel.DepartmentVM = _selectedDepartment;
+                VisibilityWorkerUC = Visibility.Visible;
             }
         }
 
@@ -62,6 +64,15 @@ namespace ViewModels
         /// Отображение контекстного меню
         /// </summary>
         public Visibility VisibilityContextMenu { get; set; } = Visibility.Visible;
+
+        /// <summary>
+        /// Отображение контрола работников департаментов
+        /// </summary>
+        public Visibility VisibilityWorkerUC
+        {
+            get => _visibilityWorkerUC;
+            set => Set(ref _visibilityWorkerUC, value);
+        }
 
         #endregion
 
@@ -220,6 +231,7 @@ namespace ViewModels
             DepartmentsVM = _ministry.Departments;
             _workerViewModel = new WorkerViewModel(ministry);
             _ministry.Departments.CollectionChanged += Departments_CollectionChanged;
+            _visibilityWorkerUC = Visibility.Collapsed;
         }
 
         #region Закрытые методы

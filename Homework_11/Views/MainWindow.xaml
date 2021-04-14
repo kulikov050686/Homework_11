@@ -33,6 +33,7 @@
 
         <userControl:WorkerUserControl Grid.Row="1" 
                                        Grid.Column="1" 
-                                       DataContext="{Binding DepartmentViewModel.WorkerViewModel}"/>
+                                       DataContext="{Binding DepartmentViewModel.WorkerViewModel}"
+                                       Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.DepartmentViewModel.VisibilityWorkerUC}"/>
     </Grid>
 </Window>

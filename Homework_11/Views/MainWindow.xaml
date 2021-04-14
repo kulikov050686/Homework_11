@@ -36,4 +36,3 @@
                                        DataContext="{Binding DepartmentViewModel.WorkerViewModel}"/>
     </Grid>
 </Window>
-    

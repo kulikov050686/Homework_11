@@ -262,15 +262,51 @@ namespace ViewModels
         #region Команда Сортировки листа работников по имени
 
         private ICommand _sortByName;
-        public ICommand SortByName
+        public ICommand SortByNameVM
         {
             get => _sortByName ?? (_sortByName = new RelayCommand((obj) =>
             {
-                if(DepartmentVM.CountWorkers != 0)
-                {
-                    SortList<string>.Sort(DepartmentVM.Workers, key => key.Name);
-                }
-            }, (obj) => DepartmentVM != null));
+                SortList<string>.Sort(DepartmentVM.Workers, key => key.Name);
+            }, (obj) => DepartmentVM != null && DepartmentVM.CountWorkers != 0));
+        }
+
+        #endregion
+
+        #region Команда Сортировки листа работников по зарплате
+
+        private ICommand _sortBySolary;
+        public ICommand SortBySolaryVM
+        {
+            get => _sortBySolary ?? (_sortBySolary = new RelayCommand((obj) =>
+            {
+                SortList<double>.Sort(DepartmentVM.Workers, key => key.Salary);
+            }, (obj) => DepartmentVM != null && DepartmentVM.CountWorkers != 0));
+        }
+
+        #endregion
+
+        #region Команда Сортировки листа работников по фамилии
+
+        private ICommand _sortBySurname;
+        public ICommand SortBySurnameVM
+        {
+            get => _sortBySurname ?? (_sortBySurname = new RelayCommand((obj) =>
+            {
+                SortList<string>.Sort(DepartmentVM.Workers, key => key.Surname);
+            }, (obj) => DepartmentVM != null && DepartmentVM.CountWorkers != 0));
+        }
+
+        #endregion
+
+        #region Команда Сортировки листа работников по возрасту
+
+        private ICommand _sortByAge;
+        public ICommand SortByAgeVM
+        {
+            get => _sortByAge ?? (_sortByAge = new RelayCommand((obj) =>
+            {
+                SortList<long>.Sort(DepartmentVM.Workers, key => key.Age);
+            }, (obj) => DepartmentVM != null && DepartmentVM.CountWorkers != 0));
         }
 
         #endregion

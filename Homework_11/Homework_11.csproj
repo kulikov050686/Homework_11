@@ -244,8 +244,14 @@
     <Compile Include="UserControls\DepartmentUserControl.xaml.cs">
       <DependentUpon>DepartmentUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\GeneralManagerUserControl.xaml.cs">
+      <DependentUpon>GeneralManagerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainMenuUserControl.xaml.cs">
       <DependentUpon>MainMenuUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TopManagementUserControl.xaml.cs">
+      <DependentUpon>TopManagementUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WorkerUserControl.xaml.cs">
       <DependentUpon>WorkerUserControl.xaml</DependentUpon>
@@ -258,6 +264,7 @@
     <Compile Include="ViewModels\LocationSelectionViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\TopManagementViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -278,7 +285,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\GeneralManagerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\MainMenuUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TopManagementUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

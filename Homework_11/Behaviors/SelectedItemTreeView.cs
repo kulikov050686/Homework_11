@@ -7,7 +7,7 @@ namespace Behaviors
     public class SelectedItemTreeView : Behavior<TreeView>
     {
         /// <summary>
-        /// 
+        /// Регистрация расширенного свойства
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem),
                                                                                                      typeof(object),

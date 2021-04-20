@@ -250,6 +250,9 @@
     <Compile Include="UserControls\MainMenuUserControl.xaml.cs">
       <DependentUpon>MainMenuUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SupervisorUserControl.xaml.cs">
+      <DependentUpon>SupervisorUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TopManagementUserControl.xaml.cs">
       <DependentUpon>TopManagementUserControl.xaml</DependentUpon>
     </Compile>
@@ -290,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MainMenuUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SupervisorUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

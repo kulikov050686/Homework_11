@@ -9,75 +9,11 @@
              d:DesignWidth="800">
 
     <StackPanel>
-        
-        <!-- Руководитель департамента -->
-        
-        <GroupBox Header="Руководитель департамента" 
-                  Visibility="{Binding VisibilitySupervisorVM}">
-            <Grid DataContext="{Binding DepartmentVM.Supervisor}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
+                
+        <local:SupervisorUserControl TitleUC="Руководитель департамента" 
+                                     SupervisorUC="{Binding DepartmentVM.Supervisor}"
+                                     Visibility="{Binding VisibilitySupervisorVM}"/>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" 
-                           Grid.Column="0" 
-                           Text="Имя" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="0" 
-                           Grid.Column="1" 
-                           Text="Фамилия" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="0" 
-                           Grid.Column="2" 
-                           Text="Возраст" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="0" 
-                           Grid.Column="3" 
-                           Text="Зарплата" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="1" 
-                           Grid.Column="0" 
-                           Text="{Binding Name}" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="1" 
-                           Grid.Column="1" 
-                           Text="{Binding Surname}" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="1" 
-                           Grid.Column="2" 
-                           Text="{Binding Age}" 
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Grid.Row="1" 
-                           Grid.Column="3" 
-                           Text="{Binding Salary}" 
-                           HorizontalAlignment="Center"/>
-            </Grid>
-
-            <GroupBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Изменить данные руководителя" Command="{Binding EditDataSupervisorVM}"/>
-                    <MenuItem Header="Переместить руководителя" Command="{Binding RelocateSupervisorVM}"/>
-                    <MenuItem Header="Удалить руководителя" Command="{Binding DeleteSupervisorVM}"/>
-                </ContextMenu>
-            </GroupBox.ContextMenu>
-            
-        </GroupBox>
-        
         <!-- Работники департамента -->
         
         <GroupBox Header="Работники департамента">

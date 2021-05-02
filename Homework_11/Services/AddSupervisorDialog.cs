@@ -10,7 +10,7 @@ namespace Services
     /// </summary>
     public static class AddSupervisorDialog
     {
-        public static BaseWorker Show(EmployeePosition employeePosition, string pathToDepartment = null)
+        public static Supervisor Show(EmployeePosition employeePosition, string pathToDepartment = null)
         {
             switch (employeePosition)
             {                

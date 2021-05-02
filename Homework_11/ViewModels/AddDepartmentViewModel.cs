@@ -1,7 +1,6 @@
 ﻿using Commands;
 using System.Windows;
 using System.Windows.Input;
-using Views;
 
 namespace ViewModels
 {
@@ -50,8 +49,7 @@ namespace ViewModels
                 {
                     if (!string.IsNullOrWhiteSpace(NameDepartment))
                     {
-                        AddCancel = true;
-                        Close();
+                        AddCancel = true;                        
                     }
                     else
                     {
@@ -72,8 +70,7 @@ namespace ViewModels
             {
                 return _cancel ?? (_cancel = new RelayCommand((obj) =>
                 {
-                    AddCancel = false;
-                    Close();
+                    AddCancel = false;                   
                 }));
             }
         }
@@ -87,25 +84,6 @@ namespace ViewModels
             AddCancel = false;
         }
 
-        #endregion
-
-        #region Закрытые методы
-
-        /// <summary>
-        /// Закрывает окно
-        /// </summary>
-        private void Close()
-        {
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window is WindowAddDepartment)
-                {
-                    window.Close();
-                    break;
-                }
-            }
-        }
-
-        #endregion
+        #endregion        
     }
 }

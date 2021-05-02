@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:UserControls"
+             xmlns:bihaviors="clr-namespace:Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="25" 
              d:DesignWidth="800">
@@ -14,8 +16,11 @@
                           Command="{Binding OpenFileVM}"/>
                 <MenuItem Header="Сохранить" 
                           Command="{Binding SaveFileVM}"/>
-                <MenuItem Header="Exit" 
-                          Command="{Binding ExitVM}"/>
+                <MenuItem Header="Exit">
+                    <i:Interaction.Behaviors>
+                        <bihaviors:CloseWindowItemMenu/>
+                    </i:Interaction.Behaviors>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About the program"/>

@@ -43,9 +43,9 @@ namespace ViewModels
             set 
             {
                 Set(ref _department, value);
-                SupervisorVM = _department.Supervisor;
+                SupervisorVM = _department?.Supervisor;
 
-                if(_department.Supervisor == null)
+                if(SupervisorVM == null)
                 {
                     VisibilitySupervisorVM = Visibility.Collapsed;
                 }
@@ -175,7 +175,7 @@ namespace ViewModels
         {
             get => _addSupervisor ?? (_addSupervisor = new RelayCommand((obj) =>
             {
-                Supervisor supervisor = (Supervisor)AddSupervisorDialog.Show(EmployeePosition.Supervisor, DepartmentVM.Path);
+                Supervisor supervisor = AddSupervisorDialog.Show(EmployeePosition.Supervisor, DepartmentVM.Path);
 
                 if(supervisor != null)
                 {

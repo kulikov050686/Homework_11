@@ -2,7 +2,6 @@
 using Controllers;
 using System.Windows;
 using System.Windows.Input;
-using Views;
 
 namespace ViewModels
 {
@@ -40,8 +39,7 @@ namespace ViewModels
                 return _select ?? (_select = new RelayCommand((obj) =>
                 {
                     PathToDepartment = _departmentViewModel.SelectedDepartmentVM.Path;
-                    SelectCancel = true;
-                    Close();
+                    SelectCancel = true;                    
                 }, (obj) => _departmentViewModel.SelectedDepartmentVM != null));
             }
         }
@@ -57,8 +55,7 @@ namespace ViewModels
             {
                 return _cancel ?? (_cancel = new RelayCommand((obj) =>
                 {
-                    SelectCancel = false;
-                    Close();
+                    SelectCancel = false;                    
                 }));
             }
         }
@@ -84,24 +81,5 @@ namespace ViewModels
             _departmentViewModel = new DepartmentViewModel(ministry);
             _departmentViewModel.VisibilityContextMenu = Visibility.Collapsed;
         }
-
-        #region Закрытые методы
-
-        /// <summary>
-        /// Закрывает окно
-        /// </summary>
-        private void Close()
-        {
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window is WindowLocationSelection)
-                {
-                    window.Close();
-                    break;
-                }
-            }
-        }
-
-        #endregion
     }
 }

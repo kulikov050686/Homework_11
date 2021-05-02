@@ -206,6 +206,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\CloseWindow.cs" />
+    <Compile Include="Behaviors\CloseWindowItemMenu.cs" />
     <Compile Include="Behaviors\SelectedItemTreeView.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -218,6 +220,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\ConverterIntToStatusWorker.cs" />
     <Compile Include="Converters\ConverterStringToDouble.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Infrastructure\FileDialog.cs" />
     <Compile Include="Infrastructure\FileIOService.cs" />
     <Compile Include="Interfaces\IDepartment.cs" />

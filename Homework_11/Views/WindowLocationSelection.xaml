@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:Views"
         xmlns:userControl="clr-namespace:UserControls"
+        xmlns:bihaviors="clr-namespace:Behaviors"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="600" 
@@ -27,12 +29,22 @@
             <Button Grid.Column="0"
                     Command="{Binding Select}"
                     Content="Выбрать" 
-                    Margin="10 0 10 0"/>
+                    Margin="10 0 10 0">
+
+                <i:Interaction.Behaviors>
+                    <bihaviors:CloseWindow/>
+                </i:Interaction.Behaviors>
+            </Button>
 
             <Button Grid.Column="1"
                     Command="{Binding Cancel}"
                     Content="Отмена"
-                    Margin="10 0 10 0"/>
+                    Margin="10 0 10 0">
+
+                <i:Interaction.Behaviors>
+                    <bihaviors:CloseWindow/>
+                </i:Interaction.Behaviors>
+            </Button>
         </Grid>
     </StackPanel>   
 </Window>

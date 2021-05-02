@@ -1,9 +1,7 @@
 ﻿using Commands;
 using Models;
-using System.Windows;
 using System.Windows.Input;
 using Infrastructure;
-using Homework_11;
 using Controllers;
 
 namespace ViewModels
@@ -19,22 +17,6 @@ namespace ViewModels
 
         #endregion
         
-        #region Команда закрыть приложение
-
-        private ICommand _exit;
-        public ICommand ExitVM
-        {
-            get
-            {
-                return _exit ?? (_exit = new RelayCommand((obj) =>
-                {
-                    Close();
-                }));
-            }
-        }
-
-        #endregion
-
         #region Команда открыть файл
 
         private ICommand _openFile;
@@ -73,25 +55,6 @@ namespace ViewModels
         public MainMenuViewModel(Ministry minystry)
         {
             _minystry = minystry;            
-        }
-
-        #region Закрытые методы
-
-        /// <summary>
-        /// Закрывает окно
-        /// </summary>
-        private void Close()
-        {
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window is MainWindow)
-                {
-                    window.Close();
-                    break;
-                }
-            }
-        }
-
-        #endregion
+        }        
     }
 }

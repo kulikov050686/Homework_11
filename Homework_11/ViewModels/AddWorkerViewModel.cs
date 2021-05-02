@@ -1,9 +1,7 @@
 ﻿using Commands;
 using Models;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Input;
-using Views;
 
 namespace ViewModels
 {
@@ -68,8 +66,7 @@ namespace ViewModels
         {
             get => _add ?? (_add = new RelayCommand((obj) =>
             {
-                AddCancel = true;
-                Close();
+                AddCancel = true;                
             }));
         }
 
@@ -82,8 +79,7 @@ namespace ViewModels
         {
             get => _cancel ?? (_cancel = new RelayCommand((obj) =>
             {
-                AddCancel = false;
-                Close();
+                AddCancel = false;                
             }));
         }
 
@@ -96,25 +92,6 @@ namespace ViewModels
             AddCancel = false;                    
         }
 
-        #endregion
-
-        #region Закрытые методы
-
-        /// <summary>
-        /// Закрывает окно
-        /// </summary>
-        private void Close()
-        {
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window is WindowAddWorker)
-                {
-                    window.Close();
-                    break;
-                }
-            }
-        }
-
-        #endregion
+        #endregion       
     }
 }

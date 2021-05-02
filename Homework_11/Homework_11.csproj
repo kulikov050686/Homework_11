@@ -223,7 +223,6 @@
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Infrastructure\FileDialog.cs" />
     <Compile Include="Infrastructure\FileIOService.cs" />
-    <Compile Include="Interfaces\IDepartment.cs" />
     <Compile Include="Interfaces\IWorker.cs" />
     <Compile Include="Models\BaseClassModelINPC.cs" />
     <Compile Include="Models\BaseWorker.cs" />

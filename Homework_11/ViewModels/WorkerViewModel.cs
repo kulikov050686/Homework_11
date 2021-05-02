@@ -195,9 +195,12 @@ namespace ViewModels
         {
             get => _deleteSupervisor ?? (_deleteSupervisor = new RelayCommand((obj) =>
             {
-                _ministry.DeleteSupervisorDepartment(DepartmentVM.Path);
-                SupervisorVM = DepartmentVM.Supervisor;
-                VisibilitySupervisorVM = Visibility.Collapsed;
+                if (MessageBox.Show("Удалить руководителя?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    _ministry.DeleteSupervisorDepartment(DepartmentVM.Path);
+                    SupervisorVM = DepartmentVM.Supervisor;
+                    VisibilitySupervisorVM = Visibility.Collapsed;
+                }                
             }, (obj) => SupervisorVM != null));
         }
 

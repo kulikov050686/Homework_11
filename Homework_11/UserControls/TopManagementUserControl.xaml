@@ -15,23 +15,32 @@
         </Grid.ColumnDefinitions>
 
         <local:GeneralManagerUserControl Grid.Column="0" 
-                                         TitleUC="Генеральный директор" 
+                                         TitleUC="Генеральный директор"
+                                         Visibility="{Binding VisibilityGeneralDirector}"
                                          SupervisorUC="{Binding GeneralDirector}"/>
 
-        <local:GeneralManagerUserControl Grid.Column="1" 
+        <local:GeneralManagerUserControl Grid.Column="1"                                         
                                          TitleUC="Заместитель генерального директора"
+                                         Visibility="{Binding VisibilityDeputyDirector}"
                                          SupervisorUC="{Binding DeputyDirector}"/>
 
         <local:GeneralManagerUserControl Grid.Column="2" 
                                          TitleUC="Главный бухгалтер"
+                                         Visibility="{Binding VisibilityChiefAccountant}"
                                          SupervisorUC="{Binding ChiefAccountant}"/>
     </Grid>
 
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Добавить генерального директора"/>
+            <MenuItem Header="Удалить генерального директора"/>
+            <MenuItem Header="Редактировать данные генерального директора"/>
             <MenuItem Header="Добавить заместителя"/>
-            <MenuItem Header="Добавить главного бухгалтера"/>            
+            <MenuItem Header="Удалить заместителя"/>
+            <MenuItem Header="Редактировать данные заместителя"/>
+            <MenuItem Header="Добавить главного бухгалтера"/>
+            <MenuItem Header="Удалить главного бухгалтера"/>
+            <MenuItem Header="Редактировать данные главного бухгалтера"/>
         </ContextMenu>
     </UserControl.ContextMenu>
 </UserControl>

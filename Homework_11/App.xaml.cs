@@ -20,9 +20,7 @@ namespace Homework_11
 
         /// <summary>
         /// Метод конфигурации сервисов
-        /// </summary>
-        /// <param name="host"></param>
-        /// <param name="services"></param>
+        /// </summary>        
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             // Регистрируем Модель-Представление главного окна
@@ -31,8 +29,7 @@ namespace Homework_11
 
         /// <summary>
         /// Метод запуска
-        /// </summary>
-        /// <param name="e"></param>
+        /// </summary>        
         protected override async void OnStartup(StartupEventArgs e)
         {
             var host = Host;
@@ -43,8 +40,7 @@ namespace Homework_11
 
         /// <summary>
         /// Метод остановки
-        /// </summary>
-        /// <param name="e"></param>
+        /// </summary>        
         protected override async void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);

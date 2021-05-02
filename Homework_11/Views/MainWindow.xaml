@@ -10,7 +10,7 @@
         Title="{Binding Title}" 
         Height="450" 
         Width="800" 
-        DataContext="{vm:MainWindowViewModel}">   
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}">   
 
     <Grid>
         <Grid.RowDefinitions>

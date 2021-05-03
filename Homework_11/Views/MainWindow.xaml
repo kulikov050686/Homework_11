@@ -15,6 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -26,12 +27,17 @@
         <userControl:MainMenuUserControl Grid.Row="0" 
                                          Grid.ColumnSpan="2" 
                                          DataContext="{Binding MainMenuViewModel}"/>
-        
-        <userControl:DepartmentUserControl Grid.Row="1" 
+
+        <userControl:TopManagementUserControl Grid.Row="1" 
+                                              Grid.ColumnSpan="2"
+                                              DataContext="{Binding TopManagementViewModel}" 
+                                              Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.VisibilityTopManagementUC}"/>
+
+        <userControl:DepartmentUserControl Grid.Row="2" 
                                            Grid.Column="0" 
                                            DataContext="{Binding DepartmentViewModel}"/>
 
-        <userControl:WorkerUserControl Grid.Row="1" 
+        <userControl:WorkerUserControl Grid.Row="2" 
                                        Grid.Column="1" 
                                        DataContext="{Binding DepartmentViewModel.WorkerViewModel}"
                                        Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.DepartmentViewModel.VisibilityWorkerUC}"/>

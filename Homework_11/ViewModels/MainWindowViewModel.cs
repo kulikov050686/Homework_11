@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using System.Windows;
 
 namespace ViewModels
 {
@@ -9,7 +10,8 @@ namespace ViewModels
     {
         #region Закрытые поля
 
-        private Ministry _ministry;        
+        private Ministry _ministry;
+        Visibility _visibilityTopManagementUC;
 
         #endregion
 
@@ -19,6 +21,15 @@ namespace ViewModels
         /// Название приложения
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Отображение контрола главных руководителей
+        /// </summary>
+        public Visibility VisibilityTopManagementUC
+        {
+            get => _visibilityTopManagementUC;
+            set => Set(ref _visibilityTopManagementUC, value);
+        }
 
         #endregion
 
@@ -44,6 +55,17 @@ namespace ViewModels
 
         #endregion
 
+        #region Модель-представление контрола отображения главных руководителей
+
+        private TopManagementViewModel _topManagementViewModel;
+        public TopManagementViewModel TopManagementViewModel
+        {
+            get => _topManagementViewModel;
+            set => Set(ref _topManagementViewModel, value);
+        }
+
+        #endregion
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -53,7 +75,19 @@ namespace ViewModels
             _ministry = new Ministry(Title);
 
             _departmentViewModel = new DepartmentViewModel(_ministry);
-            _mainMenuViewModel = new MainMenuViewModel(_ministry);            
+            _mainMenuViewModel = new MainMenuViewModel(_ministry);
+            _topManagementViewModel = new TopManagementViewModel(_ministry);
+
+            if(_ministry.GeneralDirector is null && 
+               _ministry.DeputyDirector is null && 
+               _ministry.ChiefAccountant is null)
+            {
+                VisibilityTopManagementUC = Visibility.Collapsed;
+            }
+            else
+            {
+                VisibilityTopManagementUC = Visibility.Visible;
+            }
         }       
     }
 }

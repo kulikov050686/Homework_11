@@ -53,7 +53,7 @@ namespace ViewModels
         public EmployeePosition WorkerEmployeePosition { get; set; } = EmployeePosition.Intern;
         
         /// <summary>
-        /// Название статуса работника
+        /// Название статуса
         /// </summary>
         public List<string> StatusWorker { get; set; } = new List<string> { "Интерн", "Штатный сотрудник" };
 

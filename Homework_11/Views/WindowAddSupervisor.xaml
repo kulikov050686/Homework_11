@@ -8,7 +8,7 @@
         xmlns:bihaviors="clr-namespace:Behaviors"
         mc:Ignorable="d"
         Title="{Binding Title}" 
-        Height="280" 
+        Height="290" 
         Width="250" 
         ResizeMode="NoResize" 
         Topmost="True" 

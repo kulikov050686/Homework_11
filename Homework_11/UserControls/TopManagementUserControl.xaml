@@ -32,15 +32,24 @@
 
     <UserControl.ContextMenu>
         <ContextMenu>
-            <MenuItem Header="Добавить генерального директора"/>
-            <MenuItem Header="Удалить генерального директора"/>
-            <MenuItem Header="Редактировать данные генерального директора"/>
-            <MenuItem Header="Добавить заместителя"/>
-            <MenuItem Header="Удалить заместителя"/>
-            <MenuItem Header="Редактировать данные заместителя"/>
-            <MenuItem Header="Добавить главного бухгалтера"/>
-            <MenuItem Header="Удалить главного бухгалтера"/>
-            <MenuItem Header="Редактировать данные главного бухгалтера"/>
+            <MenuItem Header="Добавить генерального директора" 
+                      Command="{Binding AddGeneralDirector}"/>
+            <MenuItem Header="Удалить генерального директора"
+                      Command="{Binding DeleteGeneralDirector}"/>
+            <MenuItem Header="Редактировать данные генерального директора"
+                      Command="{Binding EditGeneralDirector}"/>
+            <MenuItem Header="Добавить заместителя"
+                      Command="{Binding AddDeputyDirector}"/>
+            <MenuItem Header="Удалить заместителя"
+                      Command="{Binding DeleteDeputyDirector}"/>
+            <MenuItem Header="Редактировать данные заместителя"
+                      Command="{Binding EditDeputyDirector}"/>
+            <MenuItem Header="Добавить главного бухгалтера"
+                      Command="{Binding AddChiefAccountant}"/>
+            <MenuItem Header="Удалить главного бухгалтера"
+                      Command="{Binding DeleteChiefAccountant}"/>
+            <MenuItem Header="Редактировать данные главного бухгалтера"
+                      Command="{Binding EditChiefAccountant}"/>
         </ContextMenu>
     </UserControl.ContextMenu>
 </UserControl>

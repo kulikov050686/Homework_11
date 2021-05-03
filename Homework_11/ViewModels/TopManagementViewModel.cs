@@ -52,34 +52,7 @@ namespace ViewModels
             get => _deputyDirector;
             set => Set(ref _deputyDirector, value);
         }
-
-        /// <summary>
-        /// Отображение контрола генерального директора
-        /// </summary>
-        public Visibility VisibilityGeneralDirector
-        {
-            get => _visibilityGeneralDirector;
-            set => Set(ref _visibilityGeneralDirector, value);
-        } 
-
-        /// <summary>
-        /// Отображение контрола главного бухгалтера
-        /// </summary>
-        public Visibility VisibilityChiefAccountant
-        {
-            get => _visibilityChiefAccountant;
-            set => Set(ref _visibilityChiefAccountant, value); 
-        }
-
-        /// <summary>
-        /// Отображение контрола заместителя генерального директора
-        /// </summary>
-        public Visibility VisibilityDeputyDirector
-        { 
-            get => _visibilityDeputyDirector;
-            set => Set(ref _visibilityDeputyDirector, value); 
-        }
-
+        
         #endregion
 
         #region Команда Добавить Генерального директора
@@ -94,8 +67,7 @@ namespace ViewModels
                 if (supervisor != null)
                 {
                     _ministry.AddGeneralDirector(supervisor);
-                    GeneralDirector = _ministry.GeneralDirector;
-                    VisibilityGeneralDirector = Visibility.Visible;
+                    GeneralDirector = _ministry.GeneralDirector;                    
                 }
             }, (obj) => GeneralDirector is null));
         }
@@ -114,8 +86,7 @@ namespace ViewModels
                 if (supervisor != null)
                 {
                     _ministry.AddDeputyDirector(supervisor);
-                    DeputyDirector = _ministry.DeputyDirector;
-                    VisibilityDeputyDirector = Visibility.Visible;
+                    DeputyDirector = _ministry.DeputyDirector;                    
                 }
             }, (obj) => DeputyDirector is null));
         }
@@ -134,8 +105,7 @@ namespace ViewModels
                 if(supervisor != null)
                 {
                     _ministry.AddChiefAccountant(supervisor);
-                    ChiefAccountant = _ministry.ChiefAccountant;
-                    VisibilityChiefAccountant = Visibility.Visible;
+                    ChiefAccountant = _ministry.ChiefAccountant;                    
                 }
             }, (obj) => ChiefAccountant is null));
         }
@@ -152,8 +122,7 @@ namespace ViewModels
                 if(MessageBox.Show("Удалить генерально директора?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _ministry.DeleteGeneralDirector();
-                    GeneralDirector = _ministry.GeneralDirector;
-                    VisibilityGeneralDirector = Visibility.Collapsed;
+                    GeneralDirector = _ministry.GeneralDirector;                    
                 }
             }, (obj) => !(GeneralDirector is null)));
         }
@@ -170,8 +139,7 @@ namespace ViewModels
                 if (MessageBox.Show("Удалить заместителя директора?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _ministry.DeleteDeputyDirector();
-                    DeputyDirector = _ministry.DeputyDirector;
-                    VisibilityDeputyDirector = Visibility.Collapsed;
+                    DeputyDirector = _ministry.DeputyDirector;                    
                 }
             }, (obj) => !(DeputyDirector is null)));
         }
@@ -188,8 +156,7 @@ namespace ViewModels
                 if (MessageBox.Show("Удалить главного бухгалтера?", "Внимание!!!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _ministry.DeleteChiefAccountant();
-                    ChiefAccountant = _ministry.ChiefAccountant;
-                    VisibilityChiefAccountant = Visibility.Collapsed;
+                    ChiefAccountant = _ministry.ChiefAccountant;                    
                 }
             }, (obj) => !(ChiefAccountant is null)));
         }
@@ -274,9 +241,17 @@ namespace ViewModels
             _deputyDirector = ministry.DeputyDirector;
             _chiefAccountant = ministry.ChiefAccountant;
 
-            //if (GeneralDirector is null) VisibilityGeneralDirector = Visibility.Collapsed;
-            //if (DeputyDirector is null) VisibilityDeputyDirector = Visibility.Collapsed;
-            //if (ChiefAccountant is null) VisibilityChiefAccountant = Visibility.Collapsed;
+            ministry.PropertyChanged += OnPropertyChanged;
+        }
+
+        /// <summary>
+        /// Событие возникающее при изменении какого-лидо свойства
+        /// </summary>        
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            GeneralDirector = _ministry.GeneralDirector;
+            DeputyDirector = _ministry.DeputyDirector;
+            ChiefAccountant = _ministry.ChiefAccountant;
         }
 
         #endregion

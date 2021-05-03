@@ -30,8 +30,7 @@
 
         <userControl:TopManagementUserControl Grid.Row="1" 
                                               Grid.ColumnSpan="2"
-                                              DataContext="{Binding TopManagementViewModel}" 
-                                              Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.VisibilityTopManagementUC}"/>
+                                              DataContext="{Binding TopManagementViewModel}"/>
 
         <userControl:DepartmentUserControl Grid.Row="2" 
                                            Grid.Column="0" 

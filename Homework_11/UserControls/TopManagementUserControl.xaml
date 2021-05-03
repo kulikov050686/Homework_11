@@ -16,17 +16,14 @@
 
         <local:GeneralManagerUserControl Grid.Column="0" 
                                          TitleUC="Генеральный директор"
-                                         Visibility="{Binding VisibilityGeneralDirector}"
                                          SupervisorUC="{Binding GeneralDirector}"/>
 
         <local:GeneralManagerUserControl Grid.Column="1"                                         
-                                         TitleUC="Заместитель генерального директора"
-                                         Visibility="{Binding VisibilityDeputyDirector}"
+                                         TitleUC="Заместитель генерального директора"                                         
                                          SupervisorUC="{Binding DeputyDirector}"/>
 
         <local:GeneralManagerUserControl Grid.Column="2" 
-                                         TitleUC="Главный бухгалтер"
-                                         Visibility="{Binding VisibilityChiefAccountant}"
+                                         TitleUC="Главный бухгалтер"                                         
                                          SupervisorUC="{Binding ChiefAccountant}"/>
     </Grid>
 
